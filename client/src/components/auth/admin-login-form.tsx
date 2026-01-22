@@ -4,6 +4,7 @@ import * as z from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Usuário é obrigatório"),
@@ -13,6 +14,7 @@ const loginSchema = z.object({
 type LoginValues = z.infer<typeof loginSchema>;
 
 export function AdminLoginForm() {
+  const { toast } = useToast();
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -22,8 +24,19 @@ export function AdminLoginForm() {
   });
 
   function onSubmit(values: LoginValues) {
-    console.log("Login attempt:", values);
-    // Implementation for login would go here
+    if (values.username === "Castro123" && values.password === "123123") {
+      toast({
+        title: "Login realizado com sucesso",
+        description: "Bem-vindo ao painel administrativo.",
+      });
+      // Aqui você pode redirecionar ou definir o estado de autenticação
+    } else {
+      toast({
+        title: "Erro de autenticação",
+        description: "Usuário ou senha inválidos.",
+        variant: "destructive",
+      });
+    }
   }
 
   return (
