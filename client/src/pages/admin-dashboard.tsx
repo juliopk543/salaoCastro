@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, LogOut, Building2, Menu, CalendarDays } from "lucide-react";
+import { LayoutDashboard, Users, LogOut, Building2, Menu, CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Inquiry } from "@shared/schema";
@@ -41,6 +41,8 @@ export default function AdminDashboard() {
   const [, setLocation] = useLocation();
   const [selectedYear, setSelectedYear] = useState<string>("all");
   const [selectedMonth, setSelectedMonth] = useState<string>("all");
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 4;
 
   const { data: inquiries, isLoading } = useQuery<Inquiry[]>({
     queryKey: ["/api/inquiries"],
@@ -79,6 +81,12 @@ export default function AdminDashboard() {
       return yearMatch && monthMatch;
     });
   }, [inquiries, selectedYear, selectedMonth]);
+
+  const totalPages = Math.ceil(filteredInquiries.length / itemsPerPage);
+  const paginatedInquiries = useMemo(() => {
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    return filteredInquiries.slice(startIndex, startIndex + itemsPerPage);
+  }, [filteredInquiries, currentPage]);
 
   const handleLogout = () => {
     localStorage.removeItem("isAdmin");
@@ -197,7 +205,7 @@ export default function AdminDashboard() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-50">
-                        {filteredInquiries.map((inquiry) => (
+                        {paginatedInquiries.map((inquiry) => (
                           <tr key={inquiry.id} className="transition-all hover:bg-slate-50/30 group">
                             <td className="p-8 align-middle font-black text-[#1a1f36] text-base">{inquiry.name}</td>
                             <td className="p-8 align-middle">
@@ -223,12 +231,12 @@ export default function AdminDashboard() {
                                 {inquiry.packageName}
                               </span>
                             </td>
-                          <td className="p-8 align-middle">
-                            <div className="flex flex-col gap-1 leading-none">
-                              <span className="text-[10px] font-black text-[#1a1f36] uppercase tracking-tighter">Entrada: {new Date(inquiry.checkIn + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
-                              <span className="text-[10px] font-bold text-[#4f566b] uppercase tracking-tighter opacity-70">Saída: {new Date(inquiry.checkOut + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
-                            </div>
-                          </td>
+                            <td className="p-8 align-middle">
+                              <div className="flex flex-col gap-1 leading-none">
+                                <span className="text-[10px] font-black text-[#1a1f36] uppercase tracking-tighter">Entrada: {new Date(inquiry.checkIn + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
+                                <span className="text-[10px] font-bold text-[#4f566b] uppercase tracking-tighter opacity-70">Saída: {new Date(inquiry.checkOut + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
+                              </div>
+                            </td>
                             <td className="p-8 align-middle">
                               <div className="flex items-center gap-2">
                                 <span className="font-black text-[#1a1f36] text-lg">{inquiry.guests}</span>
@@ -248,7 +256,7 @@ export default function AdminDashboard() {
 
                   {/* Mobile List View */}
                   <div className="md:hidden divide-y divide-slate-100">
-                    {filteredInquiries.map((inquiry) => (
+                    {paginatedInquiries.map((inquiry) => (
                       <div key={inquiry.id} className="p-6 space-y-4 hover:bg-slate-50/30 transition-all">
                         <div className="flex justify-between items-start gap-4">
                           <div className="flex flex-col gap-1">
@@ -299,6 +307,43 @@ export default function AdminDashboard() {
                       </div>
                     ))}
                   </div>
+
+                  {/* Pagination Controls */}
+                  {totalPages > 1 && (
+                    <div className="flex items-center justify-center gap-2 p-8 border-t border-slate-100 bg-slate-50/30">
+                      <button
+                        onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                        disabled={currentPage === 1}
+                        className="p-2 rounded-xl border border-slate-200 bg-white text-slate-400 disabled:opacity-50 hover:bg-slate-50 transition-all"
+                      >
+                        <ChevronLeft className="size-5" />
+                      </button>
+                      
+                      <div className="flex items-center gap-1">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                          <button
+                            key={page}
+                            onClick={() => setCurrentPage(page)}
+                            className={`min-w-[40px] h-10 rounded-xl font-black text-sm transition-all ${
+                              currentPage === page 
+                                ? "bg-[#0f52ba] text-white shadow-lg shadow-[#0f52ba]/20" 
+                                : "bg-white border border-slate-200 text-[#4f566b] hover:bg-slate-50"
+                            }`}
+                          >
+                            {page}
+                          </button>
+                        ))}
+                      </div>
+
+                      <button
+                        onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                        disabled={currentPage === totalPages}
+                        className="p-2 rounded-xl border border-slate-200 bg-white text-slate-400 disabled:opacity-50 hover:bg-slate-50 transition-all"
+                      >
+                        <ChevronRight className="size-5" />
+                      </button>
+                    </div>
+                  )}
                 </div>
               )}
             </CardContent>
