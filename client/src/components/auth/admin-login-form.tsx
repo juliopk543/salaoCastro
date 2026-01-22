@@ -5,6 +5,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { useLocation } from "wouter";
 
 const loginSchema = z.object({
   username: z.string().min(1, "Usuário é obrigatório"),
@@ -15,6 +16,7 @@ type LoginValues = z.infer<typeof loginSchema>;
 
 export function AdminLoginForm() {
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -26,11 +28,12 @@ export function AdminLoginForm() {
   function onSubmit(values: LoginValues) {
     console.log("Tentativa de login:", values);
     if (values.username.trim() === "Castro123" && values.password.trim() === "123123") {
+      localStorage.setItem("isAdmin", "true");
       toast({
         title: "Login realizado com sucesso",
         description: "Bem-vindo ao painel administrativo.",
       });
-      // Aqui você pode redirecionar ou definir o estado de autenticação
+      setLocation("/admin");
     } else {
       toast({
         title: "Erro de autenticação",
