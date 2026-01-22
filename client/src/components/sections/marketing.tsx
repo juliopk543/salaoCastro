@@ -59,7 +59,9 @@ export function Marketing() {
   const [formData, setFormData] = useState({
     name: "",
     eventType: "",
-    date: "",
+    checkIn: "",
+    checkOut: "",
+    guests: "",
     message: ""
   });
 
@@ -68,7 +70,9 @@ export function Marketing() {
       `*Pacote:* ${pkgName}\n` +
       `*Nome:* ${formData.name}\n` +
       `*Evento:* ${formData.eventType || pkgName}\n` +
-      `*Data:* ${formData.date}\n` +
+      `*Convidados:* ${formData.guests}\n` +
+      `*Entrada:* ${formData.checkIn}\n` +
+      `*Saída:* ${formData.checkOut}\n` +
       `*Mensagem:* ${formData.message}`;
     
     const encodedText = encodeURIComponent(text);
@@ -208,14 +212,38 @@ export function Marketing() {
                           </Select>
                         </div>
                         
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-1.5">
+                            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data de Entrada</label>
+                            <Input 
+                              required
+                              type="date" 
+                              className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                              value={formData.checkIn}
+                              onChange={(e) => setFormData({ ...formData, checkIn: e.target.value })}
+                            />
+                          </div>
+                          <div className="space-y-1.5">
+                            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data de Saída</label>
+                            <Input 
+                              required
+                              type="date" 
+                              className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                              value={formData.checkOut}
+                              onChange={(e) => setFormData({ ...formData, checkOut: e.target.value })}
+                            />
+                          </div>
+                        </div>
+
                         <div className="space-y-1.5">
-                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data Pretendida</label>
+                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Quantidade de Convidados</label>
                           <Input 
                             required
-                            type="date" 
+                            type="number"
+                            placeholder="Ex: 50" 
                             className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
-                            value={formData.date}
-                            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                            value={formData.guests}
+                            onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
                           />
                         </div>
 
