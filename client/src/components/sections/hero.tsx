@@ -38,8 +38,8 @@ export function Hero() {
           
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl font-light">Salão de festas completo com piscina, área de lazer kids, quartos e churrasqueira. O cenário perfeito para relaxar e criar memórias inesquecíveis..</p>
 
-          <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-lg px-8 rounded-full h-14" onClick={() => {
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            <Button size="lg" className="w-full sm:w-auto bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-lg px-8 rounded-full h-14" onClick={() => {
               const marketingSection = document.getElementById('marketing');
               if (marketingSection) {
                 marketingSection.scrollIntoView({ behavior: 'smooth' });
@@ -53,7 +53,7 @@ export function Hero() {
             }}>
               Reservar Agora
             </Button>
-            <Button size="lg" variant="outline" className="bg-white/10 border-white/40 text-white hover:bg-white/20 font-bold text-lg px-8 rounded-full h-14 backdrop-blur-sm" asChild>
+            <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/10 border-white/40 text-white hover:bg-white/20 font-bold text-lg px-8 rounded-full h-14 backdrop-blur-sm" asChild>
               <a href="#features">Conhecer o Espaço</a>
             </Button>
           </div>
