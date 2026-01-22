@@ -10,7 +10,7 @@ export function Hero() {
       <div className="fixed top-[90px] left-0 right-0 z-40 px-4 md:hidden">
         <Button 
           size="lg" 
-          className="w-full bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-xl h-14 shadow-lg" 
+          className="w-full bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-md h-14 shadow-lg" 
           onClick={() => {
             const marketingSection = document.getElementById('marketing');
             if (marketingSection) {
@@ -55,7 +55,7 @@ export function Hero() {
           </div>
 
           <div className="hidden md:flex justify-center w-full mb-12">
-            <Button size="lg" className="bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-xl h-14" onClick={() => {
+            <Button size="lg" className="bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-md h-14" onClick={() => {
               const marketingSection = document.getElementById('marketing');
               if (marketingSection) {
                 marketingSection.scrollIntoView({ behavior: 'smooth' });
