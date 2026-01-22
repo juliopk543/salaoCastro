@@ -1,16 +1,36 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import logoImage from "@assets/491438179_695315012983652_6840206379754210205_n_1769044482549.jpg";
 import heroBg from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_39_08_1769045964191.png";
 
 export function Hero() {
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
       {/* Fixed Booking Button */}
-      <div className="fixed top-[90px] left-0 right-0 z-40 md:hidden flex justify-center">
+      <div 
+        className={cn(
+          "fixed left-0 right-0 z-40 md:hidden flex justify-center transition-all duration-300",
+          isScrolled ? "top-[60px]" : "top-[90px]"
+        )}
+      >
         <Button 
           size="lg" 
-          className="w-full bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-md h-14 shadow-lg my-[10px]" 
+          className={cn(
+            "w-full bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-md h-14 shadow-lg transition-all duration-300",
+            isScrolled ? "my-0" : "my-[10px]"
+          )}
           onClick={() => {
             const marketingSection = document.getElementById('marketing');
             if (marketingSection) {
