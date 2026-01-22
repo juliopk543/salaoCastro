@@ -11,6 +11,7 @@ export default function AdminDashboard() {
 
   const { data: inquiries, isLoading } = useQuery<Inquiry[]>({
     queryKey: ["/api/inquiries"],
+    refetchInterval: 5000, // Recarrega a cada 5 segundos
   });
 
   const handleLogout = () => {
