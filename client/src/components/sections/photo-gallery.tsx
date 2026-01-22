@@ -6,14 +6,12 @@ import img1 from "@assets/Captura_de_tela_2026-01-21_220951_1769044948210.png";
 import img2 from "@assets/Captura_de_tela_2026-01-21_221058_1769044948210.png";
 import img3 from "@assets/Captura_de_tela_2026-01-21_221104_1769044948210.png";
 import img4 from "@assets/Captura_de_tela_2026-01-21_221121_1769044948210.png";
-import img7 from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_46_17_1769046398313.png";
 
 const photos = [
   { src: img1, alt: "Decoração de Festa" },
   { src: img2, alt: "Mesa de Evento com Flores" },
   { src: img3, alt: "Espaço Coberto Noturno" },
   { src: img4, alt: "Área de Balanço e Piscina" },
-  { src: img7, alt: "Área de Churrasco e Cozinha" },
 ];
 
 export function PhotoGallery() {
