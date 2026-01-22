@@ -78,16 +78,7 @@ export function Navbar() {
             </DialogContent>
           </Dialog>
 
-          <Button 
-            className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold rounded-full"
-            asChild
-          >
-            <a href="#contact">
-              <Phone className="w-4 h-4 mr-2" />
-              Agendar Visita
-            </a>
-          </Button>
-        </div>
+          </div>
 
         {/* Mobile Nav */}
         <Sheet>
@@ -123,10 +114,7 @@ export function Navbar() {
                 </DialogContent>
               </Dialog>
 
-              <Button className="w-full bg-secondary text-secondary-foreground font-bold">
-                Agendar Visita
-              </Button>
-            </nav>
+              </nav>
           </SheetContent>
         </Sheet>
       </div>
