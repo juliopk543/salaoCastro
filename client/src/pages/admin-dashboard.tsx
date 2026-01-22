@@ -77,7 +77,7 @@ export default function AdminDashboard() {
       <div className="flex min-h-screen w-full bg-slate-50/50">
         <AppSidebar handleLogout={handleLogout} />
         <div className="flex flex-col flex-1 min-w-0">
-          <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b bg-white px-4 md:px-6">
+          <header className="sticky top-0 z-20 flex h-16 shrink-0 items-center gap-2 border-b bg-white px-4 md:px-6 shadow-sm">
             <SidebarTrigger className="-ml-1" />
             <Separator orientation="vertical" className="mr-2 h-4" />
             <h1 className="text-lg font-bold text-slate-900 truncate">Painel Administrativo</h1>
