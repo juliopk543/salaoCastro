@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 import bbqImg from "@assets/Captura_de_tela_2026-01-21_221121_1769044948210.png";
-import kidsImg from "@assets/generated_images/kids_playground_area.png";
+import kidsImg from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_36_15_1769045793557.png";
 import bedroomImg from "@assets/generated_images/bedroom_with_two_double_beds.png";
 import hallImg from "@assets/Captura_de_tela_2026-01-21_221104_1769044948210.png";
 import poolImg from "@assets/Captura_de_tela_2026-01-21_221233_1769044948211.png";
