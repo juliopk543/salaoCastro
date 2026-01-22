@@ -17,6 +17,18 @@ import useEmblaCarousel from 'embla-carousel-react';
 
 const packages = [
   {
+    name: "Day Use",
+    description: "Perfeito para curtir um dia de sol com a família.",
+    price: "Consulte",
+    features: [
+      "Acesso das 9h às 18h",
+      "Piscina liberada",
+      "Área de churrasco",
+      "Até 15 pessoas"
+    ],
+    highlight: false
+  },
+  {
     name: "Fim de Semana",
     description: "Pacote completo de Sexta a Domingo.",
     price: "Especial",
@@ -28,18 +40,6 @@ const packages = [
       "Ideal para retiro familiar"
     ],
     highlight: true
-  },
-  {
-    name: "Day Use",
-    description: "Perfeito para curtir um dia de sol com a família.",
-    price: "Consulte",
-    features: [
-      "Acesso das 9h às 18h",
-      "Piscina liberada",
-      "Área de churrasco",
-      "Até 15 pessoas"
-    ],
-    highlight: false
   },
   {
     name: "Eventos",
@@ -60,7 +60,7 @@ export function Marketing() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     align: 'center',
     containScroll: 'trimSnaps',
-    startIndex: 0,
+    startIndex: 1,
     breakpoints: {
       '(min-width: 768px)': { active: false }
     }
