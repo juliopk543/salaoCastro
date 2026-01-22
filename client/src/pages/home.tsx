@@ -3,7 +3,6 @@ import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/sections/hero";
 import { Features } from "@/components/sections/features";
 import { Marketing } from "@/components/sections/marketing";
-import { Contact } from "@/components/sections/contact";
 import { PhotoGallery } from "@/components/sections/photo-gallery";
 
 export default function Home() {
@@ -15,7 +14,6 @@ export default function Home() {
         <Features />
         <PhotoGallery />
         <Marketing />
-        <Contact />
       </main>
       <Footer />
     </div>
