@@ -33,8 +33,8 @@ export function Navbar() {
       )}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <Link href="/" className="text-2xl font-heading font-bold text-primary flex items-center gap-2">
-          <span className={cn("transition-colors", !isScrolled && "text-white drop-shadow-md")}>
+        <Link href="/" className="text-2xl font-heading font-bold flex items-center gap-2">
+          <span className="text-white drop-shadow-md">
             Espaço Castro
           </span>
         </Link>
@@ -45,10 +45,7 @@ export function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              className={cn(
-                "text-sm font-medium hover:text-secondary transition-colors",
-                !isScrolled ? "text-white/90" : "text-foreground"
-              )}
+              className="text-sm font-medium text-white/90 hover:text-secondary transition-colors"
             >
               {link.name}
             </a>
@@ -67,8 +64,8 @@ export function Navbar() {
         {/* Mobile Nav */}
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden text-primary">
-              <Menu className={cn("w-6 h-6", !isScrolled && "text-white")} />
+            <Button variant="ghost" size="icon" className="md:hidden text-white">
+              <Menu className="w-6 h-6" />
             </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] sm:w-[400px]">
