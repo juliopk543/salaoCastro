@@ -8,6 +8,7 @@ import img3 from "@assets/Captura_de_tela_2026-01-21_221104_1769044948210.png";
 import img4 from "@assets/Captura_de_tela_2026-01-21_221121_1769044948210.png";
 import img5 from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_39_08_1769045964191.png";
 import img6 from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_36_15_1769045793557.png";
+import img7 from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_46_17_1769046398313.png";
 
 const photos = [
   { src: img1, alt: "Decoração de Festa" },
@@ -16,6 +17,7 @@ const photos = [
   { src: img4, alt: "Área de Balanço e Piscina" },
   { src: img5, alt: "Piscina e Deck" },
   { src: img6, alt: "Espaço Kids Real" },
+  { src: img7, alt: "Área de Churrasco e Cozinha" },
 ];
 
 export function PhotoGallery() {
