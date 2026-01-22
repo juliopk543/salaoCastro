@@ -45,13 +45,6 @@ const features = [
     image: hallImg,
     color: "bg-purple-100 text-purple-600",
   },
-  {
-    icon: UtensilsCrossed,
-    title: "Mobiliário Incluso",
-    description: "Mesas e cadeiras inclusas, pronto para receber seus convidados.",
-    image: null,
-    color: "bg-red-100 text-red-600",
-  },
 ];
 
 export function Features() {
