@@ -28,13 +28,13 @@ export function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-300 flex items-center border-b border-white/20",
         isScrolled
-          ? "bg-[#08d4e0e6] backdrop-blur-md shadow-sm h-[60px] md:h-[90px]"
+          ? "bg-white backdrop-blur-md shadow-sm h-[60px] md:h-[90px]"
           : "bg-transparent h-[90px]"
       )}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
         <Link href="/" className="text-2xl font-heading font-bold flex items-center gap-2">
-          <span className="text-white drop-shadow-md">
+          <span className={cn("transition-colors", isScrolled ? "text-[#08d4e0e6]" : "text-white drop-shadow-md")}>
             Espaço Castro
           </span>
         </Link>
@@ -45,7 +45,10 @@ export function Navbar() {
             <a
               key={link.name}
               href={link.href}
-              className="text-sm font-medium text-white/90 hover:text-secondary transition-colors"
+              className={cn(
+                "text-sm font-medium transition-colors hover:text-secondary",
+                isScrolled ? "text-[#08d4e0e6]" : "text-white/90"
+              )}
             >
               {link.name}
             </a>
@@ -64,7 +67,7 @@ export function Navbar() {
         {/* Mobile Nav */}
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden text-white">
+            <Button variant="ghost" size="icon" className={cn("md:hidden", isScrolled ? "text-[#08d4e0e6]" : "text-white")}>
               <Menu className="w-6 h-6" />
             </Button>
           </SheetTrigger>
