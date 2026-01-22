@@ -33,12 +33,10 @@ export function Navbar() {
       )}
     >
       <div className="container mx-auto px-4 flex items-center justify-between">
-        <Link href="/">
-          <a className="text-2xl font-heading font-bold text-primary flex items-center gap-2">
-            <span className={cn("transition-colors", !isScrolled && "text-white drop-shadow-md")}>
-              Espaço Castro
-            </span>
-          </a>
+        <Link href="/" className="text-2xl font-heading font-bold text-primary flex items-center gap-2">
+          <span className={cn("transition-colors", !isScrolled && "text-white drop-shadow-md")}>
+            Espaço Castro
+          </span>
         </Link>
 
         {/* Desktop Nav */}
