@@ -27,13 +27,7 @@ export async function registerRoutes(
   });
 
   app.delete("/api/inquiries/:id", async (req, res) => {
-    if (!req.isAuthenticated()) {
-      return res.sendStatus(401);
-    }
-    const id = parseInt(req.params.id);
-    if (isNaN(id)) {
-      return res.status(400).json({ error: "Invalid ID" });
-    }
+    const id = req.params.id;
     try {
       await storage.deleteInquiry(id);
       res.sendStatus(204);

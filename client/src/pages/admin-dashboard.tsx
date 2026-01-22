@@ -52,7 +52,7 @@ export default function AdminDashboard() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: async (id: number) => {
+    mutationFn: async (id: string | number) => {
       await apiRequest("DELETE", `/api/inquiries/${id}`);
     },
     onSuccess: () => {
@@ -71,7 +71,7 @@ export default function AdminDashboard() {
     },
   });
 
-  const handleDelete = (id: number) => {
+  const handleDelete = (id: string | number) => {
     if (confirm("Tem certeza que deseja excluir esta solicitação?")) {
       deleteMutation.mutate(id);
     }

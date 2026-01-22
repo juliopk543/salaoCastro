@@ -10,7 +10,7 @@ export interface IStorage {
   
   createInquiry(inquiry: InsertInquiry): Promise<Inquiry>;
   getInquiries(): Promise<Inquiry[]>;
-  deleteInquiry(id: number): Promise<void>;
+  deleteInquiry(id: string): Promise<void>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -38,7 +38,7 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(schema.inquiries).orderBy(desc(schema.inquiries.id));
   }
 
-  async deleteInquiry(id: number): Promise<void> {
+  async deleteInquiry(id: string): Promise<void> {
     await db.delete(schema.inquiries).where(eq(schema.inquiries.id, id));
   }
 }
