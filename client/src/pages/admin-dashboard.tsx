@@ -138,9 +138,9 @@ export default function AdminDashboard() {
                 <CardTitle className="text-xl md:text-2xl font-black text-[#1a1f36] tracking-tight">Últimas Solicitações</CardTitle>
                 <p className="text-xs md:text-sm text-[#4f566b] mt-1 font-medium">Lista detalhada dos últimos contatos recebidos.</p>
               </div>
-              <div className="flex items-center gap-3 w-full sm:w-auto">
+              <div className="flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
                 <Select value={selectedYear} onValueChange={setSelectedYear}>
-                  <SelectTrigger className="h-12 w-full sm:w-[130px] rounded-2xl bg-white border-none shadow-sm font-bold text-[#1a1f36]">
+                  <SelectTrigger className="h-12 w-full sm:w-[140px] rounded-2xl bg-white border-none shadow-sm font-bold text-[#1a1f36]">
                     <div className="flex items-center gap-2">
                       <CalendarDays className="size-4 text-[#0f52ba]" />
                       <SelectValue placeholder="Ano" />
@@ -155,7 +155,7 @@ export default function AdminDashboard() {
                 </Select>
 
                 <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-                  <SelectTrigger className="h-12 w-full sm:w-[150px] rounded-2xl bg-white border-none shadow-sm font-bold text-[#1a1f36]">
+                  <SelectTrigger className="h-12 w-full sm:w-[160px] rounded-2xl bg-white border-none shadow-sm font-bold text-[#1a1f36]">
                     <div className="flex items-center gap-2">
                       <CalendarDays className="size-4 text-[#0f52ba]" />
                       <SelectValue placeholder="Mês" />
