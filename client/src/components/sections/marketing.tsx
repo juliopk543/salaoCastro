@@ -14,6 +14,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
 import useEmblaCarousel from 'embla-carousel-react';
+import { apiRequest } from "@/lib/queryClient";
+import { useToast } from "@/hooks/use-toast";
 
 const packages = [
   {
@@ -74,6 +76,7 @@ export function Marketing() {
     }
   });
 
+  const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     eventType: "",
@@ -84,19 +87,49 @@ export function Marketing() {
     message: ""
   });
 
-  const handleWhatsAppRedirect = (pkgName: string) => {
-    const text = `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
-      `*Pacote:* ${pkgName}\n` +
-      `*Nome:* ${formData.name}\n` +
-      `*De onde:* ${formData.state}\n` +
-      `*Evento:* ${formData.eventType || pkgName}\n` +
-      `*Convidados:* ${formData.guests}\n` +
-      `*Entrada:* ${formData.checkIn}\n` +
-      `*Saída:* ${formData.checkOut}\n` +
-      `*Mensagem:* ${formData.message}`;
-    
-    const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/55082993385163?text=${encodedText}`, '_blank');
+  const handleWhatsAppRedirect = async (pkgName: string) => {
+    try {
+      await apiRequest("POST", "/api/inquiries", {
+        ...formData,
+        packageName: pkgName,
+        guests: formData.guests.toString(), // Garantir que seja string
+      });
+
+      const text = `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
+        `*Pacote:* ${pkgName}\n` +
+        `*Nome:* ${formData.name}\n` +
+        `*De onde:* ${formData.state}\n` +
+        `*Evento:* ${formData.eventType || pkgName}\n` +
+        `*Convidados:* ${formData.guests}\n` +
+        `*Entrada:* ${formData.checkIn}\n` +
+        `*Saída:* ${formData.checkOut}\n` +
+        `*Mensagem:* ${formData.message}`;
+      
+      const encodedText = encodeURIComponent(text);
+      window.open(`https://wa.me/55082993385163?text=${encodedText}`, '_blank');
+      
+      toast({
+        title: "Solicitação enviada!",
+        description: "Seus dados foram salvos e você será redirecionado para o WhatsApp.",
+      });
+    } catch (error) {
+      toast({
+        title: "Erro ao enviar",
+        description: "Não foi possível salvar sua solicitação no sistema, mas você ainda pode nos contatar pelo WhatsApp.",
+        variant: "destructive",
+      });
+      // Mesmo com erro no banco, permite o redirecionamento para não perder a venda
+      const text = `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
+        `*Pacote:* ${pkgName}\n` +
+        `*Nome:* ${formData.name}\n` +
+        `*De onde:* ${formData.state}\n` +
+        `*Evento:* ${formData.eventType || pkgName}\n` +
+        `*Convidados:* ${formData.guests}\n` +
+        `*Entrada:* ${formData.checkIn}\n` +
+        `*Saída:* ${formData.checkOut}\n` +
+        `*Mensagem:* ${formData.message}`;
+      window.open(`https://wa.me/55082993385163?text=${encodeURIComponent(text)}`, '_blank');
+    }
   };
 
   return (

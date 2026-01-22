@@ -9,6 +9,25 @@ export const users = pgTable("users", {
   password: text("password").notNull(),
 });
 
+export const inquiries = pgTable("inquiries", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull(),
+  state: text("state").notNull(),
+  eventType: text("event_type").notNull(),
+  checkIn: text("check_in").notNull(),
+  checkOut: text("check_out").notNull(),
+  guests: text("guests").notNull(),
+  message: text("message"),
+  packageName: text("package_name").notNull(),
+});
+
+export const insertInquirySchema = createInsertSchema(inquiries).omit({
+  id: true,
+});
+
+export type InsertInquiry = z.infer<typeof insertInquirySchema>;
+export type Inquiry = typeof inquiries.$inferSelect;
+
 export const insertUserSchema = createInsertSchema(users).pick({
   username: true,
   password: true,
