@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import logoImage from "@assets/491438179_695315012983652_6840206379754210205_n_1769044482549.jpg";
-import heroBg from "@assets/generated_images/tropical_pool_party_venue_hero.png";
+import heroBg from "@assets/Captura_de_tela_2026-01-21_221233_1769044948211.png";
 
 export function Hero() {
   return (
@@ -38,16 +38,16 @@ export function Hero() {
           </h1>
           
           <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl font-light">
-            Salão de festas completo com piscina, área de lazer e churrasqueira. 
+            Salão de festas completo com piscina, área de lazer e churrasqueira em Campo Limpo Paulista. 
             O cenário perfeito para criar memórias inesquecíveis.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4">
-            <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-lg px-8 rounded-full h-14">
-              Reservar Agora
+            <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-lg px-8 rounded-full h-14" asChild>
+              <a href="#contact">Reservar Agora</a>
             </Button>
-            <Button size="lg" variant="outline" className="bg-white/10 border-white/40 text-white hover:bg-white/20 font-bold text-lg px-8 rounded-full h-14 backdrop-blur-sm">
-              Conhecer o Espaço
+            <Button size="lg" variant="outline" className="bg-white/10 border-white/40 text-white hover:bg-white/20 font-bold text-lg px-8 rounded-full h-14 backdrop-blur-sm" asChild>
+              <a href="#features">Conhecer o Espaço</a>
             </Button>
           </div>
         </motion.div>

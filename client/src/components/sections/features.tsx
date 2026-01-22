@@ -3,51 +3,52 @@ import { Waves, Flame, Gamepad2, BedDouble, PartyPopper, UtensilsCrossed } from 
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-import bbqImg from "@assets/generated_images/outdoor_bbq_area.png";
+import bbqImg from "@assets/Captura_de_tela_2026-01-21_221121_1769044948210.png";
 import kidsImg from "@assets/generated_images/kids_playground_area.png";
 import bedroomImg from "@assets/generated_images/bedroom_with_two_double_beds.png";
-import hallImg from "@assets/generated_images/party_hall_interior.png";
+import hallImg from "@assets/Captura_de_tela_2026-01-21_221104_1769044948210.png";
+import poolImg from "@assets/Captura_de_tela_2026-01-21_221233_1769044948211.png";
 
 const features = [
   {
     icon: Waves,
-    title: "Piscina Tropical",
-    description: "Ampla piscina com área rasa para crianças e deck para banho de sol.",
-    image: null, // Using generated hero for pool context usually
+    title: "Piscina Refrescante",
+    description: "Ampla piscina com área para lazer e relaxamento total.",
+    image: poolImg,
     color: "bg-blue-100 text-blue-600",
   },
   {
     icon: Flame,
-    title: "Área Gourmet",
-    description: "Churrasqueira completa com equipamentos, balcão e freezer inclusos.",
+    title: "Área Gourmet & BBQ",
+    description: "Churrasqueira completa com equipamentos de alta qualidade inclusos.",
     image: bbqImg,
     color: "bg-orange-100 text-orange-600",
   },
   {
     icon: Gamepad2,
-    title: "Espaço Kids",
-    description: "Área de lazer segura e divertida para as crianças brincarem livremente.",
+    title: "Diversão Garantida",
+    description: "Espaço kids e área de balanço para entretenimento de todas as idades.",
     image: kidsImg,
     color: "bg-green-100 text-green-600",
   },
   {
     icon: BedDouble,
-    title: "Acomodações",
-    description: "Quarto confortável com duas camas de casal para descanso durante o evento.",
+    title: "Acomodações Reais",
+    description: "Quarto confortável com duas camas de casal para seu total descanso.",
     image: bedroomImg,
     color: "bg-indigo-100 text-indigo-600",
   },
   {
     icon: PartyPopper,
-    title: "Salão de Festas",
-    description: "Espaço coberto versátil para casamentos, aniversários e confraternizações.",
+    title: "Eventos Diversos",
+    description: "Ideal para aniversários, casamentos, despedidas e confraternizações.",
     image: hallImg,
     color: "bg-purple-100 text-purple-600",
   },
   {
     icon: UtensilsCrossed,
-    title: "Estrutura Completa",
-    description: "Mesas e cadeiras inclusas no aluguel para sua comodidade.",
+    title: "Mobiliário Incluso",
+    description: "Mesas e cadeiras inclusas, pronto para receber seus convidados.",
     image: null,
     color: "bg-red-100 text-red-600",
   },
@@ -59,14 +60,13 @@ export function Features() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="text-secondary font-bold tracking-wider uppercase text-sm mb-2 block">
-            Nossa Estrutura
+            Nossa Estrutura Real
           </span>
           <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
-            Tudo o que você precisa
+            Espaços Pensados para Você
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Pensamos em cada detalhe para que seu evento seja perfeito. 
-            Do lazer ao descanso, nossa estrutura está pronta para receber você.
+            Veja fotos reais do nosso espaço e imagine sua próxima celebração aqui no Espaço Castro.
           </p>
         </div>
 
@@ -82,7 +82,7 @@ export function Features() {
               <Card className="border-none shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group h-full bg-white">
                 <CardContent className="p-0 h-full flex flex-col">
                   {feature.image && (
-                    <div className="h-48 overflow-hidden relative">
+                    <div className="h-56 overflow-hidden relative">
                       <img 
                         src={feature.image} 
                         alt={feature.title}
