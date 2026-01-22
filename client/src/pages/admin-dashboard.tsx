@@ -95,18 +95,26 @@ export default function AdminDashboard() {
                       <thead className="[&_tr]:border-b">
                         <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                           <th className="h-12 px-4 text-left align-middle font-medium">Nome</th>
+                          <th className="h-12 px-4 text-left align-middle font-medium">Estado</th>
                           <th className="h-12 px-4 text-left align-middle font-medium">Evento</th>
-                          <th className="h-12 px-4 text-left align-middle font-medium">Data</th>
+                          <th className="h-12 px-4 text-left align-middle font-medium">Entrada</th>
+                          <th className="h-12 px-4 text-left align-middle font-medium">Saída</th>
                           <th className="h-12 px-4 text-left align-middle font-medium">Convidados</th>
+                          <th className="h-12 px-4 text-left align-middle font-medium">Mensagem</th>
                         </tr>
                       </thead>
                       <tbody className="[&_tr:last-child]:border-0">
                         {inquiries.map((inquiry) => (
                           <tr key={inquiry.id} className="border-b transition-colors hover:bg-muted/50">
                             <td className="p-4 align-middle">{inquiry.name}</td>
+                            <td className="p-4 align-middle">{inquiry.state}</td>
                             <td className="p-4 align-middle">{inquiry.packageName}</td>
                             <td className="p-4 align-middle">{inquiry.checkIn}</td>
+                            <td className="p-4 align-middle">{inquiry.checkOut}</td>
                             <td className="p-4 align-middle">{inquiry.guests}</td>
+                            <td className="p-4 align-middle max-w-[200px] truncate" title={inquiry.message || ""}>
+                              {inquiry.message || "-"}
+                            </td>
                           </tr>
                         ))}
                       </tbody>
