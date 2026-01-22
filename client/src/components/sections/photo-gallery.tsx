@@ -6,7 +6,7 @@ import img1 from "@assets/Captura_de_tela_2026-01-21_220951_1769044948210.png";
 import img2 from "@assets/Captura_de_tela_2026-01-21_221058_1769044948210.png";
 import img3 from "@assets/Captura_de_tela_2026-01-21_221104_1769044948210.png";
 import img4 from "@assets/Captura_de_tela_2026-01-21_221121_1769044948210.png";
-import img5 from "@assets/Captura_de_tela_2026-01-21_221233_1769044948211.png";
+import img5 from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_39_08_1769045964191.png";
 import img6 from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_36_15_1769045793557.png";
 
 const photos = [
