@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link } from "wouter";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone, Lock } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { AdminLoginForm } from "@/components/auth/admin-login-form";
 import { cn } from "@/lib/utils";
 
 const links = [
@@ -14,6 +16,7 @@ const links = [
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -53,6 +56,28 @@ export function Navbar() {
               {link.name}
             </a>
           ))}
+          
+          <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
+            <DialogTrigger asChild>
+              <Button 
+                variant="ghost"
+                className={cn(
+                  "font-medium transition-colors hover:text-secondary",
+                  isScrolled ? "text-[#08d4e0e6]" : "text-white/90"
+                )}
+              >
+                <Lock className="w-4 h-4 mr-2" />
+                Administrador
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Acesso Administrativo</DialogTitle>
+              </DialogHeader>
+              <AdminLoginForm />
+            </DialogContent>
+          </Dialog>
+
           <Button 
             className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold rounded-full"
             asChild
@@ -82,6 +107,22 @@ export function Navbar() {
                   {link.name}
                 </a>
               ))}
+              
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="outline" className="w-full">
+                    <Lock className="w-4 h-4 mr-2" />
+                    Administrador
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[425px]">
+                  <DialogHeader>
+                    <DialogTitle>Acesso Administrativo</DialogTitle>
+                  </DialogHeader>
+                  <AdminLoginForm />
+                </DialogContent>
+              </Dialog>
+
               <Button className="w-full bg-secondary text-secondary-foreground font-bold">
                 Agendar Visita
               </Button>
