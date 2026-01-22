@@ -1,6 +1,16 @@
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
 const packages = [
   {
@@ -107,15 +117,68 @@ export function Marketing() {
               </CardContent>
               
               <CardFooter className="p-8 pt-0">
-                <Button 
-                  className={`w-full font-bold rounded-full py-6 ${
-                    pkg.highlight 
-                      ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground" 
-                      : "bg-primary hover:bg-primary/90 text-white"
-                  }`}
-                >
-                  Solicitar Orçamento
-                </Button>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button 
+                      className={`w-full font-bold rounded-full py-6 ${
+                        pkg.highlight 
+                          ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground" 
+                          : "bg-primary hover:bg-primary/90 text-white"
+                      }`}
+                    >
+                      Solicitar Orçamento
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[500px]">
+                    <DialogHeader>
+                      <DialogTitle className="text-2xl font-heading text-primary">Solicitar Orçamento - {pkg.name}</DialogTitle>
+                    </DialogHeader>
+                    <form className="space-y-4 pt-4" onSubmit={(e) => e.preventDefault()}>
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">Nome</label>
+                          <Input placeholder="Seu nome" />
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-sm font-medium">WhatsApp</label>
+                          <Input placeholder="(00) 00000-0000" />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Tipo de Evento</label>
+                        <Select defaultValue={pkg.name.toLowerCase().replace(/\s/g, '')}>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione..." />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value="aniversario">Aniversário</SelectItem>
+                            <SelectItem value="casamento">Casamento</SelectItem>
+                            <SelectItem value="churrasco">Churrasco/Confraternização</SelectItem>
+                            <SelectItem value="dayuse">Day Use (Lazer)</SelectItem>
+                            <SelectItem value="fimdesemana">Fim de Semana</SelectItem>
+                            <SelectItem value="corporativo">Evento Corporativo</SelectItem>
+                            <SelectItem value="outro">Outro</SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Data Pretendida</label>
+                        <Input type="date" />
+                      </div>
+
+                      <div className="space-y-2">
+                        <label className="text-sm font-medium">Mensagem (Opcional)</label>
+                        <Textarea placeholder="Quantas pessoas? Alguma dúvida específica?" className="min-h-[100px]" />
+                      </div>
+
+                      <Button className="w-full bg-primary hover:bg-primary/90 font-bold py-6 text-lg rounded-xl">
+                        Enviar Solicitação
+                      </Button>
+                    </form>
+                  </DialogContent>
+                </Dialog>
               </CardFooter>
             </Card>
           ))}
