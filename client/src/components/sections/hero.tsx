@@ -52,8 +52,6 @@ export function Hero() {
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6 drop-shadow-lg max-w-4xl leading-tight">
             Celebre seus melhores <span className="text-secondary">momentos</span>
           </h1>
-          
-          <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl font-light">Salão de festas completo com piscina, área de lazer kids, quartos e churrasqueira. O cenário perfeito para relaxar e criar memórias inesquecíveis..</p>
 
         </motion.div>
       </div>
