@@ -129,54 +129,69 @@ export function Marketing() {
                       Solicitar Orçamento
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[500px]">
-                    <DialogHeader>
-                      <DialogTitle className="text-2xl font-heading text-primary">Solicitar Orçamento - {pkg.name}</DialogTitle>
-                    </DialogHeader>
-                    <form className="space-y-4 pt-4" onSubmit={(e) => e.preventDefault()}>
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium">Nome</label>
-                          <Input placeholder="Seu nome" />
+                  <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      transition={{ type: "spring", damping: 25, stiffness: 300 }}
+                      className="bg-white rounded-[2rem] p-8 md:p-10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] relative overflow-hidden border border-primary/5"
+                    >
+                      {/* Decorative elements */}
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full -mr-16 -mt-16 blur-2xl" />
+                      <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full -ml-16 -mb-16 blur-2xl" />
+
+                      <DialogHeader className="relative z-10">
+                        <DialogTitle className="text-3xl font-heading text-primary leading-tight">
+                          Solicitar Orçamento <br/>
+                          <span className="text-secondary text-xl font-medium">— {pkg.name}</span>
+                        </DialogTitle>
+                      </DialogHeader>
+
+                      <form className="space-y-5 pt-6 relative z-10" onSubmit={(e) => e.preventDefault()}>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                          <div className="space-y-1.5">
+                            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Nome</label>
+                            <Input placeholder="Seu nome" className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4" />
+                          </div>
+                          <div className="space-y-1.5">
+                            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">WhatsApp</label>
+                            <Input placeholder="(00) 00000-0000" className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4" />
+                          </div>
                         </div>
-                        <div className="space-y-2">
-                          <label className="text-sm font-medium">WhatsApp</label>
-                          <Input placeholder="(00) 00000-0000" />
+
+                        <div className="space-y-1.5">
+                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Tipo de Evento</label>
+                          <Select defaultValue={pkg.name.toLowerCase().replace(/\s/g, '')}>
+                            <SelectTrigger className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4">
+                              <SelectValue placeholder="Selecione..." />
+                            </SelectTrigger>
+                            <SelectContent className="rounded-xl border-muted shadow-xl">
+                              <SelectItem value="aniversario">Aniversário</SelectItem>
+                              <SelectItem value="casamento">Casamento</SelectItem>
+                              <SelectItem value="churrasco">Churrasco/Confraternização</SelectItem>
+                              <SelectItem value="dayuse">Day Use (Lazer)</SelectItem>
+                              <SelectItem value="fimdesemana">Fim de Semana</SelectItem>
+                              <SelectItem value="corporativo">Evento Corporativo</SelectItem>
+                              <SelectItem value="outro">Outro</SelectItem>
+                            </SelectContent>
+                          </Select>
                         </div>
-                      </div>
+                        
+                        <div className="space-y-1.5">
+                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data Pretendida</label>
+                          <Input type="date" className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4" />
+                        </div>
 
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Tipo de Evento</label>
-                        <Select defaultValue={pkg.name.toLowerCase().replace(/\s/g, '')}>
-                          <SelectTrigger>
-                            <SelectValue placeholder="Selecione..." />
-                          </SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="aniversario">Aniversário</SelectItem>
-                            <SelectItem value="casamento">Casamento</SelectItem>
-                            <SelectItem value="churrasco">Churrasco/Confraternização</SelectItem>
-                            <SelectItem value="dayuse">Day Use (Lazer)</SelectItem>
-                            <SelectItem value="fimdesemana">Fim de Semana</SelectItem>
-                            <SelectItem value="corporativo">Evento Corporativo</SelectItem>
-                            <SelectItem value="outro">Outro</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Data Pretendida</label>
-                        <Input type="date" />
-                      </div>
+                        <div className="space-y-1.5">
+                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Mensagem (Opcional)</label>
+                          <Textarea placeholder="Quantas pessoas? Alguma dúvida específica?" className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all min-h-[100px] p-4 resize-none" />
+                        </div>
 
-                      <div className="space-y-2">
-                        <label className="text-sm font-medium">Mensagem (Opcional)</label>
-                        <Textarea placeholder="Quantas pessoas? Alguma dúvida específica?" className="min-h-[100px]" />
-                      </div>
-
-                      <Button className="w-full bg-primary hover:bg-primary/90 font-bold py-6 text-lg rounded-xl">
-                        Enviar Solicitação
-                      </Button>
-                    </form>
+                        <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-7 text-lg rounded-2xl shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-0.98">
+                          Enviar Solicitação
+                        </Button>
+                      </form>
+                    </motion.div>
                   </DialogContent>
                 </Dialog>
               </CardFooter>
