@@ -34,7 +34,10 @@ export function AdminLoginForm({ onSuccess }: { onSuccess?: () => void }) {
         description: "Bem-vindo ao painel administrativo.",
       });
       onSuccess?.();
-      setLocation("/admin");
+      // Short delay to allow state changes to settle if needed
+      setTimeout(() => {
+        setLocation("/admin");
+      }, 100);
     } else {
       toast({
         title: "Erro de autenticação",
