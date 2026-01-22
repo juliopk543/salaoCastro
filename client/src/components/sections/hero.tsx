@@ -7,7 +7,7 @@ export function Hero() {
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
       {/* Fixed Booking Button */}
-      <div className="fixed top-[90px] left-0 right-0 z-40 px-4 md:hidden">
+      <div className="fixed top-[90px] left-0 right-0 z-40 md:hidden">
         <Button 
           size="lg" 
           className="w-full bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-md h-14 shadow-lg" 
