@@ -11,6 +11,7 @@ export interface IStorage {
   createInquiry(inquiry: InsertInquiry): Promise<Inquiry>;
   getInquiries(): Promise<Inquiry[]>;
   deleteInquiry(id: string): Promise<void>;
+  updateInquiryStatus(id: string, completed: boolean): Promise<Inquiry>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -40,6 +41,16 @@ export class DatabaseStorage implements IStorage {
 
   async deleteInquiry(id: string): Promise<void> {
     await db.delete(schema.inquiries).where(eq(schema.inquiries.id, id));
+  }
+
+  async updateInquiryStatus(id: string, completed: boolean): Promise<Inquiry> {
+    const [inquiry] = await db
+      .update(schema.inquiries)
+      .set({ completed })
+      .where(eq(schema.inquiries.id, id))
+      .returning();
+    if (!inquiry) throw new Error("Inquiry not found");
+    return inquiry;
   }
 }
 

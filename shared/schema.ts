@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -21,10 +21,12 @@ export const inquiries = pgTable("inquiries", {
   whatsapp: text("whatsapp").notNull(),
   message: text("message"),
   packageName: text("package_name").notNull(),
+  completed: boolean("completed").notNull().default(false),
 });
 
 export const insertInquirySchema = createInsertSchema(inquiries).omit({
   id: true,
+  completed: true,
 });
 
 export type InsertInquiry = z.infer<typeof insertInquirySchema>;

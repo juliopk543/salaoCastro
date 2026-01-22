@@ -36,5 +36,16 @@ export async function registerRoutes(
     }
   });
 
+  app.patch("/api/inquiries/:id/status", async (req, res) => {
+    const id = req.params.id;
+    const { completed } = req.body;
+    try {
+      const inquiry = await storage.updateInquiryStatus(id, !!completed);
+      res.json(inquiry);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update inquiry status" });
+    }
+  });
+
   return httpServer;
 }

@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, LogOut, Building2, Menu, CalendarDays, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
+import { LayoutDashboard, Users, LogOut, Building2, Menu, CalendarDays, ChevronLeft, ChevronRight, Trash2, CheckCircle2 } from "lucide-react";
 import { useLocation } from "wouter";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Inquiry } from "@shared/schema";
@@ -10,6 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useState, useMemo } from "react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { toast } from "@/hooks/use-toast";
+import { Button } from "@/components/ui/button";
 
 function AdminHeader({ handleLogout }: { handleLogout: () => void }) {
   const [location] = useLocation();
@@ -71,10 +72,30 @@ export default function AdminDashboard() {
     },
   });
 
+  const toggleStatusMutation = useMutation({
+    mutationFn: async ({ id, completed }: { id: string | number, completed: boolean }) => {
+      await apiRequest("PATCH", `/api/inquiries/${id}/status`, { completed });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/inquiries"] });
+    },
+    onError: () => {
+      toast({
+        title: "Erro",
+        description: "Não foi possível atualizar o status.",
+        variant: "destructive",
+      });
+    },
+  });
+
   const handleDelete = (id: string | number) => {
     if (confirm("Tem certeza que deseja excluir esta solicitação?")) {
       deleteMutation.mutate(id);
     }
+  };
+
+  const handleToggleStatus = (id: string | number, currentStatus: boolean) => {
+    toggleStatusMutation.mutate({ id, completed: !currentStatus });
   };
 
   const years = useMemo(() => {
@@ -265,13 +286,27 @@ export default function AdminDashboard() {
                               </p>
                             </td>
                             <td className="p-8 align-middle text-right">
-                              <button
-                                onClick={() => handleDelete(inquiry.id)}
-                                className="p-3 text-red-500 hover:bg-red-50 rounded-xl transition-all"
-                                title="Excluir"
-                              >
-                                <Trash2 className="size-5" />
-                              </button>
+                              <div className="flex items-center justify-end gap-2">
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => handleToggleStatus(inquiry.id, inquiry.completed)}
+                                  className={`rounded-xl font-bold transition-all ${
+                                    inquiry.completed 
+                                      ? "bg-green-500 text-white border-green-500 hover:bg-green-600" 
+                                      : "text-slate-500 hover:text-slate-700"
+                                  }`}
+                                >
+                                  {inquiry.completed ? "Realizado" : "Solicitado"}
+                                </Button>
+                                <button
+                                  onClick={() => handleDelete(inquiry.id)}
+                                  className="p-3 text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                                  title="Excluir"
+                                >
+                                  <Trash2 className="size-5" />
+                                </button>
+                              </div>
                             </td>
                           </tr>
                         ))}
@@ -329,7 +364,19 @@ export default function AdminDashboard() {
                             </div>
                           )}
 
-                          <div className="pt-2 border-t border-slate-200/50 flex justify-end">
+                          <div className="pt-2 border-t border-slate-200/50 flex justify-end gap-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleToggleStatus(inquiry.id, inquiry.completed)}
+                              className={`rounded-xl font-bold transition-all ${
+                                inquiry.completed 
+                                  ? "bg-green-500 text-white border-green-500 hover:bg-green-600" 
+                                  : "text-slate-500 hover:text-slate-700"
+                              }`}
+                            >
+                              {inquiry.completed ? "Realizado" : "Solicitado"}
+                            </Button>
                             <button
                               onClick={() => handleDelete(inquiry.id)}
                               className="inline-flex items-center gap-2 text-red-500 font-bold text-xs px-3 py-2 hover:bg-red-50 rounded-xl transition-all"
