@@ -9,51 +9,62 @@ import { Separator } from "@/components/ui/separator";
 
 function AppSidebar({ handleLogout }: { handleLogout: () => void }) {
   return (
-    <Sidebar collapsible="icon" className="bg-white border-r">
-      <SidebarHeader className="h-20 flex items-center px-6 border-b bg-white">
-        <div className="flex items-center gap-3">
-          <div className="flex aspect-square size-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-lg shadow-primary/20">
-            <Building2 className="size-6" />
+    <Sidebar collapsible="icon" className="bg-[#f0f1f5] border-none">
+      <SidebarHeader className="h-24 flex items-center justify-center px-4 bg-white m-4 rounded-2xl shadow-xl shadow-slate-200/50">
+        <div className="flex items-center gap-3 w-full">
+          <div className="flex aspect-square size-12 items-center justify-center rounded-2xl bg-[#0f52ba] text-white shadow-lg shadow-[#0f52ba]/20">
+            <Building2 className="size-7" />
           </div>
-          <div className="flex flex-col gap-0.5 leading-none">
-            <span className="font-extrabold text-base text-slate-900 tracking-tight">Espaço Castro</span>
-            <span className="text-[10px] text-primary uppercase tracking-widest font-black">Painel Administrativo</span>
+          <div className="flex flex-col gap-0.5">
+            <span className="font-black text-lg text-[#1a1f36] tracking-tight leading-none">Espaço Castro</span>
+            <span className="text-[10px] text-[#0f52ba] uppercase tracking-widest font-black mt-1">Painel Administrativo</span>
           </div>
         </div>
       </SidebarHeader>
-      <SidebarContent className="px-3 py-6">
+      
+      <SidebarContent className="px-4 py-2">
         <SidebarGroup>
           <SidebarGroupContent>
-            <SidebarMenu className="gap-2">
+            <SidebarMenu className="gap-4">
               <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Dashboard" isActive className="h-12 px-4 rounded-xl data-[active=true]:bg-primary data-[active=true]:text-white shadow-sm transition-all duration-200">
-                  <LayoutDashboard className="size-5" />
-                  <span className="font-bold text-sm">Dashboard</span>
+                <SidebarMenuButton 
+                  tooltip="Dashboard" 
+                  isActive 
+                  className="h-16 px-6 rounded-[2rem] data-[active=true]:bg-[#0f52ba] data-[active=true]:text-white shadow-lg shadow-[#0f52ba]/20 transition-all duration-300 hover:scale-[1.02] active:scale-95"
+                >
+                  <LayoutDashboard className="size-6" />
+                  <span className="font-bold text-base ml-2">Dashboard</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton tooltip="Solicitações" className="h-12 px-4 rounded-xl hover:bg-slate-100 transition-all duration-200">
-                  <Users className="size-5" />
-                  <span className="font-bold text-sm text-slate-600">Solicitações</span>
+                <SidebarMenuButton 
+                  tooltip="Solicitações" 
+                  className="h-16 px-6 rounded-[2rem] bg-white text-[#4f566b] shadow-md shadow-slate-200/50 transition-all duration-300 hover:bg-slate-50 hover:scale-[1.02] active:scale-95"
+                >
+                  <Users className="size-6" />
+                  <span className="font-bold text-base ml-2">Solicitações</span>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="p-4 border-t bg-slate-50/50">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton 
-              onClick={handleLogout} 
-              className="text-destructive hover:text-white hover:bg-destructive h-12 px-4 rounded-xl transition-all duration-200 font-bold group shadow-sm bg-white" 
-              tooltip="Sair"
-            >
-              <LogOut className="size-5 transition-transform group-hover:translate-x-1" />
-              <span>Sair da Conta</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+
+      <SidebarFooter className="p-4 mt-auto">
+        <div className="bg-[#cacedb]/50 p-1 rounded-[2.5rem]">
+          <SidebarMenu>
+            <SidebarMenuItem>
+              <SidebarMenuButton 
+                onClick={handleLogout} 
+                className="text-[#cc3333] hover:text-white hover:bg-[#cc3333] h-16 px-6 rounded-[2rem] transition-all duration-300 font-bold bg-white shadow-lg shadow-slate-200/50 group" 
+                tooltip="Sair"
+              >
+                <LogOut className="size-6 transition-transform group-hover:translate-x-1" />
+                <span className="ml-2">Sair da Conta</span>
+              </SidebarMenuButton>
+            </SidebarMenuItem>
+          </SidebarMenu>
+        </div>
       </SidebarFooter>
     </Sidebar>
   );
@@ -76,19 +87,19 @@ export default function AdminDashboard() {
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-slate-50/50">
         <AppSidebar handleLogout={handleLogout} />
-        <div className="flex flex-col flex-1 min-w-0 bg-white">
-          <header className="sticky top-0 z-30 flex h-20 shrink-0 items-center gap-4 border-b bg-white/80 backdrop-blur-xl px-6">
+        <div className="flex flex-col flex-1 min-w-0 bg-[#f8f9fc]">
+          <header className="sticky top-0 z-30 flex h-24 shrink-0 items-center gap-4 bg-white/60 backdrop-blur-2xl px-8 border-b border-slate-200/50">
             <div className="flex items-center gap-2 md:hidden">
-              <SidebarTrigger className="size-10 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-900 transition-all active:scale-95" />
+              <SidebarTrigger className="size-12 rounded-2xl bg-white shadow-lg shadow-slate-200/50 text-[#1a1f36] hover:scale-105 transition-all active:scale-95 border border-slate-100" />
             </div>
-            <Separator orientation="vertical" className="hidden md:block h-6" />
+            <Separator orientation="vertical" className="hidden md:block h-8 bg-slate-200" />
             <div className="flex flex-col">
-              <h1 className="text-xl font-black text-slate-900 leading-none">Administrador</h1>
-              <p className="text-[10px] text-muted-foreground font-bold uppercase tracking-tighter mt-1 md:hidden">Espaço Castro</p>
+              <h1 className="text-2xl font-black text-[#1a1f36] tracking-tight">Visão Geral</h1>
+              <p className="text-xs text-[#4f566b] font-bold uppercase tracking-widest mt-0.5">Gestão de Inscrições</p>
             </div>
           </header>
           
-          <main className="flex-1 p-6 md:p-10 lg:p-12 overflow-auto bg-slate-50/30">
+          <main className="flex-1 p-8 md:p-12 lg:p-16 overflow-auto">
             <div className="max-w-6xl mx-auto space-y-8">
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
                 <Card className="shadow-sm border-none bg-white">
