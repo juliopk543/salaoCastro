@@ -58,7 +58,6 @@ const packages = [
 export function Marketing() {
   const [formData, setFormData] = useState({
     name: "",
-    whatsapp: "",
     eventType: "",
     date: "",
     message: ""
@@ -68,7 +67,6 @@ export function Marketing() {
     const text = `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
       `*Pacote:* ${pkgName}\n` +
       `*Nome:* ${formData.name}\n` +
-      `*WhatsApp:* ${formData.whatsapp}\n` +
       `*Evento:* ${formData.eventType || pkgName}\n` +
       `*Data:* ${formData.date}\n` +
       `*Mensagem:* ${formData.message}`;
@@ -178,27 +176,15 @@ export function Marketing() {
                           handleWhatsAppRedirect(pkg.name);
                         }}
                       >
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div className="space-y-1.5">
-                            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Nome</label>
-                            <Input 
-                              required
-                              placeholder="Seu nome" 
-                              className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
-                              value={formData.name}
-                              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            />
-                          </div>
-                          <div className="space-y-1.5">
-                            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">WhatsApp</label>
-                            <Input 
-                              required
-                              placeholder="(00) 00000-0000" 
-                              className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
-                              value={formData.whatsapp}
-                              onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
-                            />
-                          </div>
+                        <div className="space-y-1.5">
+                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Nome</label>
+                          <Input 
+                            required
+                            placeholder="Seu nome" 
+                            className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                            value={formData.name}
+                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                          />
                         </div>
 
                         <div className="space-y-1.5">
