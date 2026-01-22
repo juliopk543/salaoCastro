@@ -56,6 +56,14 @@ const packages = [
   }
 ];
 
+const states = [
+  "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", 
+  "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", 
+  "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", 
+  "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", 
+  "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
+];
+
 export function Marketing() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     align: 'center',
@@ -69,6 +77,7 @@ export function Marketing() {
   const [formData, setFormData] = useState({
     name: "",
     eventType: "",
+    state: "",
     checkIn: "",
     checkOut: "",
     guests: "",
@@ -79,6 +88,7 @@ export function Marketing() {
     const text = `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
       `*Pacote:* ${pkgName}\n` +
       `*Nome:* ${formData.name}\n` +
+      `*De onde:* ${formData.state}\n` +
       `*Evento:* ${formData.eventType || pkgName}\n` +
       `*Convidados:* ${formData.guests}\n` +
       `*Entrada:* ${formData.checkIn}\n` +
@@ -201,6 +211,22 @@ export function Marketing() {
                                 value={formData.name}
                                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                               />
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">De onde você está é?</label>
+                              <Select 
+                                onValueChange={(value) => setFormData({ ...formData, state: value })}
+                              >
+                                <SelectTrigger className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4">
+                                  <SelectValue placeholder="Selecione o estado..." />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-xl border-muted shadow-xl h-[250px]">
+                                  {states.map((state) => (
+                                    <SelectItem key={state} value={state}>{state}</SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
                             </div>
 
                             <div className="space-y-1.5">
