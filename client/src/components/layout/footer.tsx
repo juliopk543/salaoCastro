@@ -17,7 +17,6 @@ export function Footer() {
             <h4 className="font-bold mb-4">Contato</h4>
             <ul className="space-y-2 text-primary-foreground/80">
               <li>82 99338 5163</li>
-              <li>contato@espacocastro.com.br</li>
               <li>Rua das Palmeiras, 123</li>
             </ul>
           </div>
