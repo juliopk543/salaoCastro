@@ -14,14 +14,6 @@ export function Footer() {
           </div>
           
           <div>
-            <h4 className="font-bold mb-4">Contato</h4>
-            <ul className="space-y-2 text-primary-foreground/80">
-              <li>82 993385163</li>
-              <li>Coruripe-AL / Loteamento por trás da pousada São João</li>
-            </ul>
-          </div>
-          
-          <div>
             <h4 className="font-bold mb-4">Redes Sociais</h4>
             <div className="flex gap-4">
               <a href="#" className="hover:text-secondary transition-colors">
