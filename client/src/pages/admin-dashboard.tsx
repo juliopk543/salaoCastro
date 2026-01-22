@@ -9,8 +9,8 @@ import { Separator } from "@/components/ui/separator";
 
 function AppSidebar({ handleLogout }: { handleLogout: () => void }) {
   return (
-    <Sidebar collapsible="icon">
-      <SidebarHeader className="h-16 flex items-center px-6 border-b">
+    <Sidebar collapsible="icon" className="bg-white border-r">
+      <SidebarHeader className="h-16 flex items-center px-6 border-b bg-white">
         <div className="flex items-center gap-3">
           <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Building2 className="size-5" />
