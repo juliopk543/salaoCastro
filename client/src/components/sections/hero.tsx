@@ -16,7 +16,6 @@ export function Hero() {
         <div className="absolute inset-0 bg-primary/40 mix-blend-multiply" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-background/90" />
       </div>
-
       <div className="container relative z-10 px-4 text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -37,10 +36,7 @@ export function Hero() {
             Celebre seus melhores <span className="text-secondary">momentos</span>
           </h1>
           
-          <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl font-light">
-            Salão de festas completo com piscina, área de lazer e churrasqueira em Campo Limpo Paulista. 
-            O cenário perfeito para criar memórias inesquecíveis.
-          </p>
+          <p className="text-lg md:text-xl text-white/90 mb-8 max-w-2xl font-light">Salão de festas completo com piscina, área de lazer kids, quartos e churrasqueira. O cenário perfeito para relaxar e criar memórias inesquecíveis..</p>
 
           <div className="flex flex-col sm:flex-row gap-4">
             <Button size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-lg px-8 rounded-full h-14" asChild>
