@@ -28,8 +28,8 @@ export function Hero() {
         <Button 
           size="lg" 
           className={cn(
-            "w-full bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-md h-14 shadow-lg transition-all duration-300",
-            isScrolled ? "my-0" : "my-[10px]"
+            "w-full bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 h-14 shadow-lg transition-all duration-300",
+            isScrolled ? "my-0 rounded-none" : "my-[10px] rounded-md"
           )}
           onClick={() => {
             const marketingSection = document.getElementById('marketing');
