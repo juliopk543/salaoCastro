@@ -60,6 +60,7 @@ export function Marketing() {
   const [emblaRef, emblaApi] = useEmblaCarousel({ 
     align: 'center',
     containScroll: 'trimSnaps',
+    startIndex: 0,
     breakpoints: {
       '(min-width: 768px)': { active: false }
     }
