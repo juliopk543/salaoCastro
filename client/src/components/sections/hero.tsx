@@ -6,6 +6,28 @@ import heroBg from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_39_08_176904596
 export function Hero() {
   return (
     <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
+      {/* Fixed Booking Button */}
+      <div className="fixed top-[72px] left-0 right-0 z-40 px-4 md:hidden">
+        <Button 
+          size="lg" 
+          className="w-full bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-xl h-14 shadow-lg" 
+          onClick={() => {
+            const marketingSection = document.getElementById('marketing');
+            if (marketingSection) {
+              marketingSection.scrollIntoView({ behavior: 'smooth' });
+              setTimeout(() => {
+                const firstBudgetButton = marketingSection.querySelector('button');
+                if (firstBudgetButton instanceof HTMLElement) {
+                  firstBudgetButton.click();
+                }
+              }, 800);
+            }
+          }}
+        >
+          FAÇA SUA RESERVA
+        </Button>
+      </div>
+
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
@@ -32,7 +54,7 @@ export function Hero() {
             />
           </div>
 
-          <div className="flex justify-center w-full mb-12">
+          <div className="hidden md:flex justify-center w-full mb-12">
             <Button size="lg" className="bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-xl h-14" onClick={() => {
               const marketingSection = document.getElementById('marketing');
               if (marketingSection) {
