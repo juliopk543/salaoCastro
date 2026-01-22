@@ -11,31 +11,31 @@ function AdminHeader({ handleLogout }: { handleLogout: () => void }) {
   const [location] = useLocation();
 
   return (
-    <header className="sticky top-0 z-30 flex h-24 shrink-0 items-center justify-between bg-white px-8 border-b border-slate-200">
-      <div className="flex items-center gap-4">
-        <div className="flex aspect-square size-12 items-center justify-center rounded-2xl bg-[#0f52ba] text-white shadow-lg shadow-[#0f52ba]/20">
-          <Building2 className="size-7" />
+    <header className="sticky top-0 z-30 flex h-20 shrink-0 items-center justify-between bg-white px-4 md:px-8 border-b border-slate-200 shadow-sm">
+      <div className="flex items-center gap-2 md:gap-4 overflow-hidden">
+        <div className="flex aspect-square size-10 md:size-12 shrink-0 items-center justify-center rounded-xl md:rounded-2xl bg-[#0f52ba] text-white shadow-lg shadow-[#0f52ba]/20">
+          <Building2 className="size-6 md:size-7" />
         </div>
-        <div className="flex flex-col">
-          <h1 className="text-2xl font-black text-[#1a1f36] tracking-tight leading-none">Espaço Castro</h1>
-          <p className="text-[10px] text-[#0f52ba] uppercase tracking-widest font-black mt-1">Painel Administrativo</p>
+        <div className="flex flex-col min-w-0">
+          <h1 className="text-lg md:text-2xl font-black text-[#1a1f36] tracking-tight leading-none truncate">Espaço Castro</h1>
+          <p className="text-[8px] md:text-[10px] text-[#0f52ba] uppercase tracking-widest font-black mt-0.5 md:mt-1 truncate">Painel Administrativo</p>
         </div>
       </div>
 
-      <nav className="hidden md:flex items-center gap-2 bg-slate-100 p-1.5 rounded-[2rem]">
+      <nav className="hidden lg:flex items-center gap-1 bg-slate-100 p-1 rounded-[2rem]">
         <button 
-          className={`h-12 px-8 rounded-[1.8rem] font-bold text-sm transition-all active:scale-95 ${
+          className={`h-10 px-6 rounded-[1.8rem] font-bold text-xs transition-all active:scale-95 ${
             location === "/admin" 
-              ? "bg-[#0f52ba] text-white shadow-lg shadow-[#0f52ba]/20" 
+              ? "bg-[#0f52ba] text-white shadow-md shadow-[#0f52ba]/20" 
               : "text-[#4f566b] hover:bg-white hover:shadow-sm"
           }`}
         >
           Dashboard
         </button>
         <button 
-          className={`h-12 px-8 rounded-[1.8rem] font-bold text-sm transition-all active:scale-95 ${
+          className={`h-10 px-6 rounded-[1.8rem] font-bold text-xs transition-all active:scale-95 ${
             location === "/admin/solicitacoes" 
-              ? "bg-[#0f52ba] text-white shadow-lg shadow-[#0f52ba]/20" 
+              ? "bg-[#0f52ba] text-white shadow-md shadow-[#0f52ba]/20" 
               : "text-[#4f566b] hover:bg-white hover:shadow-sm"
           }`}
         >
@@ -43,24 +43,24 @@ function AdminHeader({ handleLogout }: { handleLogout: () => void }) {
         </button>
       </nav>
 
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-2 md:gap-4">
         <button 
           onClick={handleLogout}
-          className="h-12 px-6 rounded-[1.8rem] border-2 border-[#cc3333] text-[#cc3333] font-bold text-sm hover:bg-[#cc3333] hover:text-white transition-all active:scale-95 flex items-center gap-2"
+          className="h-10 px-4 md:px-6 rounded-[1.8rem] border-2 border-[#cc3333] text-[#cc3333] font-bold text-xs hover:bg-[#cc3333] hover:text-white transition-all active:scale-95 flex items-center gap-2 shrink-0"
         >
-          <LogOut className="size-5" />
+          <LogOut className="size-4" />
           <span className="hidden sm:inline">Sair</span>
         </button>
         
         <Sheet>
           <SheetTrigger asChild>
-            <button className="md:hidden size-12 flex items-center justify-center rounded-2xl bg-slate-100 text-[#1a1f36] active:scale-95">
-              <Menu className="size-6" />
+            <button className="lg:hidden size-10 flex items-center justify-center rounded-xl bg-slate-100 text-[#1a1f36] active:scale-95 hover:bg-slate-200 transition-colors">
+              <Menu className="size-5" />
             </button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[320px] bg-[#f0f1f5] p-6 border-none">
-            <div className="flex flex-col h-full gap-8">
-              <div className="bg-white p-6 rounded-3xl shadow-xl shadow-slate-200/50">
+          <SheetContent side="right" className="w-[280px] bg-white p-0 border-l">
+            <div className="flex flex-col h-full bg-[#f0f1f5]">
+              <div className="bg-white p-6 border-b">
                 <div className="flex items-center gap-3">
                   <div className="flex aspect-square size-10 items-center justify-center rounded-xl bg-[#0f52ba] text-white">
                     <Building2 className="size-6" />
@@ -72,31 +72,31 @@ function AdminHeader({ handleLogout }: { handleLogout: () => void }) {
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <button className={`h-16 px-6 rounded-[2rem] font-bold flex items-center gap-4 transition-all ${
+              <div className="flex flex-col gap-3 p-4">
+                <button className={`h-14 px-6 rounded-2xl font-bold flex items-center gap-4 transition-all ${
                   location === "/admin" 
                     ? "bg-[#0f52ba] text-white shadow-lg shadow-[#0f52ba]/20" 
-                    : "bg-white text-[#4f566b] shadow-md shadow-slate-200/50"
+                    : "bg-white text-[#4f566b] shadow-sm"
                 }`}>
-                  <LayoutDashboard className="size-6" />
+                  <LayoutDashboard className="size-5" />
                   <span>Dashboard</span>
                 </button>
-                <button className={`h-16 px-6 rounded-[2rem] font-bold flex items-center gap-4 transition-all ${
+                <button className={`h-14 px-6 rounded-2xl font-bold flex items-center gap-4 transition-all ${
                   location === "/admin/solicitacoes" 
                     ? "bg-[#0f52ba] text-white shadow-lg shadow-[#0f52ba]/20" 
-                    : "bg-white text-[#4f566b] shadow-md shadow-slate-200/50"
+                    : "bg-white text-[#4f566b] shadow-sm"
                 }`}>
-                  <Users className="size-6" />
+                  <Users className="size-5" />
                   <span>Solicitações</span>
                 </button>
               </div>
 
-              <div className="mt-auto bg-[#cacedb]/50 p-1 rounded-[2.5rem]">
+              <div className="mt-auto p-4 border-t bg-white">
                 <button 
                   onClick={handleLogout}
-                  className="w-full h-16 px-6 rounded-[2rem] bg-white text-[#cc3333] font-bold flex items-center gap-4 shadow-lg shadow-slate-200/50 transition-all active:scale-95"
+                  className="w-full h-14 px-6 rounded-2xl bg-white border-2 border-[#cc3333] text-[#cc3333] font-bold flex items-center justify-center gap-3 transition-all active:scale-95"
                 >
-                  <LogOut className="size-6" />
+                  <LogOut className="size-5" />
                   <span>Sair da Conta</span>
                 </button>
               </div>
