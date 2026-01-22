@@ -51,7 +51,10 @@ export class MemStorage implements IStorage {
   }
 
   async getInquiries(): Promise<Inquiry[]> {
-    return Array.from(this.inquiries.values()).reverse();
+    return Array.from(this.inquiries.values()).sort((a, b) => {
+      // Ordenar por ID ou algum critério se não houver data de criação
+      return b.id.localeCompare(a.id);
+    });
   }
 }
 
