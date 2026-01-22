@@ -22,27 +22,6 @@ function AdminHeader({ handleLogout }: { handleLogout: () => void }) {
         </div>
       </div>
 
-      <nav className="flex items-center gap-1 bg-slate-100 p-1 rounded-[2rem]">
-        <button 
-          className={`h-10 px-6 rounded-[1.8rem] font-bold text-xs transition-all active:scale-95 ${
-            location === "/admin" 
-              ? "bg-[#0f52ba] text-white shadow-md shadow-[#0f52ba]/20" 
-              : "text-[#4f566b] hover:bg-white hover:shadow-sm"
-          }`}
-        >
-          Dashboard
-        </button>
-        <button 
-          className={`h-10 px-6 rounded-[1.8rem] font-bold text-xs transition-all active:scale-95 ${
-            location === "/admin/solicitacoes" 
-              ? "bg-[#0f52ba] text-white shadow-md shadow-[#0f52ba]/20" 
-              : "text-[#4f566b] hover:bg-white hover:shadow-sm"
-          }`}
-        >
-          Solicitações
-        </button>
-      </nav>
-
       <div className="flex items-center gap-2 md:gap-4">
         <button 
           onClick={handleLogout}
