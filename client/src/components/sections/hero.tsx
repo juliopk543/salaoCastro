@@ -32,8 +32,8 @@ export function Hero() {
             />
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto mb-12">
-            <Button size="lg" className="w-full sm:w-auto bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-xl h-14" onClick={() => {
+          <div className="flex justify-center w-full mb-12">
+            <Button size="lg" className="bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 rounded-xl h-14" onClick={() => {
               const marketingSection = document.getElementById('marketing');
               if (marketingSection) {
                 marketingSection.scrollIntoView({ behavior: 'smooth' });
@@ -46,9 +46,6 @@ export function Hero() {
               }
             }}>
               FAÇA SUA RESERVA
-            </Button>
-            <Button size="lg" variant="outline" className="w-full sm:w-auto bg-white/10 border-white/40 text-white hover:bg-white/20 font-bold text-lg px-8 rounded-xl h-14 backdrop-blur-sm" asChild>
-              <a href="#features">Conhecer o Espaço</a>
             </Button>
           </div>
 
