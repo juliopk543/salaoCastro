@@ -1,6 +1,6 @@
-import { LayoutDashboard, Users, LogOut, Building2, Menu, CalendarDays, ChevronLeft, ChevronRight } from "lucide-react";
+import { LayoutDashboard, Users, LogOut, Building2, Menu, CalendarDays, ChevronLeft, ChevronRight, Trash2 } from "lucide-react";
 import { useLocation } from "wouter";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { Inquiry } from "@shared/schema";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -8,6 +8,8 @@ import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useState, useMemo } from "react";
+import { apiRequest, queryClient } from "@/lib/queryClient";
+import { toast } from "@/hooks/use-toast";
 
 function AdminHeader({ handleLogout }: { handleLogout: () => void }) {
   const [location] = useLocation();
@@ -48,6 +50,32 @@ export default function AdminDashboard() {
     queryKey: ["/api/inquiries"],
     refetchInterval: 5000,
   });
+
+  const deleteMutation = useMutation({
+    mutationFn: async (id: number) => {
+      await apiRequest("DELETE", `/api/inquiries/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/inquiries"] });
+      toast({
+        title: "Sucesso",
+        description: "Solicitação excluída com sucesso.",
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Erro",
+        description: "Não foi possível excluir a solicitação.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  const handleDelete = (id: number) => {
+    if (confirm("Tem certeza que deseja excluir esta solicitação?")) {
+      deleteMutation.mutate(id);
+    }
+  };
 
   const years = useMemo(() => {
     if (!inquiries) return [];
@@ -189,6 +217,7 @@ export default function AdminDashboard() {
                           <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Datas</th>
                           <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Convidados</th>
                           <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Mensagem</th>
+                          <th className="h-16 px-8 text-right align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Ações</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-50">
@@ -234,6 +263,15 @@ export default function AdminDashboard() {
                               <p className="text-[#4f566b] text-sm font-medium leading-relaxed italic line-clamp-2" title={inquiry.message || ""}>
                                 {inquiry.message || "Sem mensagem"}
                               </p>
+                            </td>
+                            <td className="p-8 align-middle text-right">
+                              <button
+                                onClick={() => handleDelete(inquiry.id)}
+                                className="p-3 text-red-500 hover:bg-red-50 rounded-xl transition-all"
+                                title="Excluir"
+                              >
+                                <Trash2 className="size-5" />
+                              </button>
                             </td>
                           </tr>
                         ))}
@@ -290,6 +328,16 @@ export default function AdminDashboard() {
                               <p className="text-xs text-[#4f566b] font-medium leading-relaxed mt-1 italic">{inquiry.message}</p>
                             </div>
                           )}
+
+                          <div className="pt-2 border-t border-slate-200/50 flex justify-end">
+                            <button
+                              onClick={() => handleDelete(inquiry.id)}
+                              className="inline-flex items-center gap-2 text-red-500 font-bold text-xs px-3 py-2 hover:bg-red-50 rounded-xl transition-all"
+                            >
+                              <Trash2 className="size-4" />
+                              Excluir Registro
+                            </button>
+                          </div>
                         </div>
                       </div>
                     ))}

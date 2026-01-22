@@ -26,5 +26,21 @@ export async function registerRoutes(
     res.json(inquiries);
   });
 
+  app.delete("/api/inquiries/:id", async (req, res) => {
+    if (!req.isAuthenticated()) {
+      return res.sendStatus(401);
+    }
+    const id = parseInt(req.params.id);
+    if (isNaN(id)) {
+      return res.status(400).json({ error: "Invalid ID" });
+    }
+    try {
+      await storage.deleteInquiry(id);
+      res.sendStatus(204);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete inquiry" });
+    }
+  });
+
   return httpServer;
 }
