@@ -17,6 +17,7 @@ export const inquiries = pgTable("inquiries", {
   checkIn: text("check_in").notNull(),
   checkOut: text("check_out").notNull(),
   guests: text("guests").notNull(),
+  whatsapp: text("whatsapp").notNull(),
   message: text("message"),
   packageName: text("package_name").notNull(),
 });

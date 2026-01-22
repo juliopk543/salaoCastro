@@ -96,6 +96,7 @@ export default function AdminDashboard() {
                       <thead className="[&_tr]:border-b">
                         <tr className="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
                           <th className="h-12 px-4 text-left align-middle font-medium">Nome</th>
+                          <th className="h-12 px-4 text-left align-middle font-medium">WhatsApp</th>
                           <th className="h-12 px-4 text-left align-middle font-medium">Estado</th>
                           <th className="h-12 px-4 text-left align-middle font-medium">Evento</th>
                           <th className="h-12 px-4 text-left align-middle font-medium">Entrada</th>
@@ -108,6 +109,7 @@ export default function AdminDashboard() {
                         {inquiries.map((inquiry) => (
                           <tr key={inquiry.id} className="border-b transition-colors hover:bg-muted/50">
                             <td className="p-4 align-middle">{inquiry.name}</td>
+                            <td className="p-4 align-middle">{inquiry.whatsapp}</td>
                             <td className="p-4 align-middle">{inquiry.state}</td>
                             <td className="p-4 align-middle">{inquiry.packageName}</td>
                             <td className="p-4 align-middle">{inquiry.checkIn}</td>

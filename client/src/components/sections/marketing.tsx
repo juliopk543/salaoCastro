@@ -84,6 +84,7 @@ export function Marketing() {
     checkIn: "",
     checkOut: "",
     guests: "",
+    whatsapp: "",
     message: ""
   });
 
@@ -100,6 +101,7 @@ export function Marketing() {
         `*Nome:* ${formData.name}\n` +
         `*De onde:* ${formData.state}\n` +
         `*Evento:* ${formData.eventType || pkgName}\n` +
+        `*WhatsApp:* ${formData.whatsapp}\n` +
         `*Convidados:* ${formData.guests}\n` +
         `*Entrada:* ${formData.checkIn}\n` +
         `*Saída:* ${formData.checkOut}\n` +
@@ -124,6 +126,7 @@ export function Marketing() {
         `*Nome:* ${formData.name}\n` +
         `*De onde:* ${formData.state}\n` +
         `*Evento:* ${formData.eventType || pkgName}\n` +
+        `*WhatsApp:* ${formData.whatsapp}\n` +
         `*Convidados:* ${formData.guests}\n` +
         `*Entrada:* ${formData.checkIn}\n` +
         `*Saída:* ${formData.checkOut}\n` +
@@ -260,6 +263,18 @@ export function Marketing() {
                                   ))}
                                 </SelectContent>
                               </Select>
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">WhatsApp</label>
+                              <Input 
+                                required
+                                type="tel"
+                                placeholder="(00) 00000-0000" 
+                                className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                                value={formData.whatsapp}
+                                onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+                              />
                             </div>
 
                             <div className="space-y-1.5">
