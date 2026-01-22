@@ -1,5 +1,5 @@
-import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton } from "@/components/ui/sidebar";
-import { LayoutDashboard, Users, Calendar, Settings, LogOut } from "lucide-react";
+import { SidebarProvider, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarTrigger } from "@/components/ui/sidebar";
+import { LayoutDashboard, Users, Calendar, Settings, LogOut, Menu } from "lucide-react";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Inquiry } from "@shared/schema";
@@ -54,9 +54,12 @@ export default function AdminDashboard() {
             </SidebarGroup>
           </SidebarContent>
         </Sidebar>
-        <main className="flex-1 p-8 overflow-auto">
+        <main className="flex-1 p-4 md:p-8 overflow-auto">
           <div className="max-w-6xl mx-auto">
-            <h1 className="text-3xl font-bold mb-8">Bem-vindo, Administrador</h1>
+            <header className="flex items-center gap-4 mb-8">
+              <SidebarTrigger className="md:hidden" />
+              <h1 className="text-2xl md:text-3xl font-bold">Bem-vindo, Administrador</h1>
+            </header>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <Card>
