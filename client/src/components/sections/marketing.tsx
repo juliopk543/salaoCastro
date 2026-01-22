@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -55,6 +56,27 @@ const packages = [
 ];
 
 export function Marketing() {
+  const [formData, setFormData] = useState({
+    name: "",
+    whatsapp: "",
+    eventType: "",
+    date: "",
+    message: ""
+  });
+
+  const handleWhatsAppRedirect = (pkgName: string) => {
+    const text = `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
+      `*Pacote:* ${pkgName}\n` +
+      `*Nome:* ${formData.name}\n` +
+      `*WhatsApp:* ${formData.whatsapp}\n` +
+      `*Evento:* ${formData.eventType || pkgName}\n` +
+      `*Data:* ${formData.date}\n` +
+      `*Mensagem:* ${formData.message}`;
+    
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://wa.me/55082993385163?text=${encodedText}`, '_blank');
+  };
+
   return (
     <section id="marketing" className="py-20 bg-muted/30">
       <div className="container mx-auto px-4">
@@ -149,21 +171,42 @@ export function Marketing() {
                         </DialogTitle>
                       </DialogHeader>
 
-                      <form className="space-y-5 pt-6 relative z-10" onSubmit={(e) => e.preventDefault()}>
+                      <form 
+                        className="space-y-5 pt-6 relative z-10" 
+                        onSubmit={(e) => {
+                          e.preventDefault();
+                          handleWhatsAppRedirect(pkg.name);
+                        }}
+                      >
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div className="space-y-1.5">
                             <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Nome</label>
-                            <Input placeholder="Seu nome" className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4" />
+                            <Input 
+                              required
+                              placeholder="Seu nome" 
+                              className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                              value={formData.name}
+                              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                            />
                           </div>
                           <div className="space-y-1.5">
                             <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">WhatsApp</label>
-                            <Input placeholder="(00) 00000-0000" className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4" />
+                            <Input 
+                              required
+                              placeholder="(00) 00000-0000" 
+                              className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                              value={formData.whatsapp}
+                              onChange={(e) => setFormData({ ...formData, whatsapp: e.target.value })}
+                            />
                           </div>
                         </div>
 
                         <div className="space-y-1.5">
                           <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Tipo de Evento</label>
-                          <Select defaultValue={pkg.name.toLowerCase().replace(/\s/g, '')}>
+                          <Select 
+                            defaultValue={pkg.name.toLowerCase().replace(/\s/g, '')}
+                            onValueChange={(value) => setFormData({ ...formData, eventType: value })}
+                          >
                             <SelectTrigger className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4">
                               <SelectValue placeholder="Selecione..." />
                             </SelectTrigger>
@@ -181,15 +224,29 @@ export function Marketing() {
                         
                         <div className="space-y-1.5">
                           <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data Pretendida</label>
-                          <Input type="date" className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4" />
+                          <Input 
+                            required
+                            type="date" 
+                            className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                            value={formData.date}
+                            onChange={(e) => setFormData({ ...formData, date: e.target.value })}
+                          />
                         </div>
 
                         <div className="space-y-1.5">
                           <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Mensagem (Opcional)</label>
-                          <Textarea placeholder="Quantas pessoas? Alguma dúvida específica?" className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all min-h-[100px] p-4 resize-none" />
+                          <Textarea 
+                            placeholder="Quantas pessoas? Alguma dúvida específica?" 
+                            className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all min-h-[100px] p-4 resize-none"
+                            value={formData.message}
+                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                          />
                         </div>
 
-                        <Button className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-7 text-lg rounded-2xl shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-0.98">
+                        <Button 
+                          type="submit"
+                          className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-7 text-lg rounded-2xl shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-0.98"
+                        >
                           Enviar Solicitação
                         </Button>
                       </form>
