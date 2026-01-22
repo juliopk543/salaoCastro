@@ -31,17 +31,6 @@ export function Contact() {
                 <div>
                   <h4 className="font-bold text-foreground">Telefone / WhatsApp</h4>
                   <p className="text-muted-foreground">82 993385163</p>
-                  <p className="text-sm text-secondary font-medium mt-1">Atendimento 24h</p>
-                </div>
-              </div>
-              
-              <div className="flex items-start gap-4">
-                <div className="bg-primary/10 p-3 rounded-full text-primary">
-                  <Mail className="w-6 h-6" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-foreground">Email</h4>
-                  <p className="text-muted-foreground">reservas@espacocastro.com.br</p>
                 </div>
               </div>
 
@@ -51,8 +40,7 @@ export function Contact() {
                 </div>
                 <div>
                   <h4 className="font-bold text-foreground">Localização</h4>
-                  <p className="text-muted-foreground">Rua das Palmeiras, 123 - Bairro Jardim</p>
-                  <p className="text-muted-foreground">São Paulo - SP</p>
+                  <p className="text-muted-foreground">Coruripe-AL / Loteamento por trás da pousada São João</p>
                 </div>
               </div>
             </div>
