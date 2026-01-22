@@ -1,4 +1,4 @@
-import { LayoutDashboard, Users, LogOut, Building2, Menu } from "lucide-react";
+import { LayoutDashboard, Users, LogOut, Building2, Menu, CalendarDays } from "lucide-react";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Inquiry } from "@shared/schema";
@@ -6,6 +6,8 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Separator } from "@/components/ui/separator";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { useState, useMemo } from "react";
 
 function AdminHeader({ handleLogout }: { handleLogout: () => void }) {
   const [location] = useLocation();
@@ -37,11 +39,44 @@ function AdminHeader({ handleLogout }: { handleLogout: () => void }) {
 
 export default function AdminDashboard() {
   const [, setLocation] = useLocation();
+  const [selectedYear, setSelectedYear] = useState<string>("all");
+  const [selectedMonth, setSelectedMonth] = useState<string>("all");
 
   const { data: inquiries, isLoading } = useQuery<Inquiry[]>({
     queryKey: ["/api/inquiries"],
     refetchInterval: 5000,
   });
+
+  const years = useMemo(() => {
+    if (!inquiries) return [];
+    const uniqueYears = new Set(inquiries.map(i => i.checkIn.split('/')[2]));
+    return Array.from(uniqueYears).sort((a, b) => b.localeCompare(a));
+  }, [inquiries]);
+
+  const months = [
+    { value: "01", label: "Janeiro" },
+    { value: "02", label: "Fevereiro" },
+    { value: "03", label: "Março" },
+    { value: "04", label: "Abril" },
+    { value: "05", label: "Maio" },
+    { value: "06", label: "Junho" },
+    { value: "07", label: "Julho" },
+    { value: "08", label: "Agosto" },
+    { value: "09", label: "Setembro" },
+    { value: "10", label: "Outubro" },
+    { value: "11", label: "Novembro" },
+    { value: "12", label: "Dezembro" },
+  ];
+
+  const filteredInquiries = useMemo(() => {
+    if (!inquiries) return [];
+    return inquiries.filter(inquiry => {
+      const [, month, year] = inquiry.checkIn.split('/');
+      const yearMatch = selectedYear === "all" || year === selectedYear;
+      const monthMatch = selectedMonth === "all" || month === selectedMonth;
+      return yearMatch && monthMatch;
+    });
+  }, [inquiries, selectedYear, selectedMonth]);
 
   const handleLogout = () => {
     localStorage.removeItem("isAdmin");
@@ -88,10 +123,41 @@ export default function AdminDashboard() {
           </div>
 
           <Card className="shadow-2xl shadow-slate-200/50 border-none bg-white rounded-[2.5rem] overflow-hidden">
-            <CardHeader className="border-b border-slate-100 p-6 md:p-8 flex flex-row items-center justify-between bg-slate-50/30">
+            <CardHeader className="border-b border-slate-100 p-6 md:p-8 flex flex-col sm:flex-row items-start sm:items-center justify-between bg-slate-50/30 gap-6">
               <div>
                 <CardTitle className="text-xl md:text-2xl font-black text-[#1a1f36] tracking-tight">Últimas Solicitações</CardTitle>
                 <p className="text-xs md:text-sm text-[#4f566b] mt-1 font-medium">Lista detalhada dos últimos contatos recebidos.</p>
+              </div>
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <Select value={selectedYear} onValueChange={setSelectedYear}>
+                  <SelectTrigger className="h-12 w-full sm:w-[130px] rounded-2xl bg-white border-none shadow-sm font-bold text-[#1a1f36]">
+                    <div className="flex items-center gap-2">
+                      <CalendarDays className="size-4 text-[#0f52ba]" />
+                      <SelectValue placeholder="Ano" />
+                    </div>
+                  </SelectTrigger>
+                  <SelectContent className="rounded-2xl border-none shadow-xl">
+                    <SelectItem value="all" className="font-bold">Todos os Anos</SelectItem>
+                    {years.map(year => (
+                      <SelectItem key={year} value={year} className="font-bold">{year}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+
+                <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                  <SelectTrigger className="h-12 w-full sm:w-[150px] rounded-2xl bg-white border-none shadow-sm font-bold text-[#1a1f36]">
+                    <div className="flex items-center gap-2">
+                      <CalendarDays className="size-4 text-[#0f52ba]" />
+                      <SelectValue placeholder="Mês" />
+                    </div>
+                  </SelectTrigger>
+                  <SelectContent className="rounded-2xl border-none shadow-xl">
+                    <SelectItem value="all" className="font-bold">Todos os Meses</SelectItem>
+                    {months.map(month => (
+                      <SelectItem key={month.value} value={month.value} className="font-bold">{month.label}</SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
               </div>
             </CardHeader>
             <CardContent className="p-0">
@@ -100,14 +166,16 @@ export default function AdminDashboard() {
                   <Skeleton className="h-16 md:h-20 w-full rounded-2xl md:rounded-3xl" />
                   <Skeleton className="h-16 md:h-20 w-full rounded-2xl md:rounded-3xl" />
                 </div>
-              ) : !inquiries || inquiries.length === 0 ? (
+              ) : !filteredInquiries || filteredInquiries.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-20 md:py-32 px-6 md:px-10 text-center">
                   <div className="p-6 md:p-8 bg-slate-100 rounded-2xl md:rounded-[2.5rem] mb-4 md:mb-6">
                     <Users className="size-10 md:size-12 text-slate-300" />
                   </div>
                   <h3 className="text-xl md:text-2xl font-black text-[#1a1f36]">Nenhuma solicitação</h3>
                   <p className="text-sm md:text-[#4f566b] max-w-sm mt-2 font-medium text-[#4f566b]">
-                    Assim que um cliente preencher o formulário no site, os detalhes aparecerão aqui em tempo real.
+                    {selectedYear !== "all" || selectedMonth !== "all" 
+                      ? "Nenhum resultado encontrado para os filtros selecionados."
+                      : "Assim que um cliente preencher o formulário no site, os detalhes aparecerão aqui em tempo real."}
                   </p>
                 </div>
               ) : (
@@ -127,7 +195,7 @@ export default function AdminDashboard() {
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-slate-50">
-                        {inquiries.map((inquiry) => (
+                        {filteredInquiries.map((inquiry) => (
                           <tr key={inquiry.id} className="transition-all hover:bg-slate-50/30 group">
                             <td className="p-8 align-middle font-black text-[#1a1f36] text-base">{inquiry.name}</td>
                             <td className="p-8 align-middle">
@@ -178,7 +246,7 @@ export default function AdminDashboard() {
 
                   {/* Mobile List View */}
                   <div className="md:hidden divide-y divide-slate-100">
-                    {inquiries.map((inquiry) => (
+                    {filteredInquiries.map((inquiry) => (
                       <div key={inquiry.id} className="p-6 space-y-4 hover:bg-slate-50/30 transition-all">
                         <div className="flex justify-between items-start gap-4">
                           <div className="flex flex-col gap-1">
