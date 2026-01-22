@@ -62,9 +62,7 @@ export function Features() {
           <span className="text-secondary font-bold tracking-wider uppercase text-sm mb-2 block">
             Nossa Estrutura Real
           </span>
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">
-            Espaços Pensados para Você
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-4">Espaços Pensados para a sua família.</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Veja fotos reais do nosso espaço e imagine sua próxima celebração aqui no Espaço Castro.
           </p>
