@@ -57,26 +57,26 @@ export function Navbar() {
             </a>
           ))}
           
-          <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
-            <DialogTrigger asChild>
-              <Button 
-                variant="ghost"
-                className={cn(
-                  "font-medium transition-colors hover:text-secondary",
-                  isScrolled ? "text-[#08d4e0e6]" : "text-white/90"
-                )}
-              >
-                <Lock className="w-4 h-4 mr-2" />
-                Administrador
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[425px]">
-              <DialogHeader>
-                <DialogTitle>Acesso Administrativo</DialogTitle>
-              </DialogHeader>
-              <AdminLoginForm />
-            </DialogContent>
-          </Dialog>
+          <div className="relative">
+            <Button 
+              variant="ghost"
+              className={cn(
+                "font-medium transition-colors hover:text-secondary",
+                isScrolled ? "text-[#08d4e0e6]" : "text-white/90"
+              )}
+              onClick={() => setIsLoginOpen(!isLoginOpen)}
+            >
+              <Lock className="w-4 h-4 mr-2" />
+              Administrador
+            </Button>
+
+            {isLoginOpen && (
+              <div className="absolute right-0 mt-4 p-6 w-[320px] rounded-[2rem] bg-white shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
+                <h3 className="text-lg font-black text-[#1a1f36] mb-4 tracking-tight">Acesso Restrito</h3>
+                <AdminLoginForm onSuccess={() => setIsLoginOpen(false)} />
+              </div>
+            )}
+          </div>
 
           </div>
 
@@ -99,20 +99,23 @@ export function Navbar() {
                 </a>
               ))}
               
-              <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
-                <DialogTrigger asChild>
-                  <Button variant="outline" className="w-full">
-                    <Lock className="w-4 h-4 mr-2" />
-                    Administrador
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[425px]">
-                  <DialogHeader>
-                    <DialogTitle>Acesso Administrativo</DialogTitle>
-                  </DialogHeader>
-                  <AdminLoginForm />
-                </DialogContent>
-              </Dialog>
+              <div className="flex flex-col gap-2">
+                <Button 
+                  variant="outline" 
+                  className="w-full h-12 rounded-2xl font-bold border-slate-200"
+                  onClick={() => setIsLoginOpen(!isLoginOpen)}
+                >
+                  <Lock className="w-4 h-4 mr-2" />
+                  Administrador
+                </Button>
+                
+                {isLoginOpen && (
+                  <div className="mt-2 p-5 rounded-[2rem] border border-slate-100 bg-slate-50/50 animate-in fade-in slide-in-from-top-4 duration-300">
+                    <h3 className="text-sm font-black text-[#1a1f36] mb-4 tracking-tight uppercase tracking-widest opacity-60">Acesso Administrativo</h3>
+                    <AdminLoginForm onSuccess={() => setIsLoginOpen(false)} />
+                  </div>
+                )}
+              </div>
 
               </nav>
           </SheetContent>

@@ -14,7 +14,7 @@ const loginSchema = z.object({
 
 type LoginValues = z.infer<typeof loginSchema>;
 
-export function AdminLoginForm() {
+export function AdminLoginForm({ onSuccess }: { onSuccess?: () => void }) {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
   const form = useForm<LoginValues>({
@@ -33,6 +33,7 @@ export function AdminLoginForm() {
         title: "Login realizado com sucesso",
         description: "Bem-vindo ao painel administrativo.",
       });
+      onSuccess?.();
       setLocation("/admin");
     } else {
       toast({
@@ -45,17 +46,17 @@ export function AdminLoginForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3">
         <FormField
           control={form.control}
           name="username"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Usuário</FormLabel>
+            <FormItem className="space-y-1">
+              <FormLabel className="text-[10px] font-black uppercase tracking-widest opacity-60">Usuário</FormLabel>
               <FormControl>
-                <Input placeholder="admin" {...field} />
+                <Input placeholder="admin" className="h-9 text-xs rounded-xl border-slate-200" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-[10px]" />
             </FormItem>
           )}
         />
@@ -63,16 +64,16 @@ export function AdminLoginForm() {
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
-              <FormLabel>Senha</FormLabel>
+            <FormItem className="space-y-1">
+              <FormLabel className="text-[10px] font-black uppercase tracking-widest opacity-60">Senha</FormLabel>
               <FormControl>
-                <Input type="password" placeholder="••••••••" {...field} />
+                <Input type="password" placeholder="••••••••" className="h-9 text-xs rounded-xl border-slate-200" {...field} />
               </FormControl>
-              <FormMessage />
+              <FormMessage className="text-[10px]" />
             </FormItem>
           )}
         />
-        <Button type="submit" className="w-full bg-secondary hover:bg-secondary/90">
+        <Button type="submit" className="w-full h-9 text-xs font-bold rounded-xl bg-[#0f52ba] hover:bg-[#0f52ba]/90 text-white mt-2">
           Entrar
         </Button>
       </form>
