@@ -117,19 +117,6 @@ export default function AdminDashboard() {
                 <p className="text-xs text-[#4f566b] mt-2 font-bold uppercase tracking-tighter opacity-70">Desde o início</p>
               </CardContent>
             </Card>
-            
-            <Card className="shadow-xl shadow-slate-200/50 border-none bg-white rounded-3xl overflow-hidden group hover:scale-[1.02] transition-all duration-300">
-              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-4">
-                <CardTitle className="text-sm font-black text-[#4f566b] uppercase tracking-widest">Novos Contatos</CardTitle>
-                <div className="p-3 bg-secondary/10 rounded-2xl group-hover:bg-secondary group-hover:text-white transition-colors duration-300">
-                  <Users className="size-5" />
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="text-4xl font-black text-[#1a1f36]">{inquiries?.length || 0}</div>
-                <p className="text-xs text-[#4f566b] mt-2 font-bold uppercase tracking-tighter opacity-70">Aguardando retorno</p>
-              </CardContent>
-            </Card>
           </div>
 
           <Card className="shadow-2xl shadow-slate-200/50 border-none bg-white rounded-[2.5rem] overflow-hidden">
