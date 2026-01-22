@@ -22,7 +22,7 @@ function AdminHeader({ handleLogout }: { handleLogout: () => void }) {
         </div>
       </div>
 
-      <nav className="hidden lg:flex items-center gap-1 bg-slate-100 p-1 rounded-[2rem]">
+      <nav className="flex items-center gap-1 bg-slate-100 p-1 rounded-[2rem]">
         <button 
           className={`h-10 px-6 rounded-[1.8rem] font-bold text-xs transition-all active:scale-95 ${
             location === "/admin" 
@@ -51,58 +51,6 @@ function AdminHeader({ handleLogout }: { handleLogout: () => void }) {
           <LogOut className="size-4" />
           <span className="hidden sm:inline">Sair</span>
         </button>
-        
-        <Sheet>
-          <SheetTrigger asChild>
-            <button className="lg:hidden size-10 flex items-center justify-center rounded-xl bg-slate-100 text-[#1a1f36] active:scale-95 hover:bg-slate-200 transition-colors">
-              <Menu className="size-5" />
-            </button>
-          </SheetTrigger>
-          <SheetContent side="right" className="w-[280px] bg-white p-0 border-l">
-            <div className="flex flex-col h-full bg-[#f0f1f5]">
-              <div className="bg-white p-6 border-b">
-                <div className="flex items-center gap-3">
-                  <div className="flex aspect-square size-10 items-center justify-center rounded-xl bg-[#0f52ba] text-white">
-                    <Building2 className="size-6" />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="font-black text-base text-[#1a1f36] leading-none">Espaço Castro</span>
-                    <span className="text-[8px] text-[#0f52ba] font-black uppercase mt-1">Admin</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-3 p-4">
-                <button className={`h-14 px-6 rounded-2xl font-bold flex items-center gap-4 transition-all ${
-                  location === "/admin" 
-                    ? "bg-[#0f52ba] text-white shadow-lg shadow-[#0f52ba]/20" 
-                    : "bg-white text-[#4f566b] shadow-sm"
-                }`}>
-                  <LayoutDashboard className="size-5" />
-                  <span>Dashboard</span>
-                </button>
-                <button className={`h-14 px-6 rounded-2xl font-bold flex items-center gap-4 transition-all ${
-                  location === "/admin/solicitacoes" 
-                    ? "bg-[#0f52ba] text-white shadow-lg shadow-[#0f52ba]/20" 
-                    : "bg-white text-[#4f566b] shadow-sm"
-                }`}>
-                  <Users className="size-5" />
-                  <span>Solicitações</span>
-                </button>
-              </div>
-
-              <div className="mt-auto p-4 border-t bg-white">
-                <button 
-                  onClick={handleLogout}
-                  className="w-full h-14 px-6 rounded-2xl bg-white border-2 border-[#cc3333] text-[#cc3333] font-bold flex items-center justify-center gap-3 transition-all active:scale-95"
-                >
-                  <LogOut className="size-5" />
-                  <span>Sair da Conta</span>
-                </button>
-              </div>
-            </div>
-          </SheetContent>
-        </Sheet>
       </div>
     </header>
   );
