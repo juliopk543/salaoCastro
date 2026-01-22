@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
@@ -13,20 +13,9 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "framer-motion";
+import useEmblaCarousel from 'embla-carousel-react';
 
 const packages = [
-  {
-    name: "Day Use",
-    description: "Perfeito para curtir um dia de sol com a família.",
-    price: "Consulte",
-    features: [
-      "Acesso das 9h às 18h",
-      "Piscina liberada",
-      "Área de churrasco",
-      "Até 15 pessoas"
-    ],
-    highlight: false
-  },
   {
     name: "Fim de Semana",
     description: "Pacote completo de Sexta a Domingo.",
@@ -39,6 +28,18 @@ const packages = [
       "Ideal para retiro familiar"
     ],
     highlight: true
+  },
+  {
+    name: "Day Use",
+    description: "Perfeito para curtir um dia de sol com a família.",
+    price: "Consulte",
+    features: [
+      "Acesso das 9h às 18h",
+      "Piscina liberada",
+      "Área de churrasco",
+      "Até 15 pessoas"
+    ],
+    highlight: false
   },
   {
     name: "Eventos",
@@ -56,6 +57,14 @@ const packages = [
 ];
 
 export function Marketing() {
+  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+    align: 'center',
+    containScroll: 'trimSnaps',
+    breakpoints: {
+      '(min-width: 768px)': { active: false }
+    }
+  });
+
   const [formData, setFormData] = useState({
     name: "",
     eventType: "",
@@ -80,7 +89,7 @@ export function Marketing() {
   };
 
   return (
-    <section id="marketing" className="py-20 bg-muted/30">
+    <section id="marketing" className="py-20 bg-muted/30 overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <span className="text-secondary font-bold tracking-wider uppercase text-sm mb-2 block">
@@ -95,181 +104,185 @@ export function Marketing() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          {packages.map((pkg, i) => (
-            <Card 
-              key={i} 
-              className={`relative border-none flex flex-col ${
-                pkg.highlight 
-                  ? "shadow-2xl scale-105 z-10 bg-primary text-white" 
-                  : "shadow-lg bg-white"
-              }`}
-            >
-              {pkg.highlight && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground text-sm font-bold px-4 py-1 rounded-full shadow-md">
-                  Mais Popular
-                </div>
-              )}
-              
-              <CardHeader className="p-8 text-center pb-2">
-                <h3 className={`text-2xl font-heading font-bold mb-2 ${pkg.highlight ? "text-white" : "text-primary"}`}>
-                  {pkg.name}
-                </h3>
-                <p className={`text-sm ${pkg.highlight ? "text-white/80" : "text-muted-foreground"}`}>
-                  {pkg.description}
-                </p>
-              </CardHeader>
-              
-              <CardContent className="p-8 pt-4 flex-1">
-                <div className="flex justify-center items-baseline mb-8">
-                  <span className={`text-3xl font-bold ${pkg.highlight ? "text-secondary" : "text-foreground"}`}>
-                    {pkg.price}
-                  </span>
-                </div>
-                
-                <ul className="space-y-4">
-                  {pkg.features.map((feature, f) => (
-                    <li key={f} className="flex items-center gap-3">
-                      <div className={`rounded-full p-1 ${pkg.highlight ? "bg-white/20" : "bg-primary/10"}`}>
-                        <Check className={`w-3 h-3 ${pkg.highlight ? "text-secondary" : "text-primary"}`} />
-                      </div>
-                      <span className={`text-sm ${pkg.highlight ? "text-white/90" : "text-muted-foreground"}`}>
-                        {feature}
+        {/* Desktop Grid / Mobile Carousel */}
+        <div className="max-w-5xl mx-auto" ref={emblaRef}>
+          <div className="flex md:grid md:grid-cols-3 md:gap-8">
+            {packages.map((pkg, i) => (
+              <div key={i} className="flex-[0_0_85%] min-w-0 px-4 md:px-0 md:flex-1">
+                <Card 
+                  className={`relative border-none h-full flex flex-col transition-all duration-300 ${
+                    pkg.highlight 
+                      ? "shadow-2xl md:scale-105 z-10 bg-primary text-white" 
+                      : "shadow-lg bg-white"
+                  }`}
+                >
+                  {pkg.highlight && (
+                    <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-secondary text-secondary-foreground text-sm font-bold px-4 py-1 rounded-full shadow-md z-20">
+                      Mais Popular
+                    </div>
+                  )}
+                  
+                  <CardHeader className="p-8 text-center pb-2">
+                    <h3 className={`text-2xl font-heading font-bold mb-2 ${pkg.highlight ? "text-white" : "text-primary"}`}>
+                      {pkg.name}
+                    </h3>
+                    <p className={`text-sm ${pkg.highlight ? "text-white/80" : "text-muted-foreground"}`}>
+                      {pkg.description}
+                    </p>
+                  </CardHeader>
+                  
+                  <CardContent className="p-8 pt-4 flex-1">
+                    <div className="flex justify-center items-baseline mb-8">
+                      <span className={`text-3xl font-bold ${pkg.highlight ? "text-secondary" : "text-foreground"}`}>
+                        {pkg.price}
                       </span>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-              
-              <CardFooter className="p-8 pt-0">
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <Button 
-                      className={`w-full font-bold rounded-full py-6 ${
-                        pkg.highlight 
-                          ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground" 
-                          : "bg-primary hover:bg-primary/90 text-white"
-                      }`}
-                    >
-                      Solicitar Orçamento
-                    </Button>
-                  </DialogTrigger>
-                  <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed bottom-0 top-[auto] translate-y-0">
-                    <motion.div 
-                      initial={{ opacity: 0, y: "100%" }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: "100%" }}
-                      transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                      className="bg-white rounded-t-[2.5rem] rounded-b-none p-8 md:p-10 shadow-[0_-16px_48px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden border-t border-primary/5 w-full"
-                    >
-                      {/* Decorative elements */}
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full -mr-16 -mt-16 blur-2xl" />
-                      <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full -ml-16 -mb-16 blur-2xl" />
-
-                      <DialogHeader className="relative z-10">
-                        <DialogTitle className="text-3xl font-heading text-primary leading-tight">
-                          Solicitar Orçamento <br/>
-                          <span className="text-secondary text-xl font-medium">— {pkg.name}</span>
-                        </DialogTitle>
-                      </DialogHeader>
-
-                      <form 
-                        className="space-y-5 pt-6 relative z-10" 
-                        onSubmit={(e) => {
-                          e.preventDefault();
-                          handleWhatsAppRedirect(pkg.name);
-                        }}
-                      >
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Nome</label>
-                          <Input 
-                            required
-                            placeholder="Seu nome" 
-                            className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Tipo de Evento</label>
-                          <Select 
-                            defaultValue={pkg.name.toLowerCase().replace(/\s/g, '')}
-                            onValueChange={(value) => setFormData({ ...formData, eventType: value })}
-                          >
-                            <SelectTrigger className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4">
-                              <SelectValue placeholder="Selecione..." />
-                            </SelectTrigger>
-                            <SelectContent className="rounded-xl border-muted shadow-xl">
-                              <SelectItem value="aniversario">Aniversário</SelectItem>
-                              <SelectItem value="casamento">Casamento</SelectItem>
-                              <SelectItem value="churrasco">Churrasco/Confraternização</SelectItem>
-                              <SelectItem value="dayuse">Day Use (Lazer)</SelectItem>
-                              <SelectItem value="fimdesemana">Fim de Semana</SelectItem>
-                              <SelectItem value="corporativo">Evento Corporativo</SelectItem>
-                              <SelectItem value="outro">Outro</SelectItem>
-                            </SelectContent>
-                          </Select>
-                        </div>
-                        
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div className="space-y-1.5">
-                            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data de Entrada</label>
-                            <Input 
-                              required
-                              type="date" 
-                              className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
-                              value={formData.checkIn}
-                              onChange={(e) => setFormData({ ...formData, checkIn: e.target.value })}
-                            />
+                    </div>
+                    
+                    <ul className="space-y-4">
+                      {pkg.features.map((feature, f) => (
+                        <li key={f} className="flex items-center gap-3">
+                          <div className={`rounded-full p-1 ${pkg.highlight ? "bg-white/20" : "bg-primary/10"}`}>
+                            <Check className={`w-3 h-3 ${pkg.highlight ? "text-secondary" : "text-primary"}`} />
                           </div>
-                          <div className="space-y-1.5">
-                            <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data de Saída</label>
-                            <Input 
-                              required
-                              type="date" 
-                              className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
-                              value={formData.checkOut}
-                              onChange={(e) => setFormData({ ...formData, checkOut: e.target.value })}
-                            />
-                          </div>
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Quantidade de Convidados</label>
-                          <Input 
-                            required
-                            type="number"
-                            placeholder="Ex: 50" 
-                            className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
-                            value={formData.guests}
-                            onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
-                          />
-                        </div>
-
-                        <div className="space-y-1.5">
-                          <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Mensagem (Opcional)</label>
-                          <Textarea 
-                            placeholder="Quantas pessoas? Alguma dúvida específica?" 
-                            className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all min-h-[100px] p-4 resize-none"
-                            value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                          />
-                        </div>
-
+                          <span className={`text-sm ${pkg.highlight ? "text-white/90" : "text-muted-foreground"}`}>
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                  
+                  <CardFooter className="p-8 pt-0 mt-auto">
+                    <Dialog>
+                      <DialogTrigger asChild>
                         <Button 
-                          type="submit"
-                          className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-7 text-lg rounded-2xl shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-0.98"
+                          className={`w-full font-bold rounded-full py-6 ${
+                            pkg.highlight 
+                              ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground" 
+                              : "bg-primary hover:bg-primary/90 text-white"
+                          }`}
                         >
-                          Enviar Solicitação
+                          Solicitar Orçamento
                         </Button>
-                      </form>
-                    </motion.div>
-                  </DialogContent>
-                </Dialog>
-              </CardFooter>
-            </Card>
-          ))}
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed bottom-0 top-[auto] translate-y-0">
+                        <motion.div 
+                          initial={{ opacity: 0, y: "100%" }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: "100%" }}
+                          transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                          className="bg-white rounded-t-[2.5rem] rounded-b-none p-8 md:p-10 shadow-[0_-16px_48px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden border-t border-primary/5 w-full"
+                        >
+                          {/* Decorative elements */}
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full -mr-16 -mt-16 blur-2xl" />
+                          <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full -ml-16 -mb-16 blur-2xl" />
+
+                          <DialogHeader className="relative z-10">
+                            <DialogTitle className="text-3xl font-heading text-primary leading-tight">
+                              Solicitar Orçamento <br/>
+                              <span className="text-secondary text-xl font-medium">— {pkg.name}</span>
+                            </DialogTitle>
+                          </DialogHeader>
+
+                          <form 
+                            className="space-y-5 pt-6 relative z-10" 
+                            onSubmit={(e) => {
+                              e.preventDefault();
+                              handleWhatsAppRedirect(pkg.name);
+                            }}
+                          >
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Nome</label>
+                              <Input 
+                                required
+                                placeholder="Seu nome" 
+                                className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                                value={formData.name}
+                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                              />
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Tipo de Evento</label>
+                              <Select 
+                                defaultValue={pkg.name.toLowerCase().replace(/\s/g, '')}
+                                onValueChange={(value) => setFormData({ ...formData, eventType: value })}
+                              >
+                                <SelectTrigger className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4">
+                                  <SelectValue placeholder="Selecione..." />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-xl border-muted shadow-xl">
+                                  <SelectItem value="aniversario">Aniversário</SelectItem>
+                                  <SelectItem value="casamento">Casamento</SelectItem>
+                                  <SelectItem value="churrasco">Churrasco/Confraternização</SelectItem>
+                                  <SelectItem value="dayuse">Day Use (Lazer)</SelectItem>
+                                  <SelectItem value="fimdesemana">Fim de Semana</SelectItem>
+                                  <SelectItem value="corporativo">Evento Corporativo</SelectItem>
+                                  <SelectItem value="outro">Outro</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="space-y-1.5">
+                                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data de Entrada</label>
+                                <Input 
+                                  required
+                                  type="date" 
+                                  className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                                  value={formData.checkIn}
+                                  onChange={(e) => setFormData({ ...formData, checkIn: e.target.value })}
+                                />
+                              </div>
+                              <div className="space-y-1.5">
+                                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data de Saída</label>
+                                <Input 
+                                  required
+                                  type="date" 
+                                  className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                                  value={formData.checkOut}
+                                  onChange={(e) => setFormData({ ...formData, checkOut: e.target.value })}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Quantidade de Convidados</label>
+                              <Input 
+                                required
+                                type="number"
+                                placeholder="Ex: 50" 
+                                className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                                value={formData.guests}
+                                onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
+                              />
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Mensagem (Opcional)</label>
+                              <Textarea 
+                                placeholder="Quantas pessoas? Alguma dúvida específica?" 
+                                className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all min-h-[100px] p-4 resize-none"
+                                value={formData.message}
+                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                              />
+                            </div>
+
+                            <Button 
+                              type="submit"
+                              className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-7 text-lg rounded-2xl shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-0.98"
+                            >
+                              Enviar Solicitação
+                            </Button>
+                          </form>
+                        </motion.div>
+                      </DialogContent>
+                    </Dialog>
+                  </CardFooter>
+                </Card>
+              </div>
+            ))}
+          </div>
         </div>
         
         {/* Extra Marketing Highlight */}
