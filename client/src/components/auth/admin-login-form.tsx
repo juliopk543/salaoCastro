@@ -24,7 +24,8 @@ export function AdminLoginForm() {
   });
 
   function onSubmit(values: LoginValues) {
-    if (values.username === "Castro123" && values.password === "123123") {
+    console.log("Tentativa de login:", values);
+    if (values.username.trim() === "Castro123" && values.password.trim() === "123123") {
       toast({
         title: "Login realizado com sucesso",
         description: "Bem-vindo ao painel administrativo.",

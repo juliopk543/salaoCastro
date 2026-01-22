@@ -99,7 +99,7 @@ export function Navbar() {
                 </a>
               ))}
               
-              <Dialog>
+              <Dialog open={isLoginOpen} onOpenChange={setIsLoginOpen}>
                 <DialogTrigger asChild>
                   <Button variant="outline" className="w-full">
                     <Lock className="w-4 h-4 mr-2" />
