@@ -25,23 +25,32 @@ export function AdminLoginForm({ onSuccess }: { onSuccess?: () => void }) {
     },
   });
 
-  function onSubmit(values: LoginValues) {
-    console.log("Tentativa de login:", values);
-    if (values.username.trim() === "Castro123" && values.password.trim() === "123123") {
-      localStorage.setItem("isAdmin", "true");
+  async function onSubmit(values: LoginValues) {
+    try {
+      const response = await apiRequest("POST", "/api/admin/login", values);
+      const data = await response.json();
+
+      if (data.success) {
+        localStorage.setItem("isAdmin", "true");
+        toast({
+          title: "Login realizado com sucesso",
+          description: "Bem-vindo ao painel administrativo.",
+        });
+        onSuccess?.();
+        setTimeout(() => {
+          setLocation("/admin");
+        }, 100);
+      } else {
+        toast({
+          title: "Erro de autenticação",
+          description: data.message || "Usuário ou senha inválidos.",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
       toast({
-        title: "Login realizado com sucesso",
-        description: "Bem-vindo ao painel administrativo.",
-      });
-      onSuccess?.();
-      // Short delay to allow state changes to settle if needed
-      setTimeout(() => {
-        setLocation("/admin");
-      }, 100);
-    } else {
-      toast({
-        title: "Erro de autenticação",
-        description: "Usuário ou senha inválidos.",
+        title: "Erro de conexão",
+        description: "Não foi possível validar as credenciais.",
         variant: "destructive",
       });
     }

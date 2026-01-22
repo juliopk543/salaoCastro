@@ -47,5 +47,17 @@ export async function registerRoutes(
     }
   });
 
+  app.post("/api/admin/login", (req, res) => {
+    const { username, password } = req.body;
+    const adminUser = process.env.admin;
+    const adminPass = process.env.senha;
+
+    if (username === adminUser && password === adminPass) {
+      res.json({ success: true });
+    } else {
+      res.status(401).json({ success: false, message: "Credenciais inválidas" });
+    }
+  });
+
   return httpServer;
 }
