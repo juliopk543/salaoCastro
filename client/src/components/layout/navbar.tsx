@@ -93,7 +93,7 @@ export function Navbar() {
                 <a
                   key={link.name}
                   href={link.href}
-                  className="text-lg font-medium hover:text-secondary transition-colors"
+                  className="text-lg font-medium hover:text-secondary transition-colors text-center"
                 >
                   {link.name}
                 </a>
