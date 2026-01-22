@@ -130,12 +130,13 @@ export function Marketing() {
                       Solicitar Orçamento
                     </Button>
                   </DialogTrigger>
-                  <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible">
+                  <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed bottom-0 top-[auto] translate-y-0">
                     <motion.div 
-                      initial={{ opacity: 0, y: 50, scale: 0.95 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                      className="bg-white rounded-[2rem] p-8 md:p-10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.2)] relative overflow-hidden border border-primary/5"
+                      initial={{ opacity: 0, y: "100%" }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: "100%" }}
+                      transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                      className="bg-white rounded-t-[2.5rem] rounded-b-none p-8 md:p-10 shadow-[0_-16px_48px_-12px_rgba(0,0,0,0.2)] relative overflow-hidden border-t border-primary/5 w-full"
                     >
                       {/* Decorative elements */}
                       <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full -mr-16 -mt-16 blur-2xl" />
