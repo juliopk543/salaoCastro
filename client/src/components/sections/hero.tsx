@@ -27,10 +27,7 @@ export function Hero() {
       >
         <Button 
           size="lg" 
-          className={cn(
-            "w-full bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 h-14 shadow-lg transition-all duration-300",
-            isScrolled ? "my-0 rounded-none" : "my-[10px] rounded-md"
-          )}
+          className="inline-flex items-center justify-center gap-2 whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 border border-primary-border min-h-10 w-full bg-[#08D4E0] hover:bg-[#08D4E0]/90 text-white font-bold text-lg px-8 h-14 shadow-lg transition-all duration-300 my-[10px] rounded-md ml-[8px] mr-[8px]"
           onClick={() => {
             const marketingSection = document.getElementById('marketing');
             if (marketingSection) {
@@ -47,7 +44,6 @@ export function Hero() {
           FAÇA SUA RESERVA
         </Button>
       </div>
-
       {/* Background Image with Overlay */}
       <div className="absolute inset-0 z-0">
         <img 
