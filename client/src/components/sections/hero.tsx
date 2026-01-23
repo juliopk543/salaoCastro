@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import logoImage from "@assets/491438179_695315012983652_6840206379754210205_n_1769044482549.jpg";
-import heroBg from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_39_08_1769045964191.png";
+import heroBg from "@assets/ChatGPT_Image_21_de_jan._de_2026,_22_39_08_1769126443996.png";
 
 export function Hero() {
   const [isScrolled, setIsScrolled] = useState(false);
