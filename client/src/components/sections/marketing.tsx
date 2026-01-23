@@ -389,8 +389,12 @@ export function Marketing() {
                                 placeholder="Quantas pessoas? Alguma dúvida específica?" 
                                 className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all min-h-[100px] p-4 resize-none"
                                 value={formData.message}
+                                maxLength={700}
                                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                               />
+                              <div className="text-[10px] text-right text-muted-foreground mt-1">
+                                {formData.message.length}/700 caracteres
+                              </div>
                             </div>
 
                             <Button 
