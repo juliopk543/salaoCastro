@@ -77,6 +77,7 @@ export function Marketing() {
   });
 
   const { toast } = useToast();
+  const [hasAnimated, setHasAnimated] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     eventType: "",
@@ -134,6 +135,40 @@ export function Marketing() {
       window.open(`https://wa.me/55082993385163?text=${encodeURIComponent(text)}`, '_blank');
     }
   };
+
+  useEffect(() => {
+    if (!emblaApi || hasAnimated) return;
+
+    const onScroll = () => {
+      const isMobile = window.innerWidth < 768;
+      if (!isMobile) return;
+
+      const timer = setTimeout(() => {
+        // sequence: card 3 (index 2) -> card 1 (index 0) -> card 2 (index 1)
+        setTimeout(() => emblaApi.scrollTo(2), 0);
+        setTimeout(() => emblaApi.scrollTo(0), 1000);
+        setTimeout(() => emblaApi.scrollTo(1), 2000);
+        setHasAnimated(true);
+      }, 500);
+
+      return () => clearTimeout(timer);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          onScroll();
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.5 }
+    );
+
+    const section = document.getElementById("marketing");
+    if (section) observer.observe(section);
+
+    return () => observer.disconnect();
+  }, [emblaApi, hasAnimated]);
 
   return (
     <section id="marketing" className="py-20 bg-muted/30 overflow-hidden">
