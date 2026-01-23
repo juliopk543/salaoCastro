@@ -49,10 +49,10 @@ export async function registerRoutes(
 
   app.post("/api/admin/login", (req, res) => {
     const { username, password } = req.body;
-    const adminUser = process.env.admin;
-    const adminPass = process.env.senha;
+    const adminUser = process.env.admin?.trim();
+    const adminPass = process.env.senha?.trim();
 
-    if (username === adminUser && password === adminPass) {
+    if (username?.trim() === adminUser && password?.trim() === adminPass) {
       res.json({ success: true });
     } else {
       res.status(401).json({ success: false, message: "Credenciais inválidas" });

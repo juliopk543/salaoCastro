@@ -36,7 +36,7 @@ export function AdminLoginForm({ onSuccess }: { onSuccess?: () => void }) {
           title: "Login realizado com sucesso",
           description: "Bem-vindo ao painel administrativo.",
         });
-        onSuccess?.();
+        if (onSuccess) onSuccess();
         setTimeout(() => {
           setLocation("/admin");
         }, 100);
