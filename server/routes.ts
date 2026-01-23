@@ -13,12 +13,12 @@ export async function registerRoutes(
 
   app.post("/api/inquiries", async (req, res) => {
     try {
+      console.log("Inquiry request body:", req.body);
       const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
       const clientIp = Array.isArray(ip) ? ip[0] : ip;
       
       const inquiryData = insertInquirySchema.parse(req.body);
       
-      // Check for duplicate from same IP for same package in last 24h (simple version)
       const existing = await storage.getInquiries();
       const duplicate = existing.find(i => 
         i.ipAddress === clientIp && 
@@ -36,7 +36,8 @@ export async function registerRoutes(
       });
       res.json(inquiry);
     } catch (error) {
-      res.status(400).json({ error: "Invalid inquiry data" });
+      console.error("Inquiry validation error:", error);
+      res.status(400).json({ error: "Invalid inquiry data", details: error instanceof Error ? error.message : "Unknown error" });
     }
   });
 

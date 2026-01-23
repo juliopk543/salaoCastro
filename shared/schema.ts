@@ -28,7 +28,6 @@ export const inquiries = pgTable("inquiries", {
 export const insertInquirySchema = createInsertSchema(inquiries).omit({
   id: true,
   completed: true,
-  ipAddress: true,
 });
 
 export type InsertInquiry = z.infer<typeof insertInquirySchema>;
