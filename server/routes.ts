@@ -13,8 +13,27 @@ export async function registerRoutes(
 
   app.post("/api/inquiries", async (req, res) => {
     try {
+      const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+      const clientIp = Array.isArray(ip) ? ip[0] : ip;
+      
       const inquiryData = insertInquirySchema.parse(req.body);
-      const inquiry = await storage.createInquiry(inquiryData);
+      
+      // Check for duplicate from same IP for same package in last 24h (simple version)
+      const existing = await storage.getInquiries();
+      const duplicate = existing.find(i => 
+        i.ipAddress === clientIp && 
+        i.packageName === inquiryData.packageName &&
+        i.name === inquiryData.name
+      );
+
+      if (duplicate) {
+        return res.status(429).json({ error: "Você já enviou uma solicitação para este pacote recentemente." });
+      }
+
+      const inquiry = await storage.createInquiry({
+        ...inquiryData,
+        ipAddress: clientIp as string
+      });
       res.json(inquiry);
     } catch (error) {
       res.status(400).json({ error: "Invalid inquiry data" });

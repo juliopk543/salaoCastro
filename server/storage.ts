@@ -1,7 +1,7 @@
 import { db } from "./db";
 import * as schema from "@shared/schema";
 import { type User, type InsertUser, type Inquiry, type InsertInquiry } from "@shared/schema";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, sql } from "drizzle-orm";
 
 export interface IStorage {
   getUser(id: string): Promise<User | undefined>;
@@ -32,6 +32,15 @@ export class DatabaseStorage implements IStorage {
 
   async createInquiry(insertInquiry: InsertInquiry): Promise<Inquiry> {
     const [inquiry] = await db.insert(schema.inquiries).values(insertInquiry).returning();
+    return inquiry;
+  }
+
+  async getInquiryByIpAndPackage(ip: string, packageName: string): Promise<Inquiry | undefined> {
+    const [inquiry] = await db
+      .select()
+      .from(schema.inquiries)
+      .where(sql`${schema.inquiries.ipAddress} = ${ip} AND ${schema.inquiries.packageName} = ${packageName}`)
+      .limit(1);
     return inquiry;
   }
 

@@ -22,6 +22,7 @@ export const inquiries = pgTable("inquiries", {
   message: text("message"),
   packageName: text("package_name").notNull(),
   completed: boolean("completed").notNull().default(false),
+  ipAddress: text("ip_address"),
 });
 
 export const insertInquirySchema = createInsertSchema(inquiries).omit({

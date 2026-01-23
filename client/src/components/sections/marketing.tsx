@@ -91,11 +91,23 @@ export function Marketing() {
 
   const handleWhatsAppRedirect = async (pkgName: string) => {
     try {
-      await apiRequest("POST", "/api/inquiries", {
+      const inquiryData = {
         ...formData,
         packageName: pkgName,
-        guests: formData.guests.toString(), // Garantir que seja string
-      });
+        guests: formData.guests.toString(),
+      };
+
+      const response = await apiRequest("POST", "/api/inquiries", inquiryData);
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        toast({
+          title: "Aviso",
+          description: errorData.error || "Erro ao enviar solicitação.",
+          variant: "destructive"
+        });
+        return;
+      }
 
       const text = `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
         `*Pacote:* ${pkgName}\n` +
@@ -118,21 +130,9 @@ export function Marketing() {
     } catch (error) {
       toast({
         title: "Erro ao enviar",
-        description: "Não foi possível salvar sua solicitação no sistema, mas você ainda pode nos contatar pelo WhatsApp.",
+        description: "Não foi possível enviar sua solicitação. Tente novamente mais tarde.",
         variant: "destructive",
       });
-      // Mesmo com erro no banco, permite o redirecionamento para não perder a venda
-      const text = `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
-        `*Pacote:* ${pkgName}\n` +
-        `*Nome:* ${formData.name}\n` +
-        `*De onde:* ${formData.state}\n` +
-        `*Evento:* ${formData.eventType || pkgName}\n` +
-        `*WhatsApp:* ${formData.whatsapp}\n` +
-        `*Convidados:* ${formData.guests}\n` +
-        `*Entrada:* ${formData.checkIn}\n` +
-        `*Saída:* ${formData.checkOut}\n` +
-        `*Mensagem:* ${formData.message}`;
-      window.open(`https://wa.me/55082993385163?text=${encodeURIComponent(text)}`, '_blank');
     }
   };
 
