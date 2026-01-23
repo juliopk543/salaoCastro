@@ -89,6 +89,8 @@ export function Marketing() {
     message: ""
   });
 
+  const today = new Date().toISOString().split('T')[0];
+
   const handleWhatsAppRedirect = async (pkgName: string) => {
     try {
       const inquiryData = {
@@ -339,6 +341,7 @@ export function Marketing() {
                                 <Input 
                                   required
                                   type="date" 
+                                  min={today}
                                   className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
                                   value={formData.checkIn}
                                   onChange={(e) => setFormData({ ...formData, checkIn: e.target.value })}
@@ -349,6 +352,7 @@ export function Marketing() {
                                 <Input 
                                   required
                                   type="date" 
+                                  min={formData.checkIn || today}
                                   className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
                                   value={formData.checkOut}
                                   onChange={(e) => setFormData({ ...formData, checkOut: e.target.value })}
