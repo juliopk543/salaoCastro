@@ -395,7 +395,7 @@ export function Marketing() {
                                 className="w-full bg-white border-2 border-slate-200 hover:bg-slate-50 text-[#1a1f36] font-bold py-7 text-lg rounded-2xl shadow-sm transition-all hover:scale-[1.02] active:scale-0.98 flex items-center justify-center gap-3"
                               >
                                 <SiGoogle className="size-5 text-[#4285F4]" />
-                                Entrar com Google para Enviar
+                                Continuar com Google
                               </Button>
                             )}
                           </form>
