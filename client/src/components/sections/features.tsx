@@ -13,7 +13,7 @@ const features = [
   {
     icon: Waves,
     title: "Piscina Refrescante",
-    description: "Ampla piscina com área para lazer e relaxamento total.",
+    description: "Ampla piscina na área de lazer, feita para crianças, adultos e idosos. Acompanha brinquedos para se divertir.",
     image: poolImg,
     color: "bg-blue-100 text-blue-600",
   },
