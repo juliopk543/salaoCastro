@@ -369,11 +369,17 @@ export function Marketing() {
                               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Quantidade de Convidados</label>
                               <Input 
                                 required
-                                type="number"
+                                type="text"
+                                inputMode="numeric"
                                 placeholder="Ex: 50" 
                                 className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
                                 value={formData.guests}
-                                onChange={(e) => setFormData({ ...formData, guests: e.target.value })}
+                                onChange={(e) => {
+                                  const val = e.target.value.replace(/\D/g, "");
+                                  if (val.length <= 3) {
+                                    setFormData({ ...formData, guests: val });
+                                  }
+                                }}
                               />
                             </div>
 
