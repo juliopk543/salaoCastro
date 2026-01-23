@@ -44,6 +44,7 @@ export default function AdminDashboard() {
   const [, setLocation] = useLocation();
   const [selectedYear, setSelectedYear] = useState<string>("all");
   const [selectedMonth, setSelectedMonth] = useState<string>("all");
+  const [selectedStatus, setSelectedStatus] = useState<string>("all");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
 
@@ -127,9 +128,11 @@ export default function AdminDashboard() {
       const [year, month] = inquiry.checkIn.split('-');
       const yearMatch = selectedYear === "all" || year === selectedYear;
       const monthMatch = selectedMonth === "all" || month === selectedMonth;
-      return yearMatch && monthMatch;
+      const statusMatch = selectedStatus === "all" || 
+        (selectedStatus === "completed" ? inquiry.completed : !inquiry.completed);
+      return yearMatch && monthMatch && statusMatch;
     });
-  }, [inquiries, selectedYear, selectedMonth]);
+  }, [inquiries, selectedYear, selectedMonth, selectedStatus]);
 
   const totalPages = Math.ceil(filteredInquiries.length / itemsPerPage);
   const paginatedInquiries = useMemo(() => {
@@ -204,6 +207,20 @@ export default function AdminDashboard() {
                     ))}
                   </SelectContent>
                 </Select>
+
+                <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+                  <SelectTrigger className="h-12 w-full sm:w-[160px] rounded-2xl bg-white border-none shadow-sm font-bold text-[#1a1f36]">
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="size-4 text-[#0f52ba]" />
+                      <SelectValue placeholder="Status" />
+                    </div>
+                  </SelectTrigger>
+                  <SelectContent className="rounded-2xl border-none shadow-xl">
+                    <SelectItem value="all" className="font-bold">Todos os Status</SelectItem>
+                    <SelectItem value="requested" className="font-bold">Solicitado</SelectItem>
+                    <SelectItem value="completed" className="font-bold">Realizado</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </CardHeader>
             <CardContent className="p-0">
@@ -219,7 +236,7 @@ export default function AdminDashboard() {
                   </div>
                   <h3 className="text-xl md:text-2xl font-black text-[#1a1f36]">Nenhuma solicitação</h3>
                   <p className="text-sm md:text-[#4f566b] max-w-sm mt-2 font-medium text-[#4f566b]">
-                    {selectedYear !== "all" || selectedMonth !== "all" 
+                    {selectedYear !== "all" || selectedMonth !== "all" || selectedStatus !== "all"
                       ? "Nenhum resultado encontrado para os filtros selecionados."
                       : "Assim que um cliente preencher o formulário no site, os detalhes aparecerão aqui em tempo real."}
                   </p>
