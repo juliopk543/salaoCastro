@@ -20,8 +20,26 @@ export async function registerRoutes(
       const inquiryData = insertInquirySchema.parse(req.body);
       
       const existing = await storage.getInquiries();
-      const duplicate = existing.find(i => 
-        (i.ipAddress === clientIp || (i.ipAddress && i.ipAddress.includes(clientIp as string))) && 
+      
+      // Get current month and year
+      const now = new Date();
+      const currentMonth = (now.getMonth() + 1).toString().padStart(2, '0');
+      const currentYear = now.getFullYear().toString();
+
+      // Count inquiries from this IP/WhatsApp in the current month
+      const monthlyInquiries = existing.filter(i => {
+        const [year, month] = i.checkIn.split('-'); // Using checkIn for date context
+        const isSameUser = (i.ipAddress === clientIp || (i.ipAddress && i.ipAddress.includes(clientIp as string))) || 
+                          i.whatsapp === inquiryData.whatsapp;
+        const isSameMonth = year === currentYear && month === currentMonth;
+        return isSameUser && isSameMonth;
+      });
+
+      if (monthlyInquiries.length >= 3) {
+        return res.status(429).json({ error: "Você atingiu o limite de 3 solicitações por mês." });
+      }
+
+      const duplicate = monthlyInquiries.find(i => 
         i.packageName === inquiryData.packageName &&
         (i.name === inquiryData.name || i.whatsapp === inquiryData.whatsapp)
       );
