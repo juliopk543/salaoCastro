@@ -88,7 +88,7 @@ export function Hero() {
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-white mb-6 drop-shadow-lg max-w-4xl leading-tight">
-            Celebre seus melhores <span className="text-[#094f84]">momentos</span>
+            Celebre seus melhores <span className="text-[#094f84]">momentos</span> em Família ou com Amigos.
           </h1>
 
         </motion.div>
