@@ -15,15 +15,15 @@ export async function registerRoutes(
     try {
       console.log("Inquiry request body:", req.body);
       const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-      const clientIp = Array.isArray(ip) ? ip[0] : ip;
+      const clientIp = Array.isArray(ip) ? ip[0] : (typeof ip === 'string' ? ip.split(',')[0].trim() : ip);
       
       const inquiryData = insertInquirySchema.parse(req.body);
       
       const existing = await storage.getInquiries();
       const duplicate = existing.find(i => 
-        i.ipAddress === clientIp && 
+        (i.ipAddress === clientIp || (i.ipAddress && i.ipAddress.includes(clientIp as string))) && 
         i.packageName === inquiryData.packageName &&
-        i.name === inquiryData.name
+        (i.name === inquiryData.name || i.whatsapp === inquiryData.whatsapp)
       );
 
       if (duplicate) {
