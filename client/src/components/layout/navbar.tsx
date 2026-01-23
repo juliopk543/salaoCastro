@@ -113,7 +113,7 @@ export function Navbar() {
                 
                 {isLoginOpen && (
                   <div className="mt-2 p-5 rounded-[2rem] border border-slate-100 bg-slate-50/50 animate-in fade-in slide-in-from-top-4 duration-300">
-                    <h3 className="text-sm font-black text-[#1a1f36] mb-4 tracking-tight uppercase tracking-widest opacity-60">Acesso Administrativo</h3>
+                    <h3 className="text-sm font-black text-[#1a1f36] mb-4 tracking-tight uppercase opacity-60">Acesso Administrativo</h3>
                     <AdminLoginForm onSuccess={() => {
                       setIsLoginOpen(false);
                       setIsSheetOpen(false);
