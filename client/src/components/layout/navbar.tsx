@@ -6,6 +6,8 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { AdminLoginForm } from "@/components/auth/admin-login-form";
 import { cn } from "@/lib/utils";
+import { useAuth } from "@/hooks/use-auth";
+import { LogOut } from "lucide-react";
 
 const links = [
   { name: "O Espaço", href: "#features" },
@@ -15,6 +17,7 @@ const links = [
 ];
 
 export function Navbar() {
+  const { user, isAuthenticated } = useAuth();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSheetOpen, setIsSheetOpen] = useState(false);
@@ -59,23 +62,48 @@ export function Navbar() {
           ))}
           
           <div className="relative">
-            <Button 
-              variant="ghost"
-              className={cn(
-                "font-medium transition-colors hover:text-secondary",
-                isScrolled ? "text-[#08d4e0e6]" : "text-white/90"
-              )}
-              onClick={() => setIsLoginOpen(!isLoginOpen)}
-            >
-              <Lock className="w-4 h-4 mr-2" />
-              Administrador
-            </Button>
-
-            {isLoginOpen && (
-              <div className="absolute right-0 mt-4 p-6 w-[320px] rounded-[2rem] bg-white shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
-                <h3 className="text-lg font-black text-[#1a1f36] mb-4 tracking-tight">Acesso Restrito</h3>
-                <AdminLoginForm onSuccess={() => setIsLoginOpen(false)} />
+            {isAuthenticated ? (
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <img src={user?.profileImageUrl || ""} alt={user?.email || "user"} className="w-8 h-8 rounded-full border-2 border-white/20" />
+                  <span className={cn("text-sm font-bold", isScrolled ? "text-[#1a1f36]" : "text-white")}>
+                    {user?.firstName || user?.email?.split('@')[0]}
+                  </span>
+                </div>
+                <Button 
+                  variant="ghost"
+                  size="sm"
+                  className={cn(
+                    "font-medium transition-colors hover:text-secondary",
+                    isScrolled ? "text-[#08d4e0e6]" : "text-white/90"
+                  )}
+                  onClick={() => window.location.href = "/api/logout"}
+                >
+                  <LogOut className="w-4 h-4 mr-2" />
+                  Sair
+                </Button>
               </div>
+            ) : (
+              <>
+                <Button 
+                  variant="ghost"
+                  className={cn(
+                    "font-medium transition-colors hover:text-secondary",
+                    isScrolled ? "text-[#08d4e0e6]" : "text-white/90"
+                  )}
+                  onClick={() => setIsLoginOpen(!isLoginOpen)}
+                >
+                  <Lock className="w-4 h-4 mr-2" />
+                  Administrador
+                </Button>
+
+                {isLoginOpen && (
+                  <div className="absolute right-0 mt-4 p-6 w-[320px] rounded-[2rem] bg-white shadow-2xl border border-slate-100 animate-in fade-in zoom-in-95 duration-200">
+                    <h3 className="text-lg font-black text-[#1a1f36] mb-4 tracking-tight">Acesso Restrito</h3>
+                    <AdminLoginForm onSuccess={() => setIsLoginOpen(false)} />
+                  </div>
+                )}
+              </>
             )}
           </div>
 
