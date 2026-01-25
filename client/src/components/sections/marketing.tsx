@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import {
   Dialog,
   DialogContent,
@@ -11,9 +16,15 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { motion } from "framer-motion";
-import useEmblaCarousel from 'embla-carousel-react';
+import useEmblaCarousel from "embla-carousel-react";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 
@@ -26,9 +37,9 @@ const packages = [
       "Acesso das 9h às 18h",
       "Piscina liberada",
       "Área de churrasco",
-      "Até 15 pessoas"
+      "Até 15 pessoas",
     ],
-    highlight: false
+    highlight: false,
   },
   {
     name: "Fim de Semana",
@@ -39,9 +50,9 @@ const packages = [
       "Check-out Domingo 18h",
       "Pernoite incluso (Quarto)",
       "Uso total das instalações",
-      "Ideal para retiro familiar"
+      "Ideal para retiro familiar",
     ],
-    highlight: true
+    highlight: true,
   },
   {
     name: "Eventos",
@@ -52,28 +63,50 @@ const packages = [
       "Mesas e cadeiras inclusas",
       "Limpeza pré e pós evento",
       "Indicação de parceiros",
-      "Capacidade ampliada"
+      "Capacidade ampliada",
     ],
-    highlight: false
-  }
+    highlight: false,
+  },
 ];
 
 const states = [
-  "Acre", "Alagoas", "Amapá", "Amazonas", "Bahia", "Ceará", "Distrito Federal", 
-  "Espírito Santo", "Goiás", "Maranhão", "Mato Grosso", "Mato Grosso do Sul", 
-  "Minas Gerais", "Pará", "Paraíba", "Paraná", "Pernambuco", "Piauí", 
-  "Rio de Janeiro", "Rio Grande do Norte", "Rio Grande do Sul", "Rondônia", 
-  "Roraima", "Santa Catarina", "São Paulo", "Sergipe", "Tocantins"
+  "Acre",
+  "Alagoas",
+  "Amapá",
+  "Amazonas",
+  "Bahia",
+  "Ceará",
+  "Distrito Federal",
+  "Espírito Santo",
+  "Goiás",
+  "Maranhão",
+  "Mato Grosso",
+  "Mato Grosso do Sul",
+  "Minas Gerais",
+  "Pará",
+  "Paraíba",
+  "Paraná",
+  "Pernambuco",
+  "Piauí",
+  "Rio de Janeiro",
+  "Rio Grande do Norte",
+  "Rio Grande do Sul",
+  "Rondônia",
+  "Roraima",
+  "Santa Catarina",
+  "São Paulo",
+  "Sergipe",
+  "Tocantins",
 ];
 
 export function Marketing() {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ 
-    align: 'center',
-    containScroll: 'trimSnaps',
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    align: "center",
+    containScroll: "trimSnaps",
     startIndex: 1,
     breakpoints: {
-      '(min-width: 768px)': { active: false }
-    }
+      "(min-width: 768px)": { active: false },
+    },
   });
 
   const { toast } = useToast();
@@ -86,10 +119,10 @@ export function Marketing() {
     checkOut: "",
     guests: "",
     whatsapp: "",
-    message: ""
+    message: "",
   });
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
 
   const handleWhatsAppRedirect = async (pkgName: string) => {
     try {
@@ -100,18 +133,19 @@ export function Marketing() {
       };
 
       const response = await apiRequest("POST", "/api/inquiries", inquiryData);
-      
+
       if (!response.ok) {
         const errorData = await response.json();
         toast({
           title: "Aviso",
           description: errorData.error || "Erro ao enviar solicitação.",
-          variant: "destructive"
+          variant: "destructive",
         });
         return;
       }
 
-      const text = `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
+      const text =
+        `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
         `*Pacote:* ${pkgName}\n` +
         `*Nome:* ${formData.name}\n` +
         `*De onde:* ${formData.state}\n` +
@@ -121,18 +155,20 @@ export function Marketing() {
         `*Entrada:* ${formData.checkIn}\n` +
         `*Saída:* ${formData.checkOut}\n` +
         `*Mensagem:* ${formData.message}`;
-      
+
       const encodedText = encodeURIComponent(text);
-      window.open(`https://wa.me/55082993385163?text=${encodedText}`, '_blank');
-      
+      window.open(`https://wa.me/55082993385163?text=${encodedText}`, "_blank");
+
       toast({
         title: "Solicitação enviada!",
-        description: "Seus dados foram salvos e você será redirecionado para o WhatsApp.",
+        description:
+          "Seus dados foram salvos e você será redirecionado para o WhatsApp.",
       });
     } catch (error) {
       toast({
         title: "Erro ao enviar",
-        description: "Não foi possível enviar sua solicitação. Tente novamente mais tarde.",
+        description:
+          "Não foi possível enviar sua solicitação. Tente novamente mais tarde.",
         variant: "destructive",
       });
     }
@@ -163,7 +199,7 @@ export function Marketing() {
           observer.disconnect();
         }
       },
-      { threshold: 0.5 }
+      { threshold: 0.5 },
     );
 
     const section = document.getElementById("marketing");
@@ -183,8 +219,8 @@ export function Marketing() {
             Escolha seu Pacote
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Temos opções flexíveis para atender desde pequenos encontros familiares 
-            até grandes celebrações.
+            Temos opções flexíveis para atender desde pequenos encontros
+            familiares até grandes celebrações.
           </p>
         </div>
 
@@ -192,11 +228,14 @@ export function Marketing() {
         <div className="max-w-5xl mx-auto" ref={emblaRef}>
           <div className="flex md:grid md:grid-cols-3 md:gap-8">
             {packages.map((pkg, i) => (
-              <div key={i} className="flex-[0_0_85%] min-w-0 px-4 md:px-0 md:flex-1">
-                <Card 
+              <div
+                key={i}
+                className="flex-[0_0_85%] min-w-0 px-4 md:px-0 md:flex-1"
+              >
+                <Card
                   className={`relative border-none h-full flex flex-col transition-all duration-300 ${
-                    pkg.highlight 
-                      ? "shadow-2xl md:scale-105 z-10 bg-primary text-white" 
+                    pkg.highlight
+                      ? "shadow-2xl md:scale-105 z-10 bg-primary text-white"
                       : "shadow-lg bg-white"
                   }`}
                 >
@@ -205,44 +244,56 @@ export function Marketing() {
                       Mais Popular
                     </div>
                   )}
-                  
+
                   <CardHeader className="p-8 text-center pb-2">
-                    <h3 className={`text-2xl font-heading font-bold mb-2 ${pkg.highlight ? "text-white" : "text-primary"}`}>
+                    <h3
+                      className={`text-2xl font-heading font-bold mb-2 ${pkg.highlight ? "text-white" : "text-primary"}`}
+                    >
                       {pkg.name}
                     </h3>
-                    <p className={`text-sm ${pkg.highlight ? "text-white/80" : "text-muted-foreground"}`}>
+                    <p
+                      className={`text-sm ${pkg.highlight ? "text-white/80" : "text-muted-foreground"}`}
+                    >
                       {pkg.description}
                     </p>
                   </CardHeader>
-                  
+
                   <CardContent className="p-8 pt-4 flex-1">
                     <div className="flex justify-center items-baseline mb-8">
-                      <span className={`text-3xl font-bold ${pkg.highlight ? "text-secondary" : "text-foreground"}`}>
+                      <span
+                        className={`text-3xl font-bold ${pkg.highlight ? "text-secondary" : "text-foreground"}`}
+                      >
                         {pkg.price}
                       </span>
                     </div>
-                    
+
                     <ul className="space-y-4">
                       {pkg.features.map((feature, f) => (
                         <li key={f} className="flex items-center gap-3">
-                          <div className={`rounded-full p-1 ${pkg.highlight ? "bg-white/20" : "bg-primary/10"}`}>
-                            <Check className={`w-3 h-3 ${pkg.highlight ? "text-secondary" : "text-primary"}`} />
+                          <div
+                            className={`rounded-full p-1 ${pkg.highlight ? "bg-white/20" : "bg-primary/10"}`}
+                          >
+                            <Check
+                              className={`w-3 h-3 ${pkg.highlight ? "text-secondary" : "text-primary"}`}
+                            />
                           </div>
-                          <span className={`text-sm ${pkg.highlight ? "text-white/90" : "text-muted-foreground"}`}>
+                          <span
+                            className={`text-sm ${pkg.highlight ? "text-white/90" : "text-muted-foreground"}`}
+                          >
                             {feature}
                           </span>
                         </li>
                       ))}
                     </ul>
                   </CardContent>
-                  
+
                   <CardFooter className="p-8 pt-0 mt-auto">
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button 
+                        <Button
                           className={`w-full font-bold rounded-full py-6 ${
-                            pkg.highlight 
-                              ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground" 
+                            pkg.highlight
+                              ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
                               : "bg-primary hover:bg-primary/90 text-white"
                           }`}
                         >
@@ -250,11 +301,15 @@ export function Marketing() {
                         </Button>
                       </DialogTrigger>
                       <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed bottom-0 top-[auto] translate-y-0 h-[90vh] flex flex-col justify-end">
-                        <motion.div 
+                        <motion.div
                           initial={{ opacity: 0, y: "100%" }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: "100%" }}
-                          transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                          transition={{
+                            type: "spring",
+                            damping: 30,
+                            stiffness: 300,
+                          }}
                           className="bg-white rounded-t-[2.5rem] rounded-b-none p-8 md:p-10 shadow-[0_-16px_48px_-12px_rgba(0,0,0,0.2)] relative border-t border-primary/5 w-full max-h-full overflow-y-auto custom-scrollbar"
                         >
                           {/* Decorative elements */}
@@ -263,51 +318,68 @@ export function Marketing() {
 
                           <DialogHeader className="relative z-10">
                             <DialogTitle className="text-3xl font-heading text-primary leading-tight">
-                              Solicitar Orçamento <br/>
-                              <span className="text-secondary text-xl font-medium">— {pkg.name}</span>
+                              Espaço Castro <br />
+                              <span className="text-secondary text-xl font-medium">
+                                Espaço Castro
+                              </span>
                             </DialogTitle>
                           </DialogHeader>
 
-                          <form 
-                            className="space-y-5 pt-6 relative z-10" 
+                          <form
+                            className="space-y-5 pt-6 relative z-10"
                             onSubmit={(e) => {
                               e.preventDefault();
                               handleWhatsAppRedirect(pkg.name);
                             }}
                           >
                             <div className="space-y-1.5">
-                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Nome</label>
-                              <Input 
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                Nome
+                              </label>
+                              <Input
                                 required
-                                placeholder="Seu nome" 
+                                placeholder="Seu nome"
                                 className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
                                 value={formData.name}
-                                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    name: e.target.value,
+                                  })
+                                }
                               />
                             </div>
 
                             <div className="space-y-1.5">
-                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">De onde você está é?</label>
-                              <Select 
-                                onValueChange={(value) => setFormData({ ...formData, state: value })}
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                De onde você está é?
+                              </label>
+                              <Select
+                                onValueChange={(value) =>
+                                  setFormData({ ...formData, state: value })
+                                }
                               >
                                 <SelectTrigger className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4">
                                   <SelectValue placeholder="Selecione o estado..." />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-xl border-muted shadow-xl h-[250px]">
                                   {states.map((state) => (
-                                    <SelectItem key={state} value={state}>{state}</SelectItem>
+                                    <SelectItem key={state} value={state}>
+                                      {state}
+                                    </SelectItem>
                                   ))}
                                 </SelectContent>
                               </Select>
                             </div>
 
                             <div className="space-y-1.5">
-                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">WhatsApp</label>
-                              <Input 
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                WhatsApp
+                              </label>
+                              <Input
                                 required
                                 type="tel"
-                                placeholder="(00) 00000-0000" 
+                                placeholder="(00) 00000-0000"
                                 className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
                                 value={formData.whatsapp}
                                 onChange={(e) => {
@@ -320,58 +392,92 @@ export function Marketing() {
                             </div>
 
                             <div className="space-y-1.5">
-                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Tipo de Evento</label>
-                              <Select 
-                                defaultValue={pkg.name.toLowerCase().replace(/\s/g, '')}
-                                onValueChange={(value) => setFormData({ ...formData, eventType: value })}
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                Tipo de Evento
+                              </label>
+                              <Select
+                                defaultValue={pkg.name
+                                  .toLowerCase()
+                                  .replace(/\s/g, "")}
+                                onValueChange={(value) =>
+                                  setFormData({ ...formData, eventType: value })
+                                }
                               >
                                 <SelectTrigger className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4">
                                   <SelectValue placeholder="Selecione..." />
                                 </SelectTrigger>
                                 <SelectContent className="rounded-xl border-muted shadow-xl">
-                                  <SelectItem value="aniversario">Aniversário</SelectItem>
-                                  <SelectItem value="casamento">Casamento</SelectItem>
-                                  <SelectItem value="churrasco">Churrasco/Confraternização</SelectItem>
-                                  <SelectItem value="dayuse">Day Use (Lazer)</SelectItem>
-                                  <SelectItem value="fimdesemana">Fim de Semana</SelectItem>
-                                  <SelectItem value="corporativo">Evento Corporativo</SelectItem>
+                                  <SelectItem value="aniversario">
+                                    Aniversário
+                                  </SelectItem>
+                                  <SelectItem value="casamento">
+                                    Casamento
+                                  </SelectItem>
+                                  <SelectItem value="churrasco">
+                                    Churrasco/Confraternização
+                                  </SelectItem>
+                                  <SelectItem value="dayuse">
+                                    Day Use (Lazer)
+                                  </SelectItem>
+                                  <SelectItem value="fimdesemana">
+                                    Fim de Semana
+                                  </SelectItem>
+                                  <SelectItem value="corporativo">
+                                    Evento Corporativo
+                                  </SelectItem>
                                   <SelectItem value="outro">Outro</SelectItem>
                                 </SelectContent>
                               </Select>
                             </div>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                               <div className="space-y-1.5">
-                                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data de Entrada</label>
-                                <Input 
+                                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                  Data de Entrada
+                                </label>
+                                <Input
                                   required
-                                  type="date" 
+                                  type="date"
                                   min={today}
                                   className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
                                   value={formData.checkIn}
-                                  onChange={(e) => setFormData({ ...formData, checkIn: e.target.value })}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      checkIn: e.target.value,
+                                    })
+                                  }
                                 />
                               </div>
                               <div className="space-y-1.5">
-                                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Data de Saída</label>
-                                <Input 
+                                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                  Data de Saída
+                                </label>
+                                <Input
                                   required
-                                  type="date" 
+                                  type="date"
                                   min={formData.checkIn || today}
                                   className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
                                   value={formData.checkOut}
-                                  onChange={(e) => setFormData({ ...formData, checkOut: e.target.value })}
+                                  onChange={(e) =>
+                                    setFormData({
+                                      ...formData,
+                                      checkOut: e.target.value,
+                                    })
+                                  }
                                 />
                               </div>
                             </div>
 
                             <div className="space-y-1.5">
-                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Quantidade de Convidados</label>
-                              <Input 
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                Quantidade de Convidados
+                              </label>
+                              <Input
                                 required
                                 type="text"
                                 inputMode="numeric"
-                                placeholder="Ex: 50" 
+                                placeholder="Ex: 50"
                                 className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
                                 value={formData.guests}
                                 onChange={(e) => {
@@ -384,20 +490,27 @@ export function Marketing() {
                             </div>
 
                             <div className="space-y-1.5">
-                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">Mensagem (Opcional)</label>
-                              <Textarea 
-                                placeholder="Quantas pessoas? Alguma dúvida específica?" 
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                Mensagem (Opcional)
+                              </label>
+                              <Textarea
+                                placeholder="Quantas pessoas? Alguma dúvida específica?"
                                 className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all min-h-[100px] p-4 resize-none"
                                 value={formData.message}
                                 maxLength={700}
-                                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    message: e.target.value,
+                                  })
+                                }
                               />
                               <div className="text-[10px] text-right text-muted-foreground mt-1">
                                 {formData.message.length}/700 caracteres
                               </div>
                             </div>
 
-                            <Button 
+                            <Button
                               type="submit"
                               className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-7 text-lg rounded-2xl shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-0.98"
                             >
@@ -413,7 +526,7 @@ export function Marketing() {
             ))}
           </div>
         </div>
-        
+
         {/* Extra Marketing Highlight */}
         <div className="mt-20 bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-primary/10 flex flex-col md:flex-row items-center gap-8 max-w-5xl mx-auto">
           <div className="flex-1">
@@ -421,15 +534,21 @@ export function Marketing() {
               Parcerias Exclusivas
             </h3>
             <p className="text-muted-foreground mb-6">
-              Quer facilitar seu evento? Temos parcerias com os melhores fornecedores da região: 
-              buffets, decoradores e animadores com descontos especiais para clientes do Espaço Castro.
+              Quer facilitar seu evento? Temos parcerias com os melhores
+              fornecedores da região: buffets, decoradores e animadores com
+              descontos especiais para clientes do Espaço Castro.
             </p>
-            <Button variant="link" className="text-secondary font-bold p-0 h-auto">
+            <Button
+              variant="link"
+              className="text-secondary font-bold p-0 h-auto"
+            >
               Ver lista de parceiros &rarr;
             </Button>
           </div>
           <div className="flex-1 w-full h-48 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-primary/20">
-             <span className="text-muted-foreground font-medium">Logos dos Parceiros</span>
+            <span className="text-muted-foreground font-medium">
+              Logos dos Parceiros
+            </span>
           </div>
         </div>
       </div>
