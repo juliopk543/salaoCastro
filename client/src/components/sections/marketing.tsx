@@ -312,6 +312,13 @@ export function Marketing() {
                           }}
                           className="bg-white rounded-t-[2.5rem] rounded-b-none p-8 md:p-10 shadow-[0_-16px_48px_-12px_rgba(0,0,0,0.2)] relative border-t border-primary/5 w-full max-h-full overflow-y-auto custom-scrollbar"
                         >
+                          <div className="absolute top-4 right-4 z-50">
+                            <DialogTrigger asChild>
+                              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:bg-white transition-all">
+                                <span className="text-xl">×</span>
+                              </Button>
+                            </DialogTrigger>
+                          </div>
                           {/* Decorative elements */}
                           <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full -mr-16 -mt-16 blur-2xl" />
                           <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full -ml-16 -mb-16 blur-2xl" />
