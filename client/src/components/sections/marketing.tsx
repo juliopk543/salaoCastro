@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -126,6 +126,19 @@ export function Marketing() {
       return date >= start && date <= end;
     });
   };
+
+  const unavailableDateStrings = useMemo(() => {
+    const dates: string[] = [];
+    unavailableDates.forEach(range => {
+      let current = new Date(range.start + 'T00:00:00');
+      const end = new Date(range.end + 'T00:00:00');
+      while (current <= end) {
+        dates.push(current.toISOString().split('T')[0]);
+        current.setDate(current.getDate() + 1);
+      }
+    });
+    return dates;
+  }, [unavailableDates]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -461,6 +474,9 @@ export function Marketing() {
                                   min={today}
                                   className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 ${isDateUnavailable(formData.checkIn) ? "border-red-500 text-red-500" : ""}`}
                                   value={formData.checkIn}
+                                  onKeyDown={(e) => {
+                                    if (e.key !== 'Tab') e.preventDefault();
+                                  }}
                                   onChange={(e) => {
                                     if (isDateUnavailable(e.target.value)) {
                                       toast({
@@ -487,6 +503,9 @@ export function Marketing() {
                                   min={formData.checkIn || today}
                                   className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 ${isDateUnavailable(formData.checkOut) ? "border-red-500 text-red-500" : ""}`}
                                   value={formData.checkOut}
+                                  onKeyDown={(e) => {
+                                    if (e.key !== 'Tab') e.preventDefault();
+                                  }}
                                   onChange={(e) => {
                                     if (isDateUnavailable(e.target.value)) {
                                       toast({
