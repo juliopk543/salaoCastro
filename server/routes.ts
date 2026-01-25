@@ -64,6 +64,21 @@ export async function registerRoutes(
     res.json(inquiries);
   });
 
+  app.get("/api/unavailable-dates", async (req, res) => {
+    try {
+      const inquiries = await storage.getInquiries();
+      const unavailableDates = inquiries
+        .filter(i => i.completed)
+        .map(i => ({
+          start: i.checkIn,
+          end: i.checkOut
+        }));
+      res.json(unavailableDates);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch unavailable dates" });
+    }
+  });
+
   app.delete("/api/inquiries/:id", async (req, res) => {
     const id = req.params.id;
     try {

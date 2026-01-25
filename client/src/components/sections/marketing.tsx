@@ -25,8 +25,9 @@ import {
 } from "@/components/ui/select";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
-import { apiRequest } from "@/lib/queryClient";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useQuery } from "@tanstack/react-query";
 
 const packages = [
   {
@@ -111,6 +112,21 @@ export function Marketing() {
 
   const { toast } = useToast();
   const [hasAnimated, setHasAnimated] = useState(false);
+
+  const { data: unavailableDates = [] } = useQuery<{start: string, end: string}[]>({
+    queryKey: ["/api/unavailable-dates"]
+  });
+
+  const isDateUnavailable = (dateStr: string) => {
+    if (!dateStr) return false;
+    const date = new Date(dateStr + 'T00:00:00');
+    return unavailableDates.some(range => {
+      const start = new Date(range.start + 'T00:00:00');
+      const end = new Date(range.end + 'T00:00:00');
+      return date >= start && date <= end;
+    });
+  };
+
   const [formData, setFormData] = useState({
     name: "",
     eventType: "",
@@ -446,14 +462,22 @@ export function Marketing() {
                                   required
                                   type="date"
                                   min={today}
-                                  className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                                  className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 ${isDateUnavailable(formData.checkIn) ? "border-red-500 text-red-500" : ""}`}
                                   value={formData.checkIn}
-                                  onChange={(e) =>
+                                  onChange={(e) => {
+                                    if (isDateUnavailable(e.target.value)) {
+                                      toast({
+                                        title: "Data Indisponível",
+                                        description: "Este período já está reservado. Por favor, escolha outra data.",
+                                        variant: "destructive"
+                                      });
+                                      return;
+                                    }
                                     setFormData({
                                       ...formData,
                                       checkIn: e.target.value,
                                     })
-                                  }
+                                  }}
                                 />
                               </div>
                               <div className="space-y-1.5">
@@ -464,14 +488,22 @@ export function Marketing() {
                                   required
                                   type="date"
                                   min={formData.checkIn || today}
-                                  className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                                  className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 ${isDateUnavailable(formData.checkOut) ? "border-red-500 text-red-500" : ""}`}
                                   value={formData.checkOut}
-                                  onChange={(e) =>
+                                  onChange={(e) => {
+                                    if (isDateUnavailable(e.target.value)) {
+                                      toast({
+                                        title: "Data Indisponível",
+                                        description: "Este período já está reservado. Por favor, escolha outra data.",
+                                        variant: "destructive"
+                                      });
+                                      return;
+                                    }
                                     setFormData({
                                       ...formData,
                                       checkOut: e.target.value,
                                     })
-                                  }
+                                  }}
                                 />
                               </div>
                             </div>
