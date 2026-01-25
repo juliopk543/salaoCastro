@@ -341,10 +341,7 @@ export function Marketing() {
 
                           <DialogHeader className="relative z-10">
                             <DialogTitle className="text-3xl font-heading text-primary leading-tight">
-                              Solicitar Orçamento <br />
-                              <span className="text-secondary text-xl font-medium">
-                                Espaço Castro
-                              </span>
+                              Solicitar Orçamento
                             </DialogTitle>
                           </DialogHeader>
 
