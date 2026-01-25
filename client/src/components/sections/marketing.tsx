@@ -314,7 +314,7 @@ export function Marketing() {
                         >
                           <div className="absolute top-4 right-4 z-50">
                             <DialogTrigger asChild>
-                              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full bg-white/80 backdrop-blur-sm shadow-md hover:bg-white transition-all">
+                              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full backdrop-blur-sm shadow-md hover:bg-white transition-all text-[#ffffff] bg-[#124da1]">
                                 <span className="text-xl">×</span>
                               </Button>
                             </DialogTrigger>
