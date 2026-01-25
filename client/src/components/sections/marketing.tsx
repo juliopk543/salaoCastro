@@ -140,6 +140,25 @@ export function Marketing() {
     return dates;
   }, [unavailableDates]);
 
+  useEffect(() => {
+    const styleId = 'disable-dates-style';
+    let styleElement = document.getElementById(styleId);
+    
+    if (!styleElement) {
+      styleElement = document.createElement('style');
+      styleElement.id = styleId;
+      document.head.appendChild(styleElement);
+    }
+
+    const selectors = unavailableDateStrings.map(date => `input[type="date"]::-webkit-calendar-picker-indicator[value="${date}"]`).join(', ');
+    
+    // Note: Standard HTML date inputs don't support disabling specific days via CSS easily.
+    // The most reliable way is to handle it via the onChange as we are already doing,
+    // but we can try to provide a visual hint if the browser supports it or use a custom picker.
+    // Since we must use standard Input (type="date"), we'll stick to the current validation
+    // and ensure the user understands why it's blocked via the toast.
+  }, [unavailableDateStrings]);
+
   const [formData, setFormData] = useState({
     name: "",
     eventType: "",
