@@ -316,7 +316,7 @@ export function Marketing() {
                           Solicitar Orçamento
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed bottom-0 top-[auto] translate-y-0 h-[90vh] flex flex-col justify-end">
+                      <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed bottom-0 top-[auto] translate-y-0 h-[90vh] flex flex-col justify-end [&>button]:hidden">
                         <motion.div
                           initial={{ opacity: 0, y: "100%" }}
                           animate={{ opacity: 1, y: 0 }}
