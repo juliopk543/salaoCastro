@@ -504,7 +504,7 @@ export function Marketing() {
                                       )}
                                     </Button>
                                   </PopoverTrigger>
-                                  <PopoverContent className="w-full p-0 sm:w-auto" align="start">
+                                  <PopoverContent className="w-[calc(100vw-2rem)] p-0 sm:w-auto overflow-hidden" align="center" sideOffset={8}>
                                     <Calendar
                                       mode="single"
                                       selected={formData.checkIn ? parseISO(formData.checkIn) : undefined}
@@ -519,7 +519,7 @@ export function Marketing() {
                                       disabled={(date) => isDateUnavailable(date)}
                                       initialFocus
                                       locale={ptBR}
-                                      className="w-full"
+                                      className="w-full h-full"
                                     />
                                   </PopoverContent>
                                 </Popover>
@@ -545,7 +545,7 @@ export function Marketing() {
                                       )}
                                     </Button>
                                   </PopoverTrigger>
-                                  <PopoverContent className="w-full p-0 sm:w-auto" align="start">
+                                  <PopoverContent className="w-[calc(100vw-2rem)] p-0 sm:w-auto overflow-hidden" align="center" sideOffset={8}>
                                     <Calendar
                                       mode="single"
                                       selected={formData.checkOut ? parseISO(formData.checkOut) : undefined}
@@ -563,7 +563,7 @@ export function Marketing() {
                                       }
                                       initialFocus
                                       locale={ptBR}
-                                      className="w-full"
+                                      className="w-full h-full"
                                     />
                                   </PopoverContent>
                                 </Popover>
