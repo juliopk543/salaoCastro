@@ -503,7 +503,7 @@ export function Marketing() {
                                       )}
                                     </Button>
                                   </PopoverTrigger>
-                                  <PopoverContent className="w-auto p-0" align="start">
+                                  <PopoverContent className="w-full p-0 sm:w-auto" align="start">
                                     <Calendar
                                       mode="single"
                                       selected={formData.checkIn ? parseISO(formData.checkIn) : undefined}
@@ -518,6 +518,7 @@ export function Marketing() {
                                       disabled={(date) => isDateUnavailable(date)}
                                       initialFocus
                                       locale={ptBR}
+                                      className="w-full"
                                     />
                                   </PopoverContent>
                                 </Popover>
@@ -543,7 +544,7 @@ export function Marketing() {
                                       )}
                                     </Button>
                                   </PopoverTrigger>
-                                  <PopoverContent className="w-auto p-0" align="start">
+                                  <PopoverContent className="w-full p-0 sm:w-auto" align="start">
                                     <Calendar
                                       mode="single"
                                       selected={formData.checkOut ? parseISO(formData.checkOut) : undefined}
@@ -561,6 +562,7 @@ export function Marketing() {
                                       }
                                       initialFocus
                                       locale={ptBR}
+                                      className="w-full"
                                     />
                                   </PopoverContent>
                                 </Popover>
