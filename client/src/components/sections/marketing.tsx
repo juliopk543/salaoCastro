@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
-import { Check } from "lucide-react";
+import { Check, Calendar as CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -23,6 +23,15 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format, isBefore, startOfDay, parseISO } from "date-fns";
+import { ptBR } from "date-fns/locale";
+import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import useEmblaCarousel from "embla-carousel-react";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -119,58 +128,28 @@ export function Marketing() {
     queryKey: ["/api/unavailable-dates"],
   });
 
-  const isDateUnavailable = (dateStr: string) => {
-    if (!dateStr) return false;
-    const date = new Date(dateStr + "T00:00:00");
-    const todayDate = new Date(today + "T00:00:00");
-    
-    // Check if date is in the past
-    if (date < todayDate) return true;
+  const isDateUnavailable = (date: Date) => {
+    const todayDate = startOfDay(new Date());
+    if (isBefore(date, todayDate)) return true;
 
     return unavailableDates.some((range) => {
-      const start = new Date(range.start + "T00:00:00");
-      const end = new Date(range.end + "T00:00:00");
+      const start = startOfDay(parseISO(range.start));
+      const end = startOfDay(parseISO(range.end));
       return date >= start && date <= end;
     });
   };
 
-  const unavailableDateStrings = useMemo(() => {
-    const dates: string[] = [];
-    unavailableDates.forEach((range) => {
-      let current = new Date(range.start + "T00:00:00");
-      const end = new Date(range.end + "T00:00:00");
-      while (current <= end) {
-        dates.push(current.toISOString().split("T")[0]);
-        current.setDate(current.getDate() + 1);
-      }
-    });
-    return dates;
+  const unavailableDateObjects = useMemo(() => {
+    return unavailableDates.map(range => ({
+      from: startOfDay(parseISO(range.start)),
+      to: startOfDay(parseISO(range.end))
+    }));
   }, [unavailableDates]);
 
   useEffect(() => {
-    const styleId = "disable-dates-style";
-    let styleElement = document.getElementById(styleId);
-
-    if (!styleElement) {
-      styleElement = document.createElement("style");
-      styleElement.id = styleId;
-      document.head.appendChild(styleElement);
-    }
-
-    const selectors = unavailableDateStrings
-      .map(
-        (date) =>
-          `input[type="date"]::-webkit-calendar-picker-indicator[value="${date}"]`,
-      )
-      .join(", ");
-
-    // Bloqueia visualmente datas no calendário nativo
-    // Criamos uma lista de datas para o atributo 'min' e para estilização se suportado
-    // Como o input date nativo é limitado em estilização via CSS de dias específicos,
-    // a melhor forma de "cinzar" é usar o atributo 'min' que já temos.
-    // Para as datas ocupadas no meio do calendário, alguns browsers não permitem "cinzar" via CSS puro,
-    // mas vamos garantir que a validação não dispare o toast para datas PASSADAS, apenas para as RESERVADAS.
-  }, [unavailableDateStrings]);
+    // Bloqueia visualmente datas no calendário nativo (não é mais necessário com o novo componente, 
+    // mas mantemos para evitar erros se sobrar algum input nativo)
+  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -507,75 +486,84 @@ export function Marketing() {
                                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                                   Data de Entrada
                                 </label>
-                                <Input
-                                  required
-                                  type="date"
-                                  min={today}
-                                  className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 w-full ${isDateUnavailable(formData.checkIn) ? "border-red-500 text-red-500" : ""}`}
-                                  value={formData.checkIn}
-                                  onKeyDown={(e) => {
-                                    if (e.key !== "Tab") e.preventDefault();
-                                  }}
-                                  onChange={(e) => {
-                                    const selectedDate = e.target.value;
-                                    const date = new Date(selectedDate + "T00:00:00");
-                                    const todayDate = new Date(today + "T00:00:00");
-
-                                    // Se for data passada, apenas não atualiza, sem mostrar erro de "reservado"
-                                    if (date < todayDate) return;
-
-                                    if (isDateUnavailable(selectedDate)) {
-                                      toast({
-                                        title: "Data Indisponível",
-                                        description:
-                                          "Este período já está reservado. Por favor, escolha outra data.",
-                                        variant: "destructive",
-                                      });
-                                      return;
-                                    }
-                                    setFormData({
-                                      ...formData,
-                                      checkIn: selectedDate,
-                                    });
-                                  }}
-                                />
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <Button
+                                      variant={"outline"}
+                                      className={cn(
+                                        "w-full justify-start text-left font-normal rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4",
+                                        !formData.checkIn && "text-muted-foreground"
+                                      )}
+                                    >
+                                      <CalendarIcon className="mr-2 h-4 w-4" />
+                                      {formData.checkIn ? (
+                                        format(parseISO(formData.checkIn), "PPP", { locale: ptBR })
+                                      ) : (
+                                        <span>Selecione a data...</span>
+                                      )}
+                                    </Button>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-auto p-0" align="start">
+                                    <Calendar
+                                      mode="single"
+                                      selected={formData.checkIn ? parseISO(formData.checkIn) : undefined}
+                                      onSelect={(date) => {
+                                        if (date) {
+                                          setFormData({
+                                            ...formData,
+                                            checkIn: format(date, "yyyy-MM-dd"),
+                                          });
+                                        }
+                                      }}
+                                      disabled={(date) => isDateUnavailable(date)}
+                                      initialFocus
+                                      locale={ptBR}
+                                    />
+                                  </PopoverContent>
+                                </Popover>
                               </div>
                               <div className="space-y-1.5 w-full">
                                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                                   Data de Saída
                                 </label>
-                                <Input
-                                  required
-                                  type="date"
-                                  min={formData.checkIn || today}
-                                  className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 w-full ${isDateUnavailable(formData.checkOut) ? "border-red-500 text-red-500" : ""}`}
-                                  value={formData.checkOut}
-                                  onKeyDown={(e) => {
-                                    if (e.key !== "Tab") e.preventDefault();
-                                  }}
-                                  onChange={(e) => {
-                                    const selectedDate = e.target.value;
-                                    const date = new Date(selectedDate + "T00:00:00");
-                                    const todayDate = new Date(today + "T00:00:00");
-
-                                    // Se for data passada, apenas não atualiza, sem mostrar erro de "reservado"
-                                    if (date < todayDate) return;
-
-                                    if (isDateUnavailable(selectedDate)) {
-                                      toast({
-                                        title: "Data Indisponível",
-                                        description:
-                                          "Este período já está reservado. Por favor, escolha outra data.",
-                                        variant: "destructive",
-                                      });
-                                      return;
-                                    }
-                                    setFormData({
-                                      ...formData,
-                                      checkOut: selectedDate,
-                                    });
-                                  }}
-                                />
+                                <Popover>
+                                  <PopoverTrigger asChild>
+                                    <Button
+                                      variant={"outline"}
+                                      className={cn(
+                                        "w-full justify-start text-left font-normal rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4",
+                                        !formData.checkOut && "text-muted-foreground"
+                                      )}
+                                    >
+                                      <CalendarIcon className="mr-2 h-4 w-4" />
+                                      {formData.checkOut ? (
+                                        format(parseISO(formData.checkOut), "PPP", { locale: ptBR })
+                                      ) : (
+                                        <span>Selecione a data...</span>
+                                      )}
+                                    </Button>
+                                  </PopoverTrigger>
+                                  <PopoverContent className="w-auto p-0" align="start">
+                                    <Calendar
+                                      mode="single"
+                                      selected={formData.checkOut ? parseISO(formData.checkOut) : undefined}
+                                      onSelect={(date) => {
+                                        if (date) {
+                                          setFormData({
+                                            ...formData,
+                                            checkOut: format(date, "yyyy-MM-dd"),
+                                          });
+                                        }
+                                      }}
+                                      disabled={(date) => 
+                                        isDateUnavailable(date) || 
+                                        (formData.checkIn ? isBefore(date, parseISO(formData.checkIn)) : false)
+                                      }
+                                      initialFocus
+                                      locale={ptBR}
+                                    />
+                                  </PopoverContent>
+                                </Popover>
                               </div>
                             </div>
 
