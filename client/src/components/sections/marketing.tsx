@@ -340,7 +340,7 @@ export function Marketing() {
                           Solicitar Orçamento
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="fixed inset-0 z-50 flex flex-col justify-end bg-black/40 sm:inset-auto sm:left-[50%] sm:top-[50%] sm:max-w-[500px] sm:translate-x-[-50%] sm:translate-y-[-50%] sm:rounded-lg sm:bg-transparent sm:shadow-none sm:p-0 [&>button]:hidden !translate-x-0 !translate-y-0 !left-0 !top-0 sm:!left-[50%] sm:!top-[50%] sm:!translate-x-[-50%] sm:!translate-y-[-50%]" aria-describedby="dialog-description">
+                      <DialogContent className="fixed inset-0 z-50 flex flex-col bg-white sm:inset-auto sm:left-[50%] sm:top-[50%] sm:max-w-[500px] sm:translate-x-[-50%] sm:translate-y-[-50%] sm:rounded-lg sm:shadow-lg sm:p-0 [&>button]:hidden !translate-x-0 !translate-y-0 !left-0 !top-0 sm:!left-[50%] sm:!top-[50%] sm:!translate-x-[-50%] sm:!translate-y-[-50%]" aria-describedby="dialog-description">
                         <motion.div
                           initial={{ opacity: 0, y: "100%" }}
                           animate={{ opacity: 1, y: 0 }}
@@ -350,7 +350,7 @@ export function Marketing() {
                             damping: 30,
                             stiffness: 300,
                           }}
-                          className="bg-white sm:rounded-t-[2.5rem] rounded-none p-6 md:p-10 shadow-[0_-16px_48px_-12px_rgba(0,0,0,0.2)] relative border-t border-primary/5 w-full h-[92vh] sm:h-auto overflow-y-auto custom-scrollbar"
+                          className="bg-white rounded-none p-6 md:p-10 relative w-full h-full overflow-y-auto custom-scrollbar"
                         >
                           <div id="dialog-description" className="sr-only">
                             Formulário para solicitação de orçamento do pacote {pkg.name}
