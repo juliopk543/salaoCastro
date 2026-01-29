@@ -31,40 +31,40 @@ import { useQuery } from "@tanstack/react-query";
 
 const packages = [
   {
-    name: "Day Use",
-    description: "Perfeito para curtir um dia de sol com a família.",
+    name: "Regras",
+    description: "Proibido som que incomode os vizinhos.",
     price: "Consulte",
     features: [
-      "Acesso das 9h às 18h",
-      "Piscina liberada",
-      "Área de churrasco",
-      "Até 15 pessoas",
+      "Cuidar do ambiente como se fosse seu.",
+      "Não sujar as paredes.",
+      "Usar o chuveiro antes de entrar na piscina.",
+      "Os brinquedos são infantis.",
     ],
     highlight: false,
   },
   {
     name: "Fim de Semana",
-    description: "Pacote completo de Sexta a Domingo.",
+    description: "Aqui sua alegria é garantida.",
     price: "Especial",
     features: [
-      "Check-in Sexta 18h",
-      "Check-out Domingo 18h",
-      "Pernoite incluso (Quarto)",
-      "Uso total das instalações",
-      "Ideal para retiro familiar",
+      "Check-in no horário combinado.",
+      "Check-out no horário combinado.",
+      "Pernoite incluso (Quarto).",
+      "Uso total das instalações.",
+      "Ideal para retiro familiar.",
     ],
     highlight: true,
   },
   {
     name: "Eventos",
     description: "Para casamentos, aniversários e grandes festas.",
-    price: "Personalizado",
+    price: "Detalhes",
     features: [
-      "Período de 8h a 12h",
-      "Mesas e cadeiras inclusas",
-      "Limpeza pré e pós evento",
-      "Indicação de parceiros",
-      "Capacidade ampliada",
+      "Período de 08:00h ás 20:00h",
+      "Mesas e cadeiras inclusas.",
+      "Limpeza pré e pós evento.",
+      "Indicação de parceiros.",
+      "(Quarto) não incluso.",
     ],
     highlight: false,
   },
@@ -113,27 +113,29 @@ export function Marketing() {
   const { toast } = useToast();
   const [hasAnimated, setHasAnimated] = useState(false);
 
-  const { data: unavailableDates = [] } = useQuery<{start: string, end: string}[]>({
-    queryKey: ["/api/unavailable-dates"]
+  const { data: unavailableDates = [] } = useQuery<
+    { start: string; end: string }[]
+  >({
+    queryKey: ["/api/unavailable-dates"],
   });
 
   const isDateUnavailable = (dateStr: string) => {
     if (!dateStr) return false;
-    const date = new Date(dateStr + 'T00:00:00');
-    return unavailableDates.some(range => {
-      const start = new Date(range.start + 'T00:00:00');
-      const end = new Date(range.end + 'T00:00:00');
+    const date = new Date(dateStr + "T00:00:00");
+    return unavailableDates.some((range) => {
+      const start = new Date(range.start + "T00:00:00");
+      const end = new Date(range.end + "T00:00:00");
       return date >= start && date <= end;
     });
   };
 
   const unavailableDateStrings = useMemo(() => {
     const dates: string[] = [];
-    unavailableDates.forEach(range => {
-      let current = new Date(range.start + 'T00:00:00');
-      const end = new Date(range.end + 'T00:00:00');
+    unavailableDates.forEach((range) => {
+      let current = new Date(range.start + "T00:00:00");
+      const end = new Date(range.end + "T00:00:00");
       while (current <= end) {
-        dates.push(current.toISOString().split('T')[0]);
+        dates.push(current.toISOString().split("T")[0]);
         current.setDate(current.getDate() + 1);
       }
     });
@@ -141,17 +143,22 @@ export function Marketing() {
   }, [unavailableDates]);
 
   useEffect(() => {
-    const styleId = 'disable-dates-style';
+    const styleId = "disable-dates-style";
     let styleElement = document.getElementById(styleId);
-    
+
     if (!styleElement) {
-      styleElement = document.createElement('style');
+      styleElement = document.createElement("style");
       styleElement.id = styleId;
       document.head.appendChild(styleElement);
     }
 
-    const selectors = unavailableDateStrings.map(date => `input[type="date"]::-webkit-calendar-picker-indicator[value="${date}"]`).join(', ');
-    
+    const selectors = unavailableDateStrings
+      .map(
+        (date) =>
+          `input[type="date"]::-webkit-calendar-picker-indicator[value="${date}"]`,
+      )
+      .join(", ");
+
     // Note: Standard HTML date inputs don't support disabling specific days via CSS easily.
     // The most reliable way is to handle it via the onChange as we are already doing,
     // but we can try to provide a visual hint if the browser supports it or use a custom picker.
@@ -362,7 +369,11 @@ export function Marketing() {
                         >
                           <div className="absolute top-4 right-4 z-50">
                             <DialogTrigger asChild>
-                              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full backdrop-blur-sm shadow-md hover:bg-white transition-all text-[#ffffff] bg-[#124da1]">
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                className="h-10 w-10 rounded-full backdrop-blur-sm shadow-md hover:bg-white transition-all text-[#ffffff] bg-[#124da1]"
+                              >
                                 <span className="text-xl">×</span>
                               </Button>
                             </DialogTrigger>
@@ -494,21 +505,22 @@ export function Marketing() {
                                   className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 ${isDateUnavailable(formData.checkIn) ? "border-red-500 text-red-500" : ""}`}
                                   value={formData.checkIn}
                                   onKeyDown={(e) => {
-                                    if (e.key !== 'Tab') e.preventDefault();
+                                    if (e.key !== "Tab") e.preventDefault();
                                   }}
                                   onChange={(e) => {
                                     if (isDateUnavailable(e.target.value)) {
                                       toast({
                                         title: "Data Indisponível",
-                                        description: "Este período já está reservado. Por favor, escolha outra data.",
-                                        variant: "destructive"
+                                        description:
+                                          "Este período já está reservado. Por favor, escolha outra data.",
+                                        variant: "destructive",
                                       });
                                       return;
                                     }
                                     setFormData({
                                       ...formData,
                                       checkIn: e.target.value,
-                                    })
+                                    });
                                   }}
                                 />
                               </div>
@@ -523,21 +535,22 @@ export function Marketing() {
                                   className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 ${isDateUnavailable(formData.checkOut) ? "border-red-500 text-red-500" : ""}`}
                                   value={formData.checkOut}
                                   onKeyDown={(e) => {
-                                    if (e.key !== 'Tab') e.preventDefault();
+                                    if (e.key !== "Tab") e.preventDefault();
                                   }}
                                   onChange={(e) => {
                                     if (isDateUnavailable(e.target.value)) {
                                       toast({
                                         title: "Data Indisponível",
-                                        description: "Este período já está reservado. Por favor, escolha outra data.",
-                                        variant: "destructive"
+                                        description:
+                                          "Este período já está reservado. Por favor, escolha outra data.",
+                                        variant: "destructive",
                                       });
                                       return;
                                     }
                                     setFormData({
                                       ...formData,
                                       checkOut: e.target.value,
-                                    })
+                                    });
                                   }}
                                 />
                               </div>
