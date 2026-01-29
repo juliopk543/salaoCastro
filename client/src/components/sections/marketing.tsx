@@ -31,24 +31,24 @@ import { useQuery } from "@tanstack/react-query";
 
 const packages = [
   {
-    name: "Regras",
-    description: "Proibido som que incomode os vizinhos.",
+    name: "Day Use",
+    description: "Perfeito para curtir um dia de sol com a família.",
     price: "Consulte",
     features: [
-      "Cuidar do ambiente como se fosse seu.",
-      "Não sujar as paredes.",
-      "Use o chuveiro antes de entrar na piscina.",
-      "Os brinquedos são infantis.",
+      "Acesso das 9h às 18h",
+      "Piscina liberada",
+      "Área de churrasco",
+      "Até 15 pessoas",
     ],
     highlight: false,
   },
   {
     name: "Fim de Semana",
-    description: "Aqui sua alegria é garantida.",
+    description: "Pacote completo de Sexta a Domingo.",
     price: "Especial",
     features: [
-      "Check-in no horário combinado",
-      "Check-out no horário combinado",
+      "Check-in Sexta 18h",
+      "Check-out Domingo 18h",
       "Pernoite incluso (Quarto)",
       "Uso total das instalações",
       "Ideal para retiro familiar",
@@ -56,15 +56,15 @@ const packages = [
     highlight: true,
   },
   {
-    name: "Detalhes",
+    name: "Eventos",
     description: "Para casamentos, aniversários e grandes festas.",
-    price: "Day Use",
+    price: "Personalizado",
     features: [
-      "Período mínimo de 08:00h ás 20:00h",
+      "Período de 8h a 12h",
       "Mesas e cadeiras inclusas",
-      "Limpeza feita pré e pós evento",
+      "Limpeza pré e pós evento",
       "Indicação de parceiros",
-      "(Quarto) não incluso.",
+      "Capacidade ampliada",
     ],
     highlight: false,
   },
@@ -113,29 +113,27 @@ export function Marketing() {
   const { toast } = useToast();
   const [hasAnimated, setHasAnimated] = useState(false);
 
-  const { data: unavailableDates = [] } = useQuery<
-    { start: string; end: string }[]
-  >({
-    queryKey: ["/api/unavailable-dates"],
+  const { data: unavailableDates = [] } = useQuery<{start: string, end: string}[]>({
+    queryKey: ["/api/unavailable-dates"]
   });
 
   const isDateUnavailable = (dateStr: string) => {
     if (!dateStr) return false;
-    const date = new Date(dateStr + "T00:00:00");
-    return unavailableDates.some((range) => {
-      const start = new Date(range.start + "T00:00:00");
-      const end = new Date(range.end + "T00:00:00");
+    const date = new Date(dateStr + 'T00:00:00');
+    return unavailableDates.some(range => {
+      const start = new Date(range.start + 'T00:00:00');
+      const end = new Date(range.end + 'T00:00:00');
       return date >= start && date <= end;
     });
   };
 
   const unavailableDateStrings = useMemo(() => {
     const dates: string[] = [];
-    unavailableDates.forEach((range) => {
-      let current = new Date(range.start + "T00:00:00");
-      const end = new Date(range.end + "T00:00:00");
+    unavailableDates.forEach(range => {
+      let current = new Date(range.start + 'T00:00:00');
+      const end = new Date(range.end + 'T00:00:00');
       while (current <= end) {
-        dates.push(current.toISOString().split("T")[0]);
+        dates.push(current.toISOString().split('T')[0]);
         current.setDate(current.getDate() + 1);
       }
     });
@@ -143,22 +141,17 @@ export function Marketing() {
   }, [unavailableDates]);
 
   useEffect(() => {
-    const styleId = "disable-dates-style";
+    const styleId = 'disable-dates-style';
     let styleElement = document.getElementById(styleId);
-
+    
     if (!styleElement) {
-      styleElement = document.createElement("style");
+      styleElement = document.createElement('style');
       styleElement.id = styleId;
       document.head.appendChild(styleElement);
     }
 
-    const selectors = unavailableDateStrings
-      .map(
-        (date) =>
-          `input[type="date"]::-webkit-calendar-picker-indicator[value="${date}"]`,
-      )
-      .join(", ");
-
+    const selectors = unavailableDateStrings.map(date => `input[type="date"]::-webkit-calendar-picker-indicator[value="${date}"]`).join(', ');
+    
     // Note: Standard HTML date inputs don't support disabling specific days via CSS easily.
     // The most reliable way is to handle it via the onChange as we are already doing,
     // but we can try to provide a visual hint if the browser supports it or use a custom picker.
@@ -343,6 +336,264 @@ export function Marketing() {
                   </CardContent>
 
                   <CardFooter className="p-8 pt-0 mt-auto">
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button
+                          className={`w-full font-bold rounded-full py-6 ${
+                            pkg.highlight
+                              ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
+                              : "bg-primary hover:bg-primary/90 text-white"
+                          }`}
+                        >
+                          Solicitar Orçamento
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed bottom-0 top-[auto] translate-y-0 h-[90vh] flex flex-col justify-end [&>button]:hidden">
+                        <motion.div
+                          initial={{ opacity: 0, y: "100%" }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: "100%" }}
+                          transition={{
+                            type: "spring",
+                            damping: 30,
+                            stiffness: 300,
+                          }}
+                          className="bg-white rounded-t-[2.5rem] rounded-b-none p-8 md:p-10 shadow-[0_-16px_48px_-12px_rgba(0,0,0,0.2)] relative border-t border-primary/5 w-full max-h-full overflow-y-auto custom-scrollbar"
+                        >
+                          <div className="absolute top-4 right-4 z-50">
+                            <DialogTrigger asChild>
+                              <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full backdrop-blur-sm shadow-md hover:bg-white transition-all text-[#ffffff] bg-[#124da1]">
+                                <span className="text-xl">×</span>
+                              </Button>
+                            </DialogTrigger>
+                          </div>
+                          {/* Decorative elements */}
+                          <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full -mr-16 -mt-16 blur-2xl" />
+                          <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full -ml-16 -mb-16 blur-2xl" />
+
+                          <DialogHeader className="relative z-10">
+                            <DialogTitle className="text-3xl font-heading text-primary leading-tight">
+                              Solicitar Orçamento
+                            </DialogTitle>
+                          </DialogHeader>
+
+                          <form
+                            className="space-y-5 pt-6 relative z-10"
+                            onSubmit={(e) => {
+                              e.preventDefault();
+                              handleWhatsAppRedirect(pkg.name);
+                            }}
+                          >
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                Nome
+                              </label>
+                              <Input
+                                required
+                                placeholder="Seu nome"
+                                className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                                value={formData.name}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    name: e.target.value,
+                                  })
+                                }
+                              />
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                De onde você está é?
+                              </label>
+                              <Select
+                                onValueChange={(value) =>
+                                  setFormData({ ...formData, state: value })
+                                }
+                              >
+                                <SelectTrigger className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4">
+                                  <SelectValue placeholder="Selecione o estado..." />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-xl border-muted shadow-xl h-[250px]">
+                                  {states.map((state) => (
+                                    <SelectItem key={state} value={state}>
+                                      {state}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                WhatsApp
+                              </label>
+                              <Input
+                                required
+                                type="tel"
+                                placeholder="(00) 00000-0000"
+                                className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                                value={formData.whatsapp}
+                                onChange={(e) => {
+                                  const val = e.target.value.replace(/\D/g, "");
+                                  if (val.length <= 11) {
+                                    setFormData({ ...formData, whatsapp: val });
+                                  }
+                                }}
+                              />
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                Tipo de Evento
+                              </label>
+                              <Select
+                                defaultValue={pkg.name
+                                  .toLowerCase()
+                                  .replace(/\s/g, "")}
+                                onValueChange={(value) =>
+                                  setFormData({ ...formData, eventType: value })
+                                }
+                              >
+                                <SelectTrigger className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4">
+                                  <SelectValue placeholder="Selecione..." />
+                                </SelectTrigger>
+                                <SelectContent className="rounded-xl border-muted shadow-xl">
+                                  <SelectItem value="aniversario">
+                                    Aniversário
+                                  </SelectItem>
+                                  <SelectItem value="casamento">
+                                    Casamento
+                                  </SelectItem>
+                                  <SelectItem value="churrasco">
+                                    Churrasco/Confraternização
+                                  </SelectItem>
+                                  <SelectItem value="dayuse">
+                                    Day Use (Lazer)
+                                  </SelectItem>
+                                  <SelectItem value="fimdesemana">
+                                    Fim de Semana
+                                  </SelectItem>
+                                  <SelectItem value="corporativo">
+                                    Evento Corporativo
+                                  </SelectItem>
+                                  <SelectItem value="outro">Outro</SelectItem>
+                                </SelectContent>
+                              </Select>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                              <div className="space-y-1.5">
+                                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                  Data de Entrada
+                                </label>
+                                <Input
+                                  required
+                                  type="date"
+                                  min={today}
+                                  className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 ${isDateUnavailable(formData.checkIn) ? "border-red-500 text-red-500" : ""}`}
+                                  value={formData.checkIn}
+                                  onKeyDown={(e) => {
+                                    if (e.key !== 'Tab') e.preventDefault();
+                                  }}
+                                  onChange={(e) => {
+                                    if (isDateUnavailable(e.target.value)) {
+                                      toast({
+                                        title: "Data Indisponível",
+                                        description: "Este período já está reservado. Por favor, escolha outra data.",
+                                        variant: "destructive"
+                                      });
+                                      return;
+                                    }
+                                    setFormData({
+                                      ...formData,
+                                      checkIn: e.target.value,
+                                    })
+                                  }}
+                                />
+                              </div>
+                              <div className="space-y-1.5">
+                                <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                  Data de Saída
+                                </label>
+                                <Input
+                                  required
+                                  type="date"
+                                  min={formData.checkIn || today}
+                                  className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 ${isDateUnavailable(formData.checkOut) ? "border-red-500 text-red-500" : ""}`}
+                                  value={formData.checkOut}
+                                  onKeyDown={(e) => {
+                                    if (e.key !== 'Tab') e.preventDefault();
+                                  }}
+                                  onChange={(e) => {
+                                    if (isDateUnavailable(e.target.value)) {
+                                      toast({
+                                        title: "Data Indisponível",
+                                        description: "Este período já está reservado. Por favor, escolha outra data.",
+                                        variant: "destructive"
+                                      });
+                                      return;
+                                    }
+                                    setFormData({
+                                      ...formData,
+                                      checkOut: e.target.value,
+                                    })
+                                  }}
+                                />
+                              </div>
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                Quantidade de Convidados
+                              </label>
+                              <Input
+                                required
+                                type="text"
+                                inputMode="numeric"
+                                placeholder="Ex: 50"
+                                className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4"
+                                value={formData.guests}
+                                onChange={(e) => {
+                                  const val = e.target.value.replace(/\D/g, "");
+                                  if (val.length <= 3) {
+                                    setFormData({ ...formData, guests: val });
+                                  }
+                                }}
+                              />
+                            </div>
+
+                            <div className="space-y-1.5">
+                              <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
+                                Mensagem (Opcional)
+                              </label>
+                              <Textarea
+                                placeholder="Quantas pessoas? Alguma dúvida específica?"
+                                className="rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all min-h-[100px] p-4 resize-none"
+                                value={formData.message}
+                                maxLength={700}
+                                onChange={(e) =>
+                                  setFormData({
+                                    ...formData,
+                                    message: e.target.value,
+                                  })
+                                }
+                              />
+                              <div className="text-[10px] text-right text-muted-foreground mt-1">
+                                {formData.message.length}/700 caracteres
+                              </div>
+                            </div>
+
+                            <Button
+                              type="submit"
+                              className="w-full bg-primary hover:bg-primary/90 text-white font-bold py-7 text-lg rounded-2xl shadow-xl shadow-primary/20 transition-all hover:scale-[1.02] active:scale-0.98"
+                            >
+                              Enviar Solicitação
+                            </Button>
+                          </form>
+                        </motion.div>
+                      </DialogContent>
+                    </Dialog>
                   </CardFooter>
                 </Card>
               </div>
