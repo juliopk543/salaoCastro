@@ -145,7 +145,7 @@ export default function InquiryPage() {
                 <div className="bg-primary/10 p-2 rounded-lg">
                   <CalendarIcon className="h-5 w-5 text-primary" />
                 </div>
-                Pacote selecionado: <span className="text-secondary">{pkgName}</span>
+                Informações do Evento
               </h2>
             </CardHeader>
             <CardContent className="p-6 md:p-10">
