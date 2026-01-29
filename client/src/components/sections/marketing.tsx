@@ -502,8 +502,8 @@ export function Marketing() {
                               </Select>
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div className="space-y-1.5">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+                              <div className="space-y-1.5 w-full">
                                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                                   Data de Entrada
                                 </label>
@@ -511,7 +511,7 @@ export function Marketing() {
                                   required
                                   type="date"
                                   min={today}
-                                  className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 ${isDateUnavailable(formData.checkIn) ? "border-red-500 text-red-500" : ""}`}
+                                  className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 w-full ${isDateUnavailable(formData.checkIn) ? "border-red-500 text-red-500" : ""}`}
                                   value={formData.checkIn}
                                   onKeyDown={(e) => {
                                     if (e.key !== "Tab") e.preventDefault();
@@ -540,7 +540,7 @@ export function Marketing() {
                                   }}
                                 />
                               </div>
-                              <div className="space-y-1.5">
+                              <div className="space-y-1.5 w-full">
                                 <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                                   Data de Saída
                                 </label>
@@ -548,7 +548,7 @@ export function Marketing() {
                                   required
                                   type="date"
                                   min={formData.checkIn || today}
-                                  className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 ${isDateUnavailable(formData.checkOut) ? "border-red-500 text-red-500" : ""}`}
+                                  className={`rounded-2xl border-muted bg-muted/30 focus:bg-white transition-all h-12 px-4 w-full ${isDateUnavailable(formData.checkOut) ? "border-red-500 text-red-500" : ""}`}
                                   value={formData.checkOut}
                                   onKeyDown={(e) => {
                                     if (e.key !== "Tab") e.preventDefault();
