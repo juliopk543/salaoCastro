@@ -350,7 +350,7 @@ export function Marketing() {
                             damping: 30,
                             stiffness: 300,
                           }}
-                          className="bg-white rounded-none p-6 md:p-10 relative w-full h-full overflow-y-auto custom-scrollbar"
+                          className="bg-white rounded-none p-6 md:p-10 relative w-full h-full overflow-y-auto custom-scrollbar overscroll-contain touch-pan-y"
                         >
                           <div id="dialog-description" className="sr-only">
                             Formulário para solicitação de orçamento do pacote {pkg.name}
