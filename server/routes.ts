@@ -107,8 +107,12 @@ export async function registerRoutes(
     const adminUser = (process.env['admin'] || '').trim();
     const adminPass = (process.env['senha'] || '').trim();
 
+    if (!adminUser || !adminPass) {
+      console.error("ERRO CRÍTICO: Variáveis 'admin' ou 'senha' não configuradas no Railway!");
+      return res.status(500).json({ success: false, message: "Erro de configuração no servidor" });
+    }
+
     console.log("Login attempt for:", username);
-    console.log("Configured admin:", adminUser ? "Yes" : "No");
 
     if (username?.trim() === adminUser && password?.trim() === adminPass) {
       res.json({ success: true });
