@@ -104,12 +104,13 @@ export async function registerRoutes(
     const { username, password } = req.body;
     
     // Using explicit process.env keys to ensure they are read correctly
-    const adminUser = process.env['admin'];
-    const adminPass = process.env['senha'];
+    const adminUser = (process.env['admin'] || '').trim();
+    const adminPass = (process.env['senha'] || '').trim();
 
     console.log("Login attempt for:", username);
+    console.log("Configured admin:", adminUser ? "Yes" : "No");
 
-    if (username?.trim() === adminUser?.trim() && password?.trim() === adminPass?.trim()) {
+    if (username?.trim() === adminUser && password?.trim() === adminPass) {
       res.json({ success: true });
     } else {
       res.status(401).json({ success: false, message: "Credenciais inválidas" });
