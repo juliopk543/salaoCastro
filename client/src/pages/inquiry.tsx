@@ -257,7 +257,7 @@ export default function InquiryPage() {
                           disabled={isDateUnavailable}
                           initialFocus
                           locale={ptBR}
-                          className="w-full"
+                          className="w-full flex-1"
                         />
                       </PopoverContent>
                     </Popover>

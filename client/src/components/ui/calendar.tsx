@@ -32,11 +32,12 @@ function Calendar({
         "bg-background group/calendar p-4 sm:[--cell-size:3.5rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
         "w-full max-w-none flex flex-col items-center",
         "[--cell-size:calc((100vw-3.5rem)/7)]",
+        "**:data-[slot=month]:w-full",
         "**:data-[slot=table]:w-full **:data-[slot=table-body]:w-full **:data-[slot=table-row]:w-full **:data-[slot=table-row]:flex **:data-[slot=table-row]:justify-between",
         "**:data-[slot=table-head]:flex-1 **:data-[slot=table-head]:text-center **:data-[slot=table-head]:text-sm **:data-[slot=table-head]:font-bold",
         "**:data-[slot=day]:flex-1 **:data-[slot=day]:flex **:data-[slot=day]:justify-center **:data-[slot=day]:max-w-none **:data-[slot=day]:text-lg **:data-[slot=day]:font-bold",
         "**:data-[slot=month-grid]:w-full **:data-[slot=month-grid]:flex **:data-[slot=month-grid]:flex-col **:data-[slot=month-grid]:gap-2",
-        "**:data-[slot=month-caption]:text-xl **:data-[slot=month-caption]:font-bold **:data-[slot=month-caption]:mb-4",
+        "**:data-[slot=month-caption]:text-xl **:data-[slot=month-caption]:font-bold **:data-[slot=month-caption]:mb-4 **:data-[slot=month-caption]:flex **:data-[slot=month-caption]:justify-center",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className
@@ -209,6 +210,7 @@ function CalendarDayButton({
       data-range-middle={modifiers.range_middle}
       className={cn(
         "data-[selected-single=true]:bg-primary data-[selected-single=true]:text-primary-foreground data-[range-middle=true]:bg-accent data-[range-middle=true]:text-accent-foreground data-[range-start=true]:bg-primary data-[range-start=true]:text-primary-foreground data-[range-end=true]:bg-primary data-[range-end=true]:text-primary-foreground group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 flex aspect-square h-auto w-full min-w-[--cell-size] flex-col gap-1 font-bold leading-none data-[range-end=true]:rounded-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] [&>span]:text-lg [&>span]:opacity-70",
+        "flex-1 items-stretch",
         defaultClassNames.day,
         className
       )}
