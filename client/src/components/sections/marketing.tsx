@@ -340,7 +340,7 @@ export function Marketing() {
                           Solicitar Orçamento
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed inset-0 sm:inset-auto sm:bottom-0 sm:right-0 sm:left-auto sm:translate-x-0 h-full sm:h-[90vh] flex flex-col justify-end [&>button]:hidden" aria-describedby="dialog-description">
+                      <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed inset-0 z-[100] h-[100dvh] flex flex-col justify-end sm:h-[90vh] [&>button]:hidden" aria-describedby="dialog-description">
                         <motion.div
                           initial={{ opacity: 0, y: "100%" }}
                           animate={{ opacity: 1, y: 0 }}
@@ -350,7 +350,7 @@ export function Marketing() {
                             damping: 30,
                             stiffness: 300,
                           }}
-                          className="bg-white sm:rounded-t-[2.5rem] rounded-none sm:p-8 md:p-10 p-6 shadow-[0_-16px_48px_-12px_rgba(0,0,0,0.2)] relative border-t border-primary/5 w-full h-full sm:h-auto overflow-y-auto custom-scrollbar"
+                          className="bg-white sm:rounded-t-[2.5rem] rounded-none p-6 md:p-10 shadow-[0_-16px_48px_-12px_rgba(0,0,0,0.2)] relative border-t border-primary/5 w-full h-full sm:h-auto overflow-y-auto custom-scrollbar"
                         >
                           <div id="dialog-description" className="sr-only">
                             Formulário para solicitação de orçamento do pacote {pkg.name}
