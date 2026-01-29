@@ -247,7 +247,7 @@ export default function InquiryPage() {
                           {formData.checkIn ? format(parseISO(formData.checkIn), "PPP", { locale: ptBR }) : <span>Selecione a data...</span>}
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-[calc(100vw-1rem)] p-0 sm:w-auto overflow-hidden" align="center" sideOffset={8}>
+                      <PopoverContent className="w-[calc(100vw-2rem)] p-0 sm:w-auto overflow-hidden" align="center" sideOffset={8}>
                         <Calendar
                           mode="single"
                           selected={formData.checkIn ? parseISO(formData.checkIn) : undefined}
@@ -280,7 +280,7 @@ export default function InquiryPage() {
                           {formData.checkOut ? format(parseISO(formData.checkOut), "PPP", { locale: ptBR }) : <span>Selecione a data...</span>}
                         </Button>
                       </PopoverTrigger>
-                      <PopoverContent className="w-[calc(100vw-1rem)] p-0 sm:w-auto overflow-hidden" align="center" sideOffset={8}>
+                      <PopoverContent className="w-[calc(100vw-2rem)] p-0 sm:w-auto overflow-hidden" align="center" sideOffset={8}>
                         <Calendar
                           mode="single"
                           selected={formData.checkOut ? parseISO(formData.checkOut) : undefined}
