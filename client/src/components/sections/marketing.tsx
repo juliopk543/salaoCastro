@@ -355,7 +355,7 @@ export function Marketing() {
                           Solicitar Orçamento
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed bottom-0 top-[auto] translate-y-0 h-[90vh] flex flex-col justify-end [&>button]:hidden">
+                      <DialogContent className="sm:max-w-[500px] border-none bg-transparent p-0 shadow-none overflow-visible sm:top-[auto] sm:bottom-0 sm:translate-y-0 fixed bottom-0 top-[auto] translate-y-0 h-[90vh] flex flex-col justify-end [&>button]:hidden" aria-describedby="dialog-description">
                         <motion.div
                           initial={{ opacity: 0, y: "100%" }}
                           animate={{ opacity: 1, y: 0 }}
@@ -367,6 +367,9 @@ export function Marketing() {
                           }}
                           className="bg-white rounded-t-[2.5rem] rounded-b-none p-8 md:p-10 shadow-[0_-16px_48px_-12px_rgba(0,0,0,0.2)] relative border-t border-primary/5 w-full max-h-full overflow-y-auto custom-scrollbar"
                         >
+                          <div id="dialog-description" className="sr-only">
+                            Formulário para solicitação de orçamento do pacote {pkg.name}
+                          </div>
                           <div className="absolute top-4 right-4 z-50">
                             <DialogTrigger asChild>
                               <Button
