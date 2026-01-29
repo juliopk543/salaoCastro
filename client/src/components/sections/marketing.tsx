@@ -164,11 +164,12 @@ export function Marketing() {
       )
       .join(", ");
 
-    // Note: Standard HTML date inputs don't support disabling specific days via CSS easily.
-    // The most reliable way is to handle it via the onChange as we are already doing,
-    // but we can try to provide a visual hint if the browser supports it or use a custom picker.
-    // Since we must use standard Input (type="date"), we'll stick to the current validation
-    // and ensure the user understands why it's blocked via the toast.
+    // Bloqueia visualmente datas no calendário nativo
+    // Criamos uma lista de datas para o atributo 'min' e para estilização se suportado
+    // Como o input date nativo é limitado em estilização via CSS de dias específicos,
+    // a melhor forma de "cinzar" é usar o atributo 'min' que já temos.
+    // Para as datas ocupadas no meio do calendário, alguns browsers não permitem "cinzar" via CSS puro,
+    // mas vamos garantir que a validação não dispare o toast para datas PASSADAS, apenas para as RESERVADAS.
   }, [unavailableDateStrings]);
 
   const [formData, setFormData] = useState({
@@ -516,7 +517,14 @@ export function Marketing() {
                                     if (e.key !== "Tab") e.preventDefault();
                                   }}
                                   onChange={(e) => {
-                                    if (isDateUnavailable(e.target.value)) {
+                                    const selectedDate = e.target.value;
+                                    const date = new Date(selectedDate + "T00:00:00");
+                                    const todayDate = new Date(today + "T00:00:00");
+
+                                    // Se for data passada, apenas não atualiza, sem mostrar erro de "reservado"
+                                    if (date < todayDate) return;
+
+                                    if (isDateUnavailable(selectedDate)) {
                                       toast({
                                         title: "Data Indisponível",
                                         description:
@@ -527,7 +535,7 @@ export function Marketing() {
                                     }
                                     setFormData({
                                       ...formData,
-                                      checkIn: e.target.value,
+                                      checkIn: selectedDate,
                                     });
                                   }}
                                 />
@@ -546,7 +554,14 @@ export function Marketing() {
                                     if (e.key !== "Tab") e.preventDefault();
                                   }}
                                   onChange={(e) => {
-                                    if (isDateUnavailable(e.target.value)) {
+                                    const selectedDate = e.target.value;
+                                    const date = new Date(selectedDate + "T00:00:00");
+                                    const todayDate = new Date(today + "T00:00:00");
+
+                                    // Se for data passada, apenas não atualiza, sem mostrar erro de "reservado"
+                                    if (date < todayDate) return;
+
+                                    if (isDateUnavailable(selectedDate)) {
                                       toast({
                                         title: "Data Indisponível",
                                         description:
@@ -557,7 +572,7 @@ export function Marketing() {
                                     }
                                     setFormData({
                                       ...formData,
-                                      checkOut: e.target.value,
+                                      checkOut: selectedDate,
                                     });
                                   }}
                                 />
