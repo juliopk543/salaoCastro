@@ -33,9 +33,10 @@ function Calendar({
         "w-full max-w-none flex flex-col items-center",
         "[--cell-size:calc((100vw-3.5rem)/7)]",
         "**:data-[slot=table]:w-full **:data-[slot=table-body]:w-full **:data-[slot=table-row]:w-full **:data-[slot=table-row]:flex **:data-[slot=table-row]:justify-between",
-        "**:data-[slot=table-head]:flex-1 **:data-[slot=table-head]:text-center",
-        "**:data-[slot=day]:flex-1 **:data-[slot=day]:flex **:data-[slot=day]:justify-center **:data-[slot=day]:max-w-none",
-        "**:data-[slot=month-grid]:w-full **:data-[slot=month-grid]:flex **:data-[slot=month-grid]:flex-col **:data-[slot=month-grid]:gap-1",
+        "**:data-[slot=table-head]:flex-1 **:data-[slot=table-head]:text-center **:data-[slot=table-head]:text-sm **:data-[slot=table-head]:font-bold",
+        "**:data-[slot=day]:flex-1 **:data-[slot=day]:flex **:data-[slot=day]:justify-center **:data-[slot=day]:max-w-none **:data-[slot=day]:text-lg **:data-[slot=day]:font-bold",
+        "**:data-[slot=month-grid]:w-full **:data-[slot=month-grid]:flex **:data-[slot=month-grid]:flex-col **:data-[slot=month-grid]:gap-2",
+        "**:data-[slot=month-caption]:text-xl **:data-[slot=month-caption]:font-bold **:data-[slot=month-caption]:mb-4",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className
