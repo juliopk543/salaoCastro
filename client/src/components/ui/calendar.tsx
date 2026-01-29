@@ -30,7 +30,7 @@ function Calendar({
       showOutsideDays={showOutsideDays}
       className={cn(
         "bg-background group/calendar p-1 sm:[--cell-size:3.5rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
-        "w-full max-w-none flex flex-col items-center",
+        "w-full max-w-none flex flex-col items-stretch",
         "[--cell-size:calc((100vw-3rem)/7)]",
         "**:data-[slot=months]:w-full **:data-[slot=month]:w-full",
         "**:data-[slot=table]:w-full **:data-[slot=table-body]:w-full **:data-[slot=table-row]:w-full **:data-[slot=table-row]:flex **:data-[slot=table-row]:justify-between",

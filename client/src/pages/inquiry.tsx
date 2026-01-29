@@ -229,71 +229,53 @@ export default function InquiryPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-1.5">
+                <div className="space-y-6">
+                  <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                       Data de Entrada
                     </label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal rounded-xl border-muted bg-muted/20 focus:bg-white h-12 px-4",
-                            !formData.checkIn && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {formData.checkIn ? format(parseISO(formData.checkIn), "PPP", { locale: ptBR }) : <span>Selecione a data...</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-[calc(100vw-1.5rem)] p-0 sm:w-auto overflow-hidden" align="center" sideOffset={8}>
-                        <Calendar
-                          mode="single"
-                          selected={formData.checkIn ? parseISO(formData.checkIn) : undefined}
-                          onSelect={(date) => {
-                            if (date) setFormData({ ...formData, checkIn: format(date, "yyyy-MM-dd") });
-                          }}
-                          disabled={isDateUnavailable}
-                          initialFocus
-                          locale={ptBR}
-                          className="w-full flex-1 border-0 shadow-none"
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <div className="bg-white border rounded-2xl p-2 shadow-sm overflow-hidden">
+                      <Calendar
+                        mode="single"
+                        selected={formData.checkIn ? parseISO(formData.checkIn) : undefined}
+                        onSelect={(date) => {
+                          if (date) setFormData({ ...formData, checkIn: format(date, "yyyy-MM-dd") });
+                        }}
+                        disabled={isDateUnavailable}
+                        initialFocus
+                        locale={ptBR}
+                        className="w-full border-0 shadow-none p-0"
+                      />
+                    </div>
+                    {formData.checkIn && (
+                      <p className="text-sm font-medium text-primary px-2">
+                        Entrada: {format(parseISO(formData.checkIn), "PPP", { locale: ptBR })}
+                      </p>
+                    )}
                   </div>
 
-                  <div className="space-y-1.5">
+                  <div className="space-y-2">
                     <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                       Data de Saída
                     </label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal rounded-xl border-muted bg-muted/20 focus:bg-white h-12 px-4",
-                            !formData.checkOut && "text-muted-foreground"
-                          )}
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {formData.checkOut ? format(parseISO(formData.checkOut), "PPP", { locale: ptBR }) : <span>Selecione a data...</span>}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-[calc(100vw-1.5rem)] p-0 sm:w-auto overflow-hidden" align="center" sideOffset={8}>
-                        <Calendar
-                          mode="single"
-                          selected={formData.checkOut ? parseISO(formData.checkOut) : undefined}
-                          onSelect={(date) => {
-                            if (date) setFormData({ ...formData, checkOut: format(date, "yyyy-MM-dd") });
-                          }}
-                          disabled={(date) => isDateUnavailable(date) || (formData.checkIn ? isBefore(date, parseISO(formData.checkIn)) : false)}
-                          initialFocus
-                          locale={ptBR}
-                          className="w-full"
-                        />
-                      </PopoverContent>
-                    </Popover>
+                    <div className="bg-white border rounded-2xl p-2 shadow-sm overflow-hidden">
+                      <Calendar
+                        mode="single"
+                        selected={formData.checkOut ? parseISO(formData.checkOut) : undefined}
+                        onSelect={(date) => {
+                          if (date) setFormData({ ...formData, checkOut: format(date, "yyyy-MM-dd") });
+                        }}
+                        disabled={(date) => isDateUnavailable(date) || (formData.checkIn ? isBefore(date, parseISO(formData.checkIn)) : false)}
+                        initialFocus
+                        locale={ptBR}
+                        className="w-full border-0 shadow-none p-0"
+                      />
+                    </div>
+                    {formData.checkOut && (
+                      <p className="text-sm font-medium text-primary px-2">
+                        Saída: {format(parseISO(formData.checkOut), "PPP", { locale: ptBR })}
+                      </p>
+                    )}
                   </div>
                 </div>
 
