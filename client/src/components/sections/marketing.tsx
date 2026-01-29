@@ -366,23 +366,24 @@ export function Marketing() {
                               </Button>
                             </DialogTrigger>
                           </div>
-                          {/* Decorative elements */}
-                          <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full -mr-16 -mt-16 blur-2xl" />
-                          <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full -ml-16 -mb-16 blur-2xl" />
+                          <div className="overflow-x-hidden relative w-full">
+                            {/* Decorative elements */}
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-secondary/10 rounded-full -mr-16 -mt-16 blur-2xl pointer-events-none" />
+                            <div className="absolute bottom-0 left-0 w-32 h-32 bg-primary/5 rounded-full -ml-16 -mb-16 blur-2xl pointer-events-none" />
 
-                          <DialogHeader className="relative z-10">
-                            <DialogTitle className="text-3xl font-heading text-primary leading-tight">
-                              Solicitar Orçamento
-                            </DialogTitle>
-                          </DialogHeader>
+                            <DialogHeader className="relative z-10 pr-10">
+                              <DialogTitle className="text-3xl font-heading text-primary leading-tight">
+                                Solicitar Orçamento
+                              </DialogTitle>
+                            </DialogHeader>
 
-                          <form
-                            className="space-y-5 pt-6 relative z-10"
-                            onSubmit={(e) => {
-                              e.preventDefault();
-                              handleWhatsAppRedirect(pkg.name);
-                            }}
-                          >
+                            <form
+                              className="space-y-5 pt-6 relative z-10 w-full overflow-x-hidden"
+                              onSubmit={(e) => {
+                                e.preventDefault();
+                                handleWhatsAppRedirect(pkg.name);
+                              }}
+                            >
                             <div className="space-y-1.5">
                               <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                                 Nome
@@ -617,8 +618,9 @@ export function Marketing() {
                               Enviar Solicitação
                             </Button>
                           </form>
-                        </motion.div>
-                      </DialogContent>
+                        </div>
+                      </motion.div>
+                    </DialogContent>
                     </Dialog>
                   </CardFooter>
                 </Card>
