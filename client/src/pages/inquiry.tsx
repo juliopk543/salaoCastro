@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useLocation } from "wouter";
 import { Check, Calendar as CalendarIcon, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -37,6 +37,10 @@ const states = [
 export default function InquiryPage() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   
   // Get package from URL search params or default to "Personalizado"
   const searchParams = new URLSearchParams(window.location.search);
