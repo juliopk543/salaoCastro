@@ -31,11 +31,11 @@ function Calendar({
       className={cn(
         "bg-background group/calendar p-4 sm:[--cell-size:3.5rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
         "w-full max-w-none flex flex-col items-center",
-        "[--cell-size:calc((100vw-4.5rem)/7)]",
+        "[--cell-size:calc((100vw-3.5rem)/7)]",
         "**:data-[slot=table]:w-full **:data-[slot=table-body]:w-full **:data-[slot=table-row]:w-full **:data-[slot=table-row]:flex **:data-[slot=table-row]:justify-between",
         "**:data-[slot=table-head]:flex-1 **:data-[slot=table-head]:text-center",
         "**:data-[slot=day]:flex-1 **:data-[slot=day]:flex **:data-[slot=day]:justify-center **:data-[slot=day]:max-w-none",
-        "**:data-[slot=month-grid]:w-full",
+        "**:data-[slot=month-grid]:w-full **:data-[slot=month-grid]:flex **:data-[slot=month-grid]:flex-col **:data-[slot=month-grid]:gap-1",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className
