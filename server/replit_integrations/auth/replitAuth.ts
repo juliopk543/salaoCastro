@@ -27,14 +27,15 @@ export function getSession() {
     ttl: sessionTtl,
     tableName: "sessions",
   });
+  const sessionSecret = process.env.SESSION_SECRET || "development-secret-key-123";
   return session({
-    secret: process.env.SESSION_SECRET!,
+    secret: sessionSecret,
     store: sessionStore,
     resave: false,
     saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       maxAge: sessionTtl,
     },
   });
@@ -61,6 +62,12 @@ async function upsertUser(claims: any) {
 }
 
 export async function setupAuth(app: Express) {
+  if (process.env.NODE_ENV === "production" && !process.env.REPL_ID) {
+    // Skip Replit Auth in non-Replit production environments (like Railway)
+    // if it's not explicitly configured or supported
+    console.log("Skipping Replit Auth setup in production environment without REPL_ID");
+    return;
+  }
   app.set("trust proxy", 1);
   app.use(getSession());
   app.use(passport.initialize());
