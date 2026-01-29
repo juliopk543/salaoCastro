@@ -122,6 +122,11 @@ export function Marketing() {
   const isDateUnavailable = (dateStr: string) => {
     if (!dateStr) return false;
     const date = new Date(dateStr + "T00:00:00");
+    const todayDate = new Date(today + "T00:00:00");
+    
+    // Check if date is in the past
+    if (date < todayDate) return true;
+
     return unavailableDates.some((range) => {
       const start = new Date(range.start + "T00:00:00");
       const end = new Date(range.end + "T00:00:00");
