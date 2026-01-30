@@ -234,7 +234,7 @@ export default function InquiryPage() {
                     <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                       Data de Entrada
                     </label>
-                    <div className="bg-white border rounded-2xl p-2 shadow-sm overflow-hidden">
+                    <div className="bg-white border rounded-2xl p-2 shadow-sm overflow-visible min-h-fit">
                       <Calendar
                         mode="single"
                         selected={formData.checkIn ? parseISO(formData.checkIn) : undefined}
@@ -244,7 +244,7 @@ export default function InquiryPage() {
                         disabled={isDateUnavailable}
                         initialFocus
                         locale={ptBR}
-                        className="w-full border-0 shadow-none p-0"
+                        className="w-full border-0 shadow-none p-0 h-auto"
                       />
                     </div>
                     {formData.checkIn && (
@@ -258,7 +258,7 @@ export default function InquiryPage() {
                     <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                       Data de Saída
                     </label>
-                    <div className="bg-white border rounded-2xl p-2 shadow-sm overflow-hidden">
+                    <div className="bg-white border rounded-2xl p-2 shadow-sm overflow-visible min-h-fit">
                       <Calendar
                         mode="single"
                         selected={formData.checkOut ? parseISO(formData.checkOut) : undefined}
@@ -268,7 +268,7 @@ export default function InquiryPage() {
                         disabled={(date) => isDateUnavailable(date) || (formData.checkIn ? isBefore(date, parseISO(formData.checkIn)) : false)}
                         initialFocus
                         locale={ptBR}
-                        className="w-full border-0 shadow-none p-0"
+                        className="w-full border-0 shadow-none p-0 h-auto"
                       />
                     </div>
                     {formData.checkOut && (
