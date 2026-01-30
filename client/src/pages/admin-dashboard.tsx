@@ -102,8 +102,11 @@ export default function AdminDashboard() {
   const years = useMemo(() => {
     if (!inquiries) return [];
     // Extract year from YYYY-MM-DD format (checkIn column in DB)
-    const uniqueYears = new Set(inquiries.map(i => i.checkIn.split('-')[0]));
-    return Array.from(uniqueYears).sort((a, b) => b.localeCompare(a));
+    const uniqueYears = new Set(inquiries.map(i => {
+      if (!i.checkIn) return "N/A";
+      return i.checkIn.split('-')[0];
+    }));
+    return Array.from(uniqueYears).filter(y => y !== "N/A").sort((a, b) => b.localeCompare(a));
   }, [inquiries]);
 
   const months = [
@@ -125,6 +128,7 @@ export default function AdminDashboard() {
     if (!inquiries) return [];
     return inquiries.filter(inquiry => {
       // Inquiry checkIn is stored as YYYY-MM-DD
+      if (!inquiry.checkIn) return false;
       const [year, month] = inquiry.checkIn.split('-');
       const yearMatch = selectedYear === "all" || year === selectedYear;
       const monthMatch = selectedMonth === "all" || month === selectedMonth;
@@ -287,8 +291,8 @@ export default function AdminDashboard() {
                             </td>
                             <td className="p-8 align-middle">
                               <div className="flex flex-col gap-1 leading-none">
-                                <span className="text-[10px] font-black text-[#1a1f36] uppercase tracking-tighter">Entrada: {new Date(inquiry.checkIn + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
-                                <span className="text-[10px] font-bold text-[#4f566b] uppercase tracking-tighter opacity-70">Saída: {new Date(inquiry.checkOut + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
+                                <span className="text-[10px] font-black text-[#1a1f36] uppercase tracking-tighter">Entrada: {inquiry.checkIn ? new Date(inquiry.checkIn + 'T00:00:00').toLocaleDateString('pt-BR') : "N/A"}</span>
+                                <span className="text-[10px] font-bold text-[#4f566b] uppercase tracking-tighter opacity-70">Saída: {inquiry.checkOut ? new Date(inquiry.checkOut + 'T00:00:00').toLocaleDateString('pt-BR') : "N/A"}</span>
                               </div>
                             </td>
                             <td className="p-8 align-middle">
@@ -366,11 +370,11 @@ export default function AdminDashboard() {
                           <div className="grid grid-cols-2 gap-4">
                             <div className="flex flex-col gap-0.5">
                               <span className="text-[8px] font-black text-[#4f566b] uppercase tracking-widest opacity-60">Check-in</span>
-                              <span className="text-xs font-black text-[#1a1f36]">{new Date(inquiry.checkIn + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
+                              <span className="text-xs font-black text-[#1a1f36]">{inquiry.checkIn ? new Date(inquiry.checkIn + 'T00:00:00').toLocaleDateString('pt-BR') : "N/A"}</span>
                             </div>
                             <div className="flex flex-col gap-0.5">
                               <span className="text-[8px] font-black text-[#4f566b] uppercase tracking-widest opacity-60">Check-out</span>
-                              <span className="text-xs font-black text-[#1a1f36]">{new Date(inquiry.checkOut + 'T00:00:00').toLocaleDateString('pt-BR')}</span>
+                              <span className="text-xs font-black text-[#1a1f36]">{inquiry.checkOut ? new Date(inquiry.checkOut + 'T00:00:00').toLocaleDateString('pt-BR') : "N/A"}</span>
                             </div>
                           </div>
                           
