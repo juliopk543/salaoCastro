@@ -31,8 +31,8 @@ export function Footer() {
 
           <div className="flex flex-col items-center md:items-end justify-center md:col-span-1">
             <div className="bg-white/5 p-6 rounded-xl border border-white/10 w-full max-w-[280px] hover:bg-white/10 transition-colors group">
-              <span className="text-[10px] uppercase tracking-[0.2em] font-black text-secondary mb-4 block text-center md:text-left">
-                Tecnologia & Inovação
+              <span className="uppercase tracking-[0.2em] font-black mb-4 block text-center md:text-left text-[#fffefa] text-[16px]">
+                Tecnologia & Digitalização
               </span>
               <img 
                 src={microSertaoLogo} 
