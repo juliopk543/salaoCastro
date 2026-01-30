@@ -234,7 +234,7 @@ export default function InquiryPage() {
                     <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                       Data de Entrada
                     </label>
-                    <div className="bg-white border rounded-2xl p-2 shadow-sm relative overflow-hidden">
+                    <div className="bg-white border rounded-2xl p-2 shadow-sm relative overflow-visible">
                       <Calendar
                         mode="single"
                         selected={formData.checkIn ? parseISO(formData.checkIn) : undefined}
@@ -258,7 +258,7 @@ export default function InquiryPage() {
                     <label className="text-xs font-bold uppercase tracking-wider text-muted-foreground ml-1">
                       Data de Saída
                     </label>
-                    <div className="bg-white border rounded-2xl p-2 shadow-sm relative overflow-hidden">
+                    <div className="bg-white border rounded-2xl p-2 shadow-sm relative overflow-visible">
                       <Calendar
                         mode="single"
                         selected={formData.checkOut ? parseISO(formData.checkOut) : undefined}
