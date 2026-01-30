@@ -1,4 +1,5 @@
-import { Facebook, Instagram, MessageCircle } from "lucide-react";
+import microSertaoLogo from "@assets/ChatGPT_Image_27_de_jan._de_2026,_00_16_37_1769788193813.png";
+import { Instagram } from "lucide-react";
 
 export function Footer() {
   return (
@@ -26,6 +27,15 @@ export function Footer() {
                 <span className="text-sm font-medium group-hover:underline">Visite nosso insta.</span>
               </a>
             </div>
+          </div>
+
+          <div className="flex flex-col items-center md:items-end justify-center">
+            <span className="text-[10px] uppercase tracking-widest font-bold opacity-50 mb-2">Desenvolvido por:</span>
+            <img 
+              src={microSertaoLogo} 
+              alt="Micro Sertão Software Company" 
+              className="h-12 w-auto object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+            />
           </div>
         </div>
         
