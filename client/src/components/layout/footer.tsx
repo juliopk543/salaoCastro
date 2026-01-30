@@ -15,15 +15,15 @@ export function Footer() {
           
           <div>
             <h4 className="font-bold mb-4">Redes Sociais</h4>
-            <div className="flex gap-4">
-              <a href="#" className="hover:text-secondary transition-colors">
+            <div className="flex items-center gap-3">
+              <a 
+                href="https://www.instagram.com/espacocastrocrp/" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="hover:text-secondary transition-colors flex items-center gap-2 group"
+              >
                 <Instagram className="w-6 h-6" />
-              </a>
-              <a href="#" className="hover:text-secondary transition-colors">
-                <Facebook className="w-6 h-6" />
-              </a>
-              <a href="#" className="hover:text-secondary transition-colors">
-                <MessageCircle className="w-6 h-6" />
+                <span className="text-sm font-medium group-hover:underline">Visite nosso insta.</span>
               </a>
             </div>
           </div>
