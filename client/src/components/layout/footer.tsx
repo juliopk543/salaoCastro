@@ -29,13 +29,20 @@ export function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col items-center md:items-end justify-center">
-            <span className="text-[10px] uppercase tracking-widest font-bold opacity-50 mb-2">Desenvolvido por:</span>
-            <img 
-              src={microSertaoLogo} 
-              alt="Micro Sertão Software Company" 
-              className="h-16 w-auto object-contain transition-transform hover:scale-105"
-            />
+          <div className="flex flex-col items-center md:items-end justify-center md:col-span-1">
+            <div className="bg-white/5 p-6 rounded-xl border border-white/10 w-full max-w-[280px] hover:bg-white/10 transition-colors group">
+              <span className="text-[10px] uppercase tracking-[0.2em] font-black text-secondary mb-4 block text-center md:text-left">
+                Tecnologia & Inovação
+              </span>
+              <img 
+                src={microSertaoLogo} 
+                alt="Micro Sertão Software Company" 
+                className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-105"
+              />
+              <div className="mt-4 pt-4 border-t border-white/5 text-center md:text-right">
+                <span className="text-[9px] uppercase font-medium opacity-40">Software House Parceira</span>
+              </div>
+            </div>
           </div>
         </div>
         
