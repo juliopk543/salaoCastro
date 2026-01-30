@@ -34,7 +34,7 @@ export function Footer() {
             <img 
               src={microSertaoLogo} 
               alt="Micro Sertão Software Company" 
-              className="h-12 w-auto object-contain brightness-0 invert opacity-80 hover:opacity-100 transition-opacity"
+              className="h-16 w-auto object-contain transition-transform hover:scale-105"
             />
           </div>
         </div>
