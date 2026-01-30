@@ -30,7 +30,12 @@ export function Footer() {
           </div>
 
           <div className="flex flex-col items-center md:items-end justify-center md:col-span-1">
-            <div className="bg-white/5 p-6 rounded-xl border border-white/10 w-full max-w-[280px] hover:bg-white/10 transition-colors group">
+            <a 
+              href={`https://wa.me/5582996902951?text=${encodeURIComponent("Olá, quero digitalizar meu trabalho.")}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-white/5 p-6 rounded-xl border border-white/10 w-full max-w-[280px] hover:bg-white/10 transition-colors group block cursor-pointer"
+            >
               <span className="uppercase tracking-[0.2em] font-black mb-4 block text-center md:text-left text-[#fffefa] text-[16px]">
                 Tecnologia & Digitalização
               </span>
@@ -42,7 +47,7 @@ export function Footer() {
               <div className="mt-4 pt-4 border-t border-white/5 text-center md:text-right">
                 <span className="text-[9px] uppercase font-medium opacity-40">Software House Parceira</span>
               </div>
-            </div>
+            </a>
           </div>
         </div>
         
