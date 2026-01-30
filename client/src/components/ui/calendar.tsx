@@ -38,7 +38,7 @@ function Calendar({
         "**:data-[slot=table-body]:w-full **:data-[slot=table-body]:flex **:data-[slot=table-body]:flex-col",
         "**:data-[slot=table-row]:w-full **:data-[slot=table-row]:grid **:data-[slot=table-row]:grid-cols-7",
         "**:data-[slot=table-head]:text-center **:data-[slot=table-head]:text-xs **:data-[slot=table-head]:font-bold **:data-[slot=table-head]:py-2",
-        "**:data-[slot=day]:flex **:data-[slot=day]:justify-center **:data-[slot=day]:items-center **:data-[slot=day]:aspect-square **:data-[slot=day]:w-full **:data-[slot=day]:text-base **:data-[slot=day]:font-bold",
+        "**:data-[slot=day]:flex **:data-[slot=day]:justify-center **:data-[slot=day]:items-center **:data-[slot=day]:h-10 **:data-[slot=day]:w-full **:data-[slot=day]:text-base **:data-[slot=day]:font-bold",
         "**:data-[slot=month-grid]:w-full **:data-[slot=month-grid]:flex **:data-[slot=month-grid]:flex-col **:data-[slot=month-grid]:gap-1",
         "**:data-[slot=month-caption]:text-lg **:data-[slot=month-caption]:font-bold **:data-[slot=month-caption]:py-3 **:data-[slot=month-caption]:flex **:data-[slot=month-caption]:justify-center **:data-[slot=month-caption]:w-full",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
