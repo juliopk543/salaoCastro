@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react";
+import tonyLogo from "@assets/Captura_de_tela_2026-01-30_120008_1769785297691.png";
 import { Check, Calendar as CalendarIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -365,10 +366,12 @@ export function Marketing() {
               Ver lista de parceiros &rarr;
             </Button>
           </div>
-          <div className="flex-1 w-full h-48 bg-gray-100 rounded-2xl flex items-center justify-center border-2 border-dashed border-primary/20">
-            <span className="text-muted-foreground font-medium">
-              Logos dos Parceiros
-            </span>
+          <div className="flex-1 w-full h-48 bg-white rounded-2xl flex items-center justify-center p-4">
+            <img 
+              src={tonyLogo} 
+              alt="Tony Eventos" 
+              className="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-300"
+            />
           </div>
         </div>
       </div>
