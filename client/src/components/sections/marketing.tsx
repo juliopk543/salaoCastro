@@ -143,14 +143,14 @@ export function Marketing() {
   };
 
   const unavailableDateObjects = useMemo(() => {
-    return unavailableDates.map(range => ({
+    return unavailableDates.map((range) => ({
       from: startOfDay(parseISO(range.start)),
-      to: startOfDay(parseISO(range.end))
+      to: startOfDay(parseISO(range.end)),
     }));
   }, [unavailableDates]);
 
   useEffect(() => {
-    // Bloqueia visualmente datas no calendário nativo (não é mais necessário com o novo componente, 
+    // Bloqueia visualmente datas no calendário nativo (não é mais necessário com o novo componente,
     // mas mantemos para evitar erros se sobrar algum input nativo)
   }, []);
 
@@ -337,7 +337,11 @@ export function Marketing() {
                           ? "bg-secondary hover:bg-secondary/90 text-secondary-foreground"
                           : "bg-primary hover:bg-primary/90 text-white"
                       }`}
-                      onClick={() => setLocation(`/orcamento?package=${encodeURIComponent(pkg.name)}`)}
+                      onClick={() =>
+                        setLocation(
+                          `/orcamento?package=${encodeURIComponent(pkg.name)}`,
+                        )
+                      }
                     >
                       Solicitar Orçamento
                     </Button>
@@ -352,24 +356,30 @@ export function Marketing() {
         <div className="mt-20 bg-white rounded-3xl p-8 md:p-12 shadow-xl border border-primary/10 flex flex-col md:flex-row items-center gap-8 max-w-5xl mx-auto">
           <div className="flex-1">
             <h3 className="text-2xl md:text-3xl font-heading font-bold text-primary mb-4">
-              Parcerias Exclusivas
+              Parceria de Confiança.
             </h3>
             <p className="text-muted-foreground mb-6">
-              Quer facilitar seu evento? Temos parcerias com os melhores
-              fornecedores da região: buffets, decoradores e animadores com
-              descontos especiais para clientes do Espaço Castro.
+              Quer facilitar seu evento? Temos Som - pequeno, médio e grande
+              porte Painel de Led P3 de alta resolução 4x2 Piso Paris 4x4
+              Iluminação cênica ambiente festas e eventos Iluminação cênica,
+              shows, palcos, bandas, Geradores.
             </p>
             <Button
               variant="link"
               className="text-secondary font-bold p-0 h-auto"
+              onClick={() => {
+                const text = "Olá! Gostaria de consultar um orçamento para os serviços da Tony Eventos (Som, Luz, Imagem). Recomendação: Espaço Castro.";
+                const encodedText = encodeURIComponent(text);
+                window.open(`https://wa.me/5582999227241?text=${encodedText}`, "_blank");
+              }}
             >
-              Ver lista de parceiros &rarr;
+              Consultar orçamento &rarr;
             </Button>
           </div>
           <div className="flex-1 w-full h-48 bg-white rounded-2xl flex items-center justify-center p-4">
-            <img 
-              src={tonyLogo} 
-              alt="Tony Eventos" 
+            <img
+              src={tonyLogo}
+              alt="Tony Eventos"
               className="max-w-full max-h-full object-contain hover:scale-105 transition-transform duration-300"
             />
           </div>
