@@ -92,20 +92,23 @@ export default function InquiryPage() {
         return;
       }
 
-      const text =
-        `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
-        `*Pacote:* ${pkgName}\n` +
-        `*Nome:* ${formData.name}\n` +
-        `*De onde:* ${formData.state}\n` +
-        `*Evento:* ${formData.eventType || pkgName}\n` +
-        `*WhatsApp:* ${formData.whatsapp}\n` +
-        `*Convidados:* ${formData.guests}\n` +
-        `*Entrada:* ${formData.checkIn}\n` +
-        `*Saída:* ${formData.checkOut}\n` +
-        `*Mensagem:* ${formData.message}`;
+    const checkInDate = formData.checkIn ? format(parseISO(formData.checkIn), "dd/MM/yyyy", { locale: ptBR }) : "Não definida";
+    const checkOutDate = formData.checkOut ? format(parseISO(formData.checkOut), "dd/MM/yyyy", { locale: ptBR }) : "Não definida";
+    
+    const text = 
+      `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
+      `*Pacote:* ${pkgName}\n` +
+      `*Nome:* ${formData.name}\n` +
+      `*Estado:* ${formData.state}\n` +
+      `*Tipo de Evento:* ${formData.eventType}\n` +
+      `*WhatsApp:* ${formData.whatsapp}\n` +
+      `*Convidados:* ${formData.guests}\n` +
+      `*Entrada:* ${checkInDate}\n` +
+      `*Saída:* ${checkOutDate}\n` +
+      `*Mensagem:* ${formData.message || "Nenhuma"}`;
 
-      const encodedText = encodeURIComponent(text);
-      window.open(`https://wa.me/55082993385163?text=${encodedText}`, "_blank");
+    const encodedText = encodeURIComponent(text);
+    window.open(`https://wa.me/55082993385163?text=${encodedText}`, "_blank");
 
       toast({
         title: "Solicitação enviada!",
