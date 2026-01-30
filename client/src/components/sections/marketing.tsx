@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import tonyLogo from "@assets/Captura_de_tela_2026-01-30_120008_1769785297691.png";
-import { Check, Calendar as CalendarIcon } from "lucide-react";
+import { Check, Calendar as CalendarIcon, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -365,15 +365,15 @@ export function Marketing() {
               shows, palcos, bandas, Geradores.
             </p>
             <Button
-              variant="link"
-              className="text-secondary font-bold p-0 h-auto"
+              className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-6 px-8 rounded-xl shadow-lg shadow-[#25D366]/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group w-full md:w-auto"
               onClick={() => {
                 const text = "Olá! Gostaria de consultar um orçamento para os serviços da Tony Eventos (Som, Luz, Imagem). Recomendação: Espaço Castro.";
                 const encodedText = encodeURIComponent(text);
                 window.open(`https://wa.me/5582999227241?text=${encodedText}`, "_blank");
               }}
             >
-              Consultar orçamento &rarr;
+              <Users className="size-5 transition-transform group-hover:rotate-12" />
+              Consultar orçamento
             </Button>
           </div>
           <div className="flex-1 w-full h-48 bg-white rounded-2xl flex items-center justify-center p-4">
