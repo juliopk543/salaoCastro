@@ -12,11 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { format, isBefore, startOfDay, parseISO } from "date-fns";
 import { ptBR } from "date-fns/locale";
@@ -73,28 +68,10 @@ export default function InquiryPage() {
 
   const handleWhatsAppRedirect = async (e: React.FormEvent) => {
     e.preventDefault();
-    try {
-      const inquiryData = {
-        ...formData,
-        packageName: pkgName,
-        guests: formData.guests.toString(),
-      };
-
-      const response = await apiRequest("POST", "/api/inquiries", inquiryData);
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        toast({
-          title: "Aviso",
-          description: errorData.error || "Erro ao enviar solicitação.",
-          variant: "destructive",
-        });
-        return;
-      }
 
     const checkInDate = formData.checkIn ? format(parseISO(formData.checkIn), "dd/MM/yyyy", { locale: ptBR }) : "Não definida";
     const checkOutDate = formData.checkOut ? format(parseISO(formData.checkOut), "dd/MM/yyyy", { locale: ptBR }) : "Não definida";
-    
+
     const text = 
       `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
       `*Pacote:* ${pkgName}\n` +
