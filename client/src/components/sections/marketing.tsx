@@ -365,7 +365,7 @@ export function Marketing() {
               shows, palcos, bandas, Geradores.
             </p>
             <Button
-              className="bg-[#25D366] hover:bg-[#128C7E] text-white font-bold py-6 px-8 rounded-xl shadow-lg shadow-[#25D366]/20 transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group w-full md:w-auto"
+              className="justify-center whitespace-nowrap focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover-elevate active-elevate-2 border border-primary-border min-h-9 hover:bg-[#128C7E] text-white font-bold transition-all hover:scale-105 active:scale-95 flex items-center gap-2 group w-full md:w-auto bg-[#d59821] text-[14px] pl-[31px] pr-[31px] pt-[13px] pb-[13px] rounded-xl shadow-lg shadow-[#25D366]/20"
               onClick={() => {
                 const text = "Olá! Gostaria de consultar um orçamento para os serviços da Tony Eventos (Som, Luz, Imagem). Recomendação: Espaço Castro.";
                 const encodedText = encodeURIComponent(text);
