@@ -87,16 +87,18 @@ export function Features() {
                     </div>
                   )}
                   
-                  <div className="p-6 flex-1 flex flex-col items-start">
-                    <div className={cn("p-3 rounded-xl mb-4", feature.color)}>
+                  <div className="p-6 flex-1 flex flex-row items-end justify-between gap-4">
+                    <div className="flex-1">
+                      <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
+                        {feature.title}
+                      </h3>
+                      <p className="text-muted-foreground text-sm leading-relaxed">
+                        {feature.description}
+                      </p>
+                    </div>
+                    <div className={cn("p-3 rounded-xl shrink-0", feature.color)}>
                       <feature.icon className="w-6 h-6" />
                     </div>
-                    <h3 className="text-xl font-bold mb-2 text-foreground group-hover:text-primary transition-colors">
-                      {feature.title}
-                    </h3>
-                    <p className="text-muted-foreground text-sm leading-relaxed">
-                      {feature.description}
-                    </p>
                   </div>
                 </CardContent>
               </Card>
