@@ -108,18 +108,21 @@ export default function InquiryPage() {
       `*Mensagem:* ${formData.message || "Nenhuma"}`;
 
     const encodedText = encodeURIComponent(text);
-    window.open(`https://wa.me/55082993385163?text=${encodedText}`, "_blank");
+    const whatsappUrl = `https://wa.me/55082993385163?text=${encodedText}`;
 
-      toast({
-        title: "Solicitação enviada!",
-        description: "Seus dados foram salvos e você será redirecionado para o WhatsApp.",
-      });
+    // Abrir imediatamente usando location.href para evitar bloqueadores de pop-up
+    window.location.href = whatsappUrl;
+
+    // Salvar no banco em segundo plano
+    try {
+      const inquiryData = {
+        ...formData,
+        packageName: pkgName,
+        guests: formData.guests.toString(),
+      };
+      apiRequest("POST", "/api/inquiries", inquiryData);
     } catch (error) {
-      toast({
-        title: "Erro ao enviar",
-        description: "Não foi possível enviar sua solicitação. Tente novamente mais tarde.",
-        variant: "destructive",
-      });
+      console.error("Erro ao salvar consulta:", error);
     }
   };
 
