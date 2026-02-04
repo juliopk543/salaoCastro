@@ -255,7 +255,7 @@ export default function AdminDashboard() {
                           <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Nome</th>
                           <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">WhatsApp</th>
                           <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Estado</th>
-                          <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Evento</th>
+                          <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Tipo de Evento</th>
                           <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Datas</th>
                           <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Convidados</th>
                           <th className="h-16 px-8 text-left align-middle font-black text-[#4f566b] uppercase tracking-widest text-[10px]">Mensagem</th>
@@ -286,7 +286,7 @@ export default function AdminDashboard() {
                             </td>
                             <td className="p-8 align-middle">
                               <span className="inline-flex items-center rounded-2xl bg-primary/10 px-4 py-2 text-xs font-black text-primary border border-primary/20">
-                                {inquiry.packageName}
+                                {inquiry.eventType}
                               </span>
                             </td>
                             <td className="p-8 align-middle">
@@ -345,7 +345,7 @@ export default function AdminDashboard() {
                             <span className="text-[10px] font-black text-[#0f52ba] uppercase tracking-widest">{inquiry.state}</span>
                           </div>
                           <span className="shrink-0 inline-flex items-center rounded-xl bg-primary/10 px-3 py-1.5 text-[10px] font-black text-primary border border-primary/20">
-                            {inquiry.packageName}
+                            {inquiry.eventType}
                           </span>
                         </div>
 
