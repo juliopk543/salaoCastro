@@ -69,8 +69,17 @@ export default function InquiryPage() {
   const handleWhatsAppRedirect = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const checkInDate = formData.checkIn ? format(parseISO(formData.checkIn), "dd/MM/yyyy", { locale: ptBR }) : "Não definida";
-    const checkOutDate = formData.checkOut ? format(parseISO(formData.checkOut), "dd/MM/yyyy", { locale: ptBR }) : "Não definida";
+    if (!formData.checkIn || !formData.checkOut || !formData.state || !formData.eventType) {
+      toast({
+        title: "Campos obrigatórios",
+        description: "Por favor, preencha todos os campos do evento, incluindo as datas.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const checkInDate = format(parseISO(formData.checkIn), "dd/MM/yyyy", { locale: ptBR });
+    const checkOutDate = format(parseISO(formData.checkOut), "dd/MM/yyyy", { locale: ptBR });
 
     const text = 
       `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
@@ -82,9 +91,9 @@ export default function InquiryPage() {
       `*Convidados:* ${formData.guests}\n` +
       `*Entrada:* ${checkInDate}\n` +
       `*Saída:* ${checkOutDate}\n` +
-      `*Mensagem:* ${formData.message || "Nenhuma"}`;
+      (formData.message ? `*Mensagem:* ${formData.message}` : "");
 
-    const encodedText = encodeURIComponent(text);
+    const encodedText = encodeURIComponent(text.trim());
     const whatsappUrl = `https://wa.me/55082993385163?text=${encodedText}`;
 
     // Abrir imediatamente usando location.href para evitar bloqueadores de pop-up
@@ -175,6 +184,7 @@ export default function InquiryPage() {
                       Estado
                     </label>
                     <Select
+                      required
                       onValueChange={(value) => setFormData({ ...formData, state: value })}
                     >
                       <SelectTrigger className="rounded-xl border-muted bg-muted/20 focus:bg-white transition-all h-12 px-4">
@@ -193,6 +203,7 @@ export default function InquiryPage() {
                       Tipo de Evento
                     </label>
                     <Select
+                      required
                       defaultValue={formData.eventType}
                       onValueChange={(value) => setFormData({ ...formData, eventType: value })}
                     >
