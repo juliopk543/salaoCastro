@@ -20,7 +20,6 @@ export const inquiries = pgTable("inquiries", {
   guests: text("guests").notNull(),
   whatsapp: text("whatsapp").notNull(),
   message: text("message"),
-  packageName: text("package_name").notNull(),
   completed: boolean("completed").notNull().default(false),
   ipAddress: text("ip_address"),
 });

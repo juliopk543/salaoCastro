@@ -83,7 +83,6 @@ export default function InquiryPage() {
 
     const text = 
       `Olá! Gostaria de solicitar um orçamento para o *Espaço Castro*.\n\n` +
-      `*Pacote:* ${pkgName}\n` +
       `*Nome:* ${formData.name}\n` +
       `*Estado:* ${formData.state}\n` +
       `*Tipo de Evento:* ${formData.eventType}\n` +
@@ -103,7 +102,6 @@ export default function InquiryPage() {
     try {
       const inquiryData = {
         ...formData,
-        packageName: pkgName,
         guests: formData.guests.toString(),
       };
       apiRequest("POST", "/api/inquiries", inquiryData);
