@@ -35,11 +35,11 @@ export class DatabaseStorage implements IStorage {
     return inquiry;
   }
 
-  async getInquiryByIpAndPackage(ip: string, packageName: string): Promise<Inquiry | undefined> {
+  async getInquiryByIp(ip: string): Promise<Inquiry | undefined> {
     const [inquiry] = await db
       .select()
       .from(schema.inquiries)
-      .where(sql`${schema.inquiries.ipAddress} = ${ip} AND ${schema.inquiries.packageName} = ${packageName}`)
+      .where(sql`${schema.inquiries.ipAddress} = ${ip}`)
       .limit(1);
     return inquiry;
   }
